@@ -1,0 +1,72 @@
+:root{
+  /* Core surfaces */
+  --bg: #0b0f14;
+  --card: rgba(15, 22, 33, 0.70);
+  --card2: rgba(12, 18, 27, 0.70);
+  --text: #e6e8ee;
+  --muted: #9aa4b2;
+  --border: rgba(255,255,255,.08);
+
+  /* Gold */
+  --gold: #d6b15e;
+  --gold2: #b88a2b;
+  --glow: rgba(214, 177, 94, .25);
+
+  /* Effects */
+  --shadow: 0 18px 60px rgba(0,0,0,.55);
+}
+
+/* Optional: smoother font rendering */
+html, body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+.bg-app { background: var(--bg); color: var(--text); }
+
+.card-glass{
+  background: linear-gradient(180deg, var(--card), var(--card2));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.text-muted{ color: var(--muted); }
+.text-gold{ color: var(--gold); }
+
+.btn-gold{
+  background: var(--gold);
+  color: #0b0f14;
+  border-radius: 0.9rem;
+  padding: .80rem 1.1rem;
+  font-weight: 700;
+  transition: all .18s ease;
+  box-shadow: 0 0 0 0 var(--glow);
+}
+
+.btn-gold:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 0 28px 6px var(--glow);
+}
+
+.btn-dark{
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 0.9rem;
+  padding: .72rem 1rem;
+  font-weight: 700;
+  transition: all .18s ease;
+}
+.btn-dark:hover{
+  background: rgba(255,255,255,.09);
+  transform: translateY(-1px);
+}
+
+/* subtle hero glow */
+.hero-glow{
+  position: absolute;
+  inset: -200px -200px auto -200px;
+  height: 520px;
+  background: radial-gradient(circle at 50% 50%, rgba(214,177,94,.14), transparent 60%);
+  pointer-events: none;
+  filter: blur(8px);
+}
+
