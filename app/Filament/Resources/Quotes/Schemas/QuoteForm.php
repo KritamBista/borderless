@@ -60,6 +60,18 @@ class QuoteForm
                 TextInput::make('status')
                     ->required()
                     ->default('estimated'),
+                TextInput::make('coupon_code_snapshot'),
+                TextInput::make('coupon_type_snapshot'),
+                TextInput::make('coupon_value_snapshot')
+                    ->numeric(),
+                TextInput::make('discount_npr')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                TextInput::make('payable_npr')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
             ]);
     }
 }

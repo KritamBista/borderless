@@ -3,7 +3,7 @@
     <div class="flex items-start justify-between gap-6 flex-col lg:flex-row">
         <div>
             <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
-                Cost Calculator <span class="text-gold">— Live Estimate</span>
+                Request Quote <span class="text-gold">— Live Estimate</span>
             </h1>
             <p class="text-gray-400 mt-2 max-w-2xl">
                 Enter product price, quantity, weight and category. Totals update instantly (CIF → Duty → VAT).
@@ -26,7 +26,7 @@
 
             <div class="mt-3 text-xs text-gray-400 leading-relaxed">
                 <div>Exchange: <span
-                        class="text-gold font-semibold">{{ number_format($country['exchange_rate_to_npr'] ?? 0, 4) }}</span>
+                        class="text-gold font-semibold">{{ number_format($country['exchange_rate_to_npr'] ?? 0, 2) }}</span>
                     NPR / 1 {{ $country['currency_code'] ?? '' }}</div>
                 <div>Shipping: <span
                         class="text-gold font-semibold">{{ number_format($country['shipping_rate_per_kg'] ?? 0, 2) }}</span>
@@ -174,11 +174,67 @@
                         <span>Service Fee</span>
                         <span>{{ number_format($totals['service'], 2) }}</span>
                     </div>
+                                           {{-- Coupon --}}
+<div class="mt-5 border-t border-white/10 pt-4">
+    <div class="text-sm font-bold mb-2">Discount Coupon</div>
+
+    @if($applied_coupon)
+        <div class="flex items-center justify-between gap-3 rounded-2xl p-3 border border-white/10">
+            <div>
+                <div class="text-sm font-extrabold text-gold">{{ $applied_coupon['code'] }}</div>
+                <div class="text-xs text-gray-400">
+                    @if($applied_coupon['type'] === 'percent')
+                        {{ number_format((float)$applied_coupon['value'], 2) }}% off
+                    @else
+                        NPR {{ number_format((float)$applied_coupon['value'], 2) }} off
+                    @endif
+                </div>
+            </div>
+
+            <button wire:click="removeCoupon"
+                    class="text-sm text-gray-400 hover:text-white transition">
+                Remove
+            </button>
+        </div>
+    @else
+        <div class="flex gap-2">
+            <input wire:model.defer="coupon_code"
+                   class="flex-1 bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white"
+                   placeholder="Enter coupon code">
+            <button wire:click="applyCoupon"
+                    class="btn-dark px-4 py-3 rounded-2xl">
+                Apply
+            </button>
+        </div>
+        @error('coupon_code')
+            <div class="text-red-400 text-xs mt-2">{{ $message }}</div>
+        @enderror
+    @endif
+</div>
 
                     <div class="border-t border-white/10 pt-4 flex justify-between text-base font-extrabold">
+
+
                         <span>Total Estimate</span>
                         <span class="text-gold">{{ number_format($totals['grand'], 2) }} NPR</span>
                     </div>
+                    <div class="border-t border-white/10 pt-4 space-y-2">
+    <div class="flex justify-between text-sm text-gray-300">
+        <span>Grand Total</span>
+        <span>{{ number_format($totals['grand'], 2) }} NPR</span>
+    </div>
+
+    <div class="flex justify-between text-sm text-gray-300">
+        <span>Discount</span>
+        <span>- {{ number_format($discount_npr, 2) }} NPR</span>
+    </div>
+
+    <div class="flex justify-between text-base font-extrabold">
+        <span>Payable</span>
+        <span class="text-gold">{{ number_format($payable_npr, 2) }} NPR</span>
+    </div>
+</div>
+
 
                     <div class="text-xs text-gray-500 leading-relaxed mt-3">
                         Note: Final invoice may vary slightly due to actual weight, customs reassessment or rate
@@ -187,10 +243,43 @@
                 </div>
 
                 <div class="mt-6">
-                    <button wire:click="proceed" class="btn-gold w-full px-5 py-3 rounded-2xl">
-                        Proceed
-                    </button>
+                <button
+    wire:click="proceed"
+    wire:loading.attr="disabled"
+    wire:target="proceed,saveQuote"
+    class="btn-gold w-full px-5 py-3 rounded-2xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+>
+    <span wire:loading.remove wire:target="proceed,saveQuote">
+        Proceed
+    </span>
+
+    <span wire:loading wire:target="proceed,saveQuote" class="flex items-center gap-2">
+        <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+            <circle class="opacity-20" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-80" d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+        Processing...
+    </span>
+</button>
+
+
                 </div>
+                <div class="mt-6">
+                    <button
+    wire:click="openRevisionModal"
+    class="mt-3 w-full border border-white/20 text-white py-3 rounded-2xl hover:bg-white/5 transition"
+>
+    Request for Revision
+</button>
+
+                </div>
+                      {{-- <div class="mt-6">
+                    <button wire:click="proceed" class="border-yellow-500 w-full px-5 py-3 rounded-2xl">
+                    Request Revision
+
+                </div> --}}
+
+               @include('livewire.utils.quote-revision-modal')
             </div>
         </div>
     </div>

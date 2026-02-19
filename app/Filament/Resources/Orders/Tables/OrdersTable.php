@@ -1,54 +1,46 @@
 <?php
 
-namespace App\Filament\Resources\Quotes\Tables;
+namespace App\Filament\Resources\Orders\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class QuotesTable
+class OrdersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')
+                TextColumn::make('unique_order_id')
                     ->searchable(),
-                TextColumn::make('country.name')
+                TextColumn::make('user_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('quote_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('address_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('payment_method_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('payment_proof_path')
                     ->searchable(),
-                TextColumn::make('currency_code_snapshot')
-                    ->searchable(),
-                TextColumn::make('exchange_rate_to_npr_snapshot')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('shipping_rate_per_kg_snapshot')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('service_fee_npr_snapshot')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('vat_rate_snapshot')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('items_cost_npr_total')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('shipping_npr_total')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('cif_npr_total')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('duty_npr_total')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('vat_npr_total')
-                    ->numeric()
-                    ->sortable(),
+                IconColumn::make('payment_proof_uploaded')
+                    ->boolean(),
                 TextColumn::make('grand_total_npr')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('discount_npr')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('payable_npr')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('status')
@@ -61,19 +53,6 @@ class QuotesTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('coupon_code_snapshot')
-                    ->searchable(),
-                TextColumn::make('coupon_type_snapshot')
-                    ->searchable(),
-                TextColumn::make('coupon_value_snapshot')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('discount_npr')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('payable_npr')
-                    ->numeric()
-                    ->sortable(),
             ])
             ->filters([
                 //

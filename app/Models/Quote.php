@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 class Quote extends Model
 {
     //
@@ -27,6 +28,12 @@ class Quote extends Model
         'grand_total_npr',
 
         'status',
+
+        'coupon_code_snapshot',
+        'coupon_type_snapshot',
+        'coupon_value_snapshot',
+        'discount_npr',
+        'payable_npr',
     ];
 
     protected $casts = [
@@ -43,6 +50,17 @@ class Quote extends Model
         'grand_total_npr' => 'decimal:2',
     ];
 
+
+    protected static function booted()
+{
+    static::creating(function ($quote) {
+        do {
+            $publicId = strtoupper(Str::random(10)); // 10 characters
+        } while (self::where('public_id', $publicId)->exists());
+
+        $quote->public_id = $publicId;
+    });
+}
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

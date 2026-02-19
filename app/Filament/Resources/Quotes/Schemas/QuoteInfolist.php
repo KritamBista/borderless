@@ -43,6 +43,17 @@ class QuoteInfolist
                 TextEntry::make('updated_at')
                     ->dateTime()
                     ->placeholder('-'),
+                TextEntry::make('coupon_code_snapshot')
+                    ->placeholder('-'),
+                TextEntry::make('coupon_type_snapshot')
+                    ->placeholder('-'),
+                TextEntry::make('coupon_value_snapshot')
+                    ->numeric()
+                    ->placeholder('-'),
+                TextEntry::make('discount_npr')
+                    ->numeric(),
+                TextEntry::make('payable_npr')
+                    ->numeric(),
             ]);
     }
 }

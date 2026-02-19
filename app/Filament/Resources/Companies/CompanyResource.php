@@ -22,6 +22,7 @@ class CompanyResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-office';
     protected static ?string $label = 'Company';               // singular
+protected static ?string $pluralLabel = 'Company';       // optional override
 
     public static function form(Schema $schema): Schema
     {
