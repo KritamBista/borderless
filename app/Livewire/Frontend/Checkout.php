@@ -105,7 +105,7 @@ class Checkout extends Component
         });
 
         session()->flash('success', 'Order placed successfully!');
-        return redirect()->route('dashboard'); // or order success page
+        return redirect()->route('order.success'); // or order success page
     }
 
     public function render()

@@ -1,83 +1,12 @@
-{{-- <div>
+@section('og_title', $company?->meta_title ?? config('app.name'))
 
-    <div class="border-b border-white/10 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+@section('og_description', \Illuminate\Support\Str::limit(strip_tags($company?->description ?? ''), 150))
 
-            <div class="flex items-center gap-3">
-                @if($company?->logo)
-                    <img src="{{ asset('storage/'.$company->logo) }}" class="h-8">
-                @endif
-                <span class="font-bold text-lg">{{ $company?->name ?? 'Borderless Bazzar' }}</span>
-            </div>
+@section('og_image', $company?->preview_image
+    ? Storage::url($company->preview_image)
+    : asset('default-event.jpg'))
 
-            <div class="flex gap-8 items-center">
-                <a href="#" class="text-gray-400 hover:text-white">About</a>
-                <a href="#" class="text-gray-400 hover:text-white">How it Works</a>
-
-                <a href="#" class="text-gray-400 hover:text-white">FAQ</a>
-                <a href="#" class="text-gray-400 hover:text-white">Contact</a>
-
-                <a href="#" class="btn-gold px-4 py-2 rounded-xl">Login / Register</a>
-            </div>
-
-        </div>
-    </div>
-
-
-    <section class="max-w-7xl mx-auto px-6 py-24 text-center relative">
-
-
-                    <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
-                <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs card-glass">
-                    <span class="h-2 w-2 rounded-full" style="background: rgba(84, 214, 130, .9)"></span>
-                    Trusted by 200K+ shoppers
-                </span>
-
-                <div class="flex items-center gap-5 text-xs text-muted">
-                    <span class="inline-flex items-center gap-2">
-                        <span class="h-1.5 w-1.5 rounded-full" style="background: rgba(214,177,94,.9)"></span>
-                        Clear Breakdown
-                    </span>
-                    <span class="inline-flex items-center gap-2">
-                        <span class="h-1.5 w-1.5 rounded-full" style="background: rgba(214,177,94,.9)"></span>
-                        Pay in NPR or USD
-                    </span>
-                    <span class="inline-flex items-center gap-2">
-                        <span class="h-1.5 w-1.5 rounded-full" style="background: rgba(214,177,94,.9)"></span>
-                        Track Orders
-                    </span>
-                </div>
-            </div>
-
-
-
-
-
-        <h1 class="text-5xl font-extrabold leading-tight">
-            {{ $company?->hero_title ?? 'Place your order in' }}
-            <span class="text-gold"> under 1 minute.</span>
-        </h1>
-
-
-
-           <p class="mt-6 sm:text-lg  max-w-2xl mx-auto">
-                {{ $company?->hero_description ?? 'Shop from Amazon, eBay, and 100+ stores worldwide. We handle customs, shipping, and delivery to your doorstep.' }}
-            </p>
-        <div class="mt-10 flex justify-center">
-            <div class="glass rounded-2xl p-4 flex gap-3 w-full max-w-xl">
-                <input type="text"
-                       placeholder="Paste product URL here..."
-                       class="flex-1 bg-transparent outline-none text-white placeholder-gray-500">
-
-                <button class="btn-gold px-6 py-3 rounded-xl">
-                    Create Order →
-                </button>
-            </div>
-        </div>
-
-    </section>
-
-</div> --}}
+@section('og_url', url()->current())
 <div class="bg-darkbg text-white">
 
     {{-- Top Gradient Glow --}}
@@ -86,45 +15,6 @@
     </div>
 
     {{-- Navbar --}}
-    <header class="sticky top-0 z-50 border-b border-white/10 backdrop-blur-md"
-            style="background: rgba(11,15,20,.65);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-
-            <a href="/" class="flex items-center gap-3">
-                @if($company?->logo)
-                    <img src="{{ asset('storage/'.$company->logo) }}" class="h-8 w-auto">
-                @endif
-                <span class="font-extrabold tracking-tight text-lg">
-                    {{ $company?->name ?? 'Borderless Bazzar' }}
-                </span>
-            </a>
-
-            {{-- Desktop nav --}}
-            <nav class="hidden lg:flex items-center gap-8">
-                <a href="#how" class="text-gray-400 hover:text-white transition">Why Us ?</a>
-
-                <a href="#how" class="text-gray-400 hover:text-white transition">How it works</a>
-                <a href="#faq" class="text-gray-400 hover:text-white transition">FAQ</a>
-                <a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a>
-
-                @auth
-                    <a href="{{ route('user.orders') }}" class="btn-gold px-4 py-2 rounded-xl">Dashboard</a>
-                @else
-                    <a href="#" class="btn-gold px-4 py-2 rounded-xl">Login / Register</a>
-                @endauth
-            </nav>
-
-            {{-- Mobile CTA --}}
-            <div class="lg:hidden">
-                @auth
-                    <a href="{{ route('user.orders') }}" class="btn-gold px-4 py-2 rounded-xl text-sm">Dashboard</a>
-                @else
-                    <a href="#" class="btn-gold px-4 py-2 rounded-xl text-sm">Login</a>
-                @endauth
-            </div>
-
-        </div>
-    </header>
 
     {{-- Hero --}}
     <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-12 sm:pb-20">
@@ -160,25 +50,34 @@
                 </div>
 
                 <h1 class="text-4xl sm:text-5xl font-extrabold  leading-[1.05] tracking-tight">
-                    {{ $company?->hero_title ?? 'Place your order in' }}
+                   Place your order in
                     <span class="text-gold"> under 1 minute.</span>
                 </h1>
 
                 <p class="mt-6 text-gray-300 sm:text-lg max-w-2xl">
-                    {{ $company?->hero_description ?? 'Shop from Amazon, AliExpress, Myntra and more. We handle shipping & customs, deliver to your doorstep in Nepal.' }}
+                 Shop from Amazon, AliExpress, Myntra and more. We handle shipping & customs, deliver to your doorstep in Nepal .
                 </p>
 
                 {{-- URL input --}}
                 <div class="mt-8">
-                    <div class="glass rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row gap-3 max-w-2xl">
-                        <input type="text"
-                               placeholder="Paste product URL here…"
-                               class="flex-1 bg-transparent outline-none text-white placeholder-gray-500 px-2 py-2">
+                    <div class="">
+                        <form action="{{ route('request.order') }}" method="GET" class="glass rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row gap-3 max-w-2xl">
 
-                        <a href="#estimate"
-                           class="btn-gold px-6 py-3 rounded-xl text-center">
-                           Create Order →
-                        </a>
+    <input
+        type="url"
+        name="product-url"
+        class="flex-1 bg-transparent outline-none text-white placeholder-gray-500 px-3 py-3 rounded-xl"
+        placeholder="Paste product URL here…"
+        required
+    >
+
+    <button
+        type="submit"
+        class="btn-gold px-6 py-3 rounded-xl whitespace-nowrap">
+        Create Order →
+    </button>
+
+</form>
                     </div>
 
                     <div class="mt-3 text-xs text-gray-500">
@@ -625,7 +524,7 @@ What Shoppers Say
                 <p class="text-gray-400 mt-2">Get a clear estimate, place order, upload payment proof — done.</p>
             </div>
             <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-                <a href="#"
+                <a href="/request-order"
                    class="btn-gold px-6 py-3 rounded-2xl text-center w-full sm:w-auto">
                     Start Estimate →
                 </a>
@@ -645,31 +544,6 @@ What Shoppers Say
     </section>
 
     {{-- Footer --}}
-    <footer id="contact" class="border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 grid md:grid-cols-2 gap-6">
-            <div>
-                <div class="font-extrabold text-lg">{{ $company?->name ?? 'Borderless Bazzar' }}</div>
-                <div class="text-sm text-gray-400 mt-2 max-w-md">
-                    Cross-border shopping made simple for Nepal. We handle shipping, customs and delivery.
-                </div>
-            </div>
 
-            <div class="md:text-right">
-                <div class="text-sm text-gray-400">Support</div>
-                <div class="text-sm mt-2">
-                    <span class="text-gray-300">Email:</span>
-                    <span class="text-gold">{{ $company?->support_email ?? 'support@example.com' }}</span>
-                </div>
-                <div class="text-sm mt-1">
-                    <span class="text-gray-300">Phone:</span>
-                    <span class="text-gold">{{ $company?->support_phone ?? '+977-98XXXXXXXX' }}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center text-xs text-gray-500 py-6">
-            © {{ date('Y') }} {{ $company?->name ?? 'Borderless Bazzar' }}. All rights reserved.
-        </div>
-    </footer>
 
 </div>

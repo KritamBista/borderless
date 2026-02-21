@@ -7,6 +7,10 @@
         <h2 class="text-xl font-extrabold text-white">
             Request Revision
         </h2>
+        <p class="text-xs text-gray-500 mt-4 text-start">
+    Tap outside the modal to close.
+</p>
+
 
         <div>
             <label class="text-xs text-gray-400">Reason</label>

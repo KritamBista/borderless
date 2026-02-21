@@ -1,16 +1,18 @@
 <?php
 
 namespace App\Livewire\Frontend;
+
 use App\Models\User;
 use Livewire\Component;
 use App\Mail\VerifyOtpMail;
 use App\Models\EmailOtp;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+
 class AuthModal extends Component
 {
 
-      public bool $open = false;
+    public bool $open = false;
 
     // screens: register | login | otp
     public string $screen = 'register';
@@ -31,6 +33,18 @@ class AuthModal extends Component
     public string $otp_email = ''; // the email we're verifying
     public ?int $pending_user_id = null;
 
+
+    // Forgot password modal state
+    public bool $showForgot = false;
+    public int $forgotStep = 1; // 1=email, 2=otp, 3=new password
+
+    public string $forgot_email = '';
+    public string $forgot_otp = '';
+    public string $forgot_password = '';
+    public string $forgot_password_confirmation = '';
+
+    public ?int $forgot_resend_available_at = null;
+    public int $forgot_cooldown_remaining = 0;
     protected $listeners = ['open-auth-modal' => 'openModal'];
 
     public function openModal(): void
@@ -188,6 +202,82 @@ class AuthModal extends Component
         $this->open = false;
         $this->dispatch('auth-success');
     }
+    public function openForgot(): void
+{
+    $this->resetValidation();
+    $this->showForgot = true;
+    $this->forgotStep = 1;
+}
+public function sendForgotOtp(): void
+{
+    $this->validate([
+        'forgot_email' => 'required|email|exists:users,email',
+    ]);
+
+    $code = (string) random_int(100000, 999999);
+
+    EmailOtp::where('email', $this->forgot_email)
+        ->where('purpose', 'forgot_password')
+        ->whereNull('used_at')
+        ->update(['used_at' => now()]);
+
+    EmailOtp::create([
+        'email' => $this->forgot_email,
+        'purpose' => 'forgot_password',
+        'code_hash' => bcrypt($code),
+        'expires_at' => now()->addMinutes(10),
+    ]);
+
+    Mail::to($this->forgot_email)->send(new VerifyOtpMail($code));
+
+    $this->forgotStep = 2;
+}
+public function verifyForgotOtp(): void
+{
+    $this->validate([
+        'forgot_otp' => 'required|digits:6',
+    ]);
+
+    $row = EmailOtp::where('email', $this->forgot_email)
+        ->where('purpose', 'forgot_password')
+        ->whereNull('used_at')
+        ->latest()
+        ->first();
+
+    if (!$row || now()->greaterThan($row->expires_at)) {
+        $this->addError('forgot_otp', 'OTP expired. Please resend.');
+        return;
+    }
+
+    if (!Hash::check($this->forgot_otp, $row->code_hash)) {
+        $this->addError('forgot_otp', 'Invalid OTP.');
+        return;
+    }
+
+    $row->update(['used_at' => now()]);
+
+    $this->forgotStep = 3;
+}
+public function resetForgotPassword(): void
+{
+    $this->validate([
+        'forgot_password' => 'required|min:6|confirmed',
+    ]);
+
+    $user = User::where('email', $this->forgot_email)->first();
+
+    if (!$user) {
+        $this->addError('forgot_email', 'User not found.');
+        return;
+    }
+
+    $user->update([
+        'password' => bcrypt($this->forgot_password),
+    ]);
+
+    $this->showForgot = false;
+    $this->screen = 'login';
+}
 
     public function render()
     {

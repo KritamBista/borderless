@@ -1,48 +1,13 @@
 <div class="max-w-7xl mx-auto px-6 py-10">
-    <section
-        class="relative rounded-3xl overflow-hidden border border-white/10 bg-[#0f141b] px-6 sm:px-10 py-12 sm:py-16">
-
-        {{-- subtle gold glow --}}
-        <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-yellow-400/10 blur-3xl">
-        </div>
-        <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-yellow-400/10 blur-3xl">
-        </div>
-
-        <div class="relative z-10 max-w-4xl">
-            <div
-                class="inline-flex items-center gap-2 rounded-full border border-yellow-400/25 bg-yellow-400/10 px-3 py-1 text-xs tracking-widest uppercase text-yellow-200">
-                BorderlessBazzar
-            </div>
-
-            <h1 class="mt-6 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]">
-                Get Live Quote <span class="text-gold">— Submit Order</span>
+    <div class="flex items-start justify-between gap-6 flex-col ">
+        <div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                Request Quote <span class="text-gold">— Live Estimate</span>
             </h1>
-
-            <p class="text-gray-400 mt-4 max-w-2xl sm:text-lg leading-relaxed">
-                Enter product price, quantity, weight and category.
-                Totals update instantly (CIF → Duty → VAT).
+            <p class="text-gray-400 mt-2 max-w-2xl">
+                Enter product price, quantity, weight and category. Totals update instantly (CIF → Duty → VAT).
             </p>
-
-            {{-- optional quick highlight row --}}
-            <div class="mt-6 flex flex-wrap gap-4 text-xs text-gray-400">
-                <span class="inline-flex items-center gap-2">
-                    <span class="h-2 w-2 rounded-full bg-yellow-400"></span>
-                    Real-time calculation
-                </span>
-                <span class="inline-flex items-center gap-2">
-                    <span class="h-2 w-2 rounded-full bg-yellow-400"></span>
-                    Transparent breakdown
-                </span>
-                <span class="inline-flex items-center gap-2">
-                    <span class="h-2 w-2 rounded-full bg-yellow-400"></span>
-                    Confirm before order
-                </span>
-            </div>
         </div>
-
-    </section>
-    <div class="flex items-start justify-between gap-6 flex-col py-10 ">
-
 
         <div class="glass rounded-2xl p-4 w-full lg:w-[380px]">
             <div class="text-sm font-bold">Shipping From</div>
@@ -72,7 +37,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 ">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-8">
         <div class="lg:col-span-8 space-y-4">
             @foreach ($items as $index => $item)
                 <div class="glass rounded-3xl p-5">
@@ -99,8 +64,7 @@
 
                         <div class="sm:col-span-6">
                             <label class="text-xs text-gray-400">Product Link (optional)</label>
-                            <input wire:model.live="items.{{ $index }}.product_link"
-                                value="{{ $link }}"
+                            <input wire:model.live="items.{{ $index }}.product_link"  value="{{$link}}"
                                 class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white"
                                 placeholder="Paste URL for reference">
                         </div>
@@ -207,43 +171,43 @@
                         <span>Service Fee</span>
                         <span>{{ number_format($totals['service'], 2) }}</span>
                     </div>
-                    {{-- Coupon --}}
-                    <div class="mt-5 border-t border-white/10 pt-4">
-                        <div class="text-sm font-bold mb-2">Discount Coupon</div>
+                                           {{-- Coupon --}}
+<div class="mt-5 border-t border-white/10 pt-4">
+    <div class="text-sm font-bold mb-2">Discount Coupon</div>
 
-                        @if ($applied_coupon)
-                            <div
-                                class="flex items-center justify-between gap-3 rounded-2xl p-3 border border-white/10">
-                                <div>
-                                    <div class="text-sm font-extrabold text-gold">{{ $applied_coupon['code'] }}</div>
-                                    <div class="text-xs text-gray-400">
-                                        @if ($applied_coupon['type'] === 'percent')
-                                            {{ number_format((float) $applied_coupon['value'], 2) }}% off
-                                        @else
-                                            NPR {{ number_format((float) $applied_coupon['value'], 2) }} off
-                                        @endif
-                                    </div>
-                                </div>
+    @if($applied_coupon)
+        <div class="flex items-center justify-between gap-3 rounded-2xl p-3 border border-white/10">
+            <div>
+                <div class="text-sm font-extrabold text-gold">{{ $applied_coupon['code'] }}</div>
+                <div class="text-xs text-gray-400">
+                    @if($applied_coupon['type'] === 'percent')
+                        {{ number_format((float)$applied_coupon['value'], 2) }}% off
+                    @else
+                        NPR {{ number_format((float)$applied_coupon['value'], 2) }} off
+                    @endif
+                </div>
+            </div>
 
-                                <button wire:click="removeCoupon"
-                                    class="text-sm text-gray-400 hover:text-white transition">
-                                    Remove
-                                </button>
-                            </div>
-                        @else
-                            <div class="flex gap-2">
-                                <input wire:model.defer="coupon_code"
-                                    class="flex-1 bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white"
-                                    placeholder="Enter coupon code">
-                                <button wire:click="applyCoupon" class="btn-dark px-4 py-3 rounded-2xl">
-                                    Apply
-                                </button>
-                            </div>
-                            @error('coupon_code')
-                                <div class="text-red-400 text-xs mt-2">{{ $message }}</div>
-                            @enderror
-                        @endif
-                    </div>
+            <button wire:click="removeCoupon"
+                    class="text-sm text-gray-400 hover:text-white transition">
+                Remove
+            </button>
+        </div>
+    @else
+        <div class="flex gap-2">
+            <input wire:model.defer="coupon_code"
+                   class="flex-1 bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white"
+                   placeholder="Enter coupon code">
+            <button wire:click="applyCoupon"
+                    class="btn-dark px-4 py-3 rounded-2xl">
+                Apply
+            </button>
+        </div>
+        @error('coupon_code')
+            <div class="text-red-400 text-xs mt-2">{{ $message }}</div>
+        @enderror
+    @endif
+</div>
 
                     <div class="border-t border-white/10 pt-4 flex justify-between text-base font-extrabold">
 
@@ -252,21 +216,21 @@
                         <span class="text-gold">{{ number_format($totals['grand'], 2) }} NPR</span>
                     </div>
                     <div class="border-t border-white/10 pt-4 space-y-2">
-                        <div class="flex justify-between text-sm text-gray-300">
-                            <span>Grand Total</span>
-                            <span>{{ number_format($totals['grand'], 2) }} NPR</span>
-                        </div>
+    <div class="flex justify-between text-sm text-gray-300">
+        <span>Grand Total</span>
+        <span>{{ number_format($totals['grand'], 2) }} NPR</span>
+    </div>
 
-                        <div class="flex justify-between text-sm text-gray-300">
-                            <span>Discount</span>
-                            <span>- {{ number_format($discount_npr, 2) }} NPR</span>
-                        </div>
+    <div class="flex justify-between text-sm text-gray-300">
+        <span>Discount</span>
+        <span>- {{ number_format($discount_npr, 2) }} NPR</span>
+    </div>
 
-                        <div class="flex justify-between text-base font-extrabold">
-                            <span>Payable</span>
-                            <span class="text-gold">{{ number_format($payable_npr, 2) }} NPR</span>
-                        </div>
-                    </div>
+    <div class="flex justify-between text-base font-extrabold">
+        <span>Payable</span>
+        <span class="text-gold">{{ number_format($payable_npr, 2) }} NPR</span>
+    </div>
+</div>
 
 
                     <div class="text-xs text-gray-500 leading-relaxed mt-3">
@@ -275,42 +239,41 @@
                     </div>
                 </div>
 
-                @error("items.$index.unit_price_foreign")
-    <div class="text-red-400 text-xs mt-1">
-        {{ $message }}
-    </div>
-@enderror
                 <div class="mt-6">
-                    <button wire:click="proceed" wire:loading.attr="disabled" wire:target="proceed,saveQuote"
-                        class="btn-gold w-full px-5 py-3 rounded-2xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
-                        <span wire:loading.remove wire:target="proceed,saveQuote">
-                            Proceed to Order
-                        </span>
+                <button
+    wire:click="proceed"
+    wire:loading.attr="disabled"
+    wire:target="proceed,saveQuote"
+    class="btn-gold w-full px-5 py-3 rounded-2xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+>
+    <span wire:loading.remove wire:target="proceed,saveQuote">
+        Proceed
+    </span>
 
-                        <span wire:loading.flex wire:target="proceed,saveQuote" class="flex items-center gap-2">
-                            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
-                                <circle class="opacity-20" cx="12" cy="12" r="10"
-                                    stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-80" d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="4"
-                                    stroke-linecap="round"></path>
-                            </svg>
-                            Processing...
-                        </span>
-                    </button>
-                </div>
-                <div class="mt-6">
-                    <button wire:click="openRevisionModal"
-                        class=" w-full border border-white/20 text-white py-3 rounded-2xl hover:bg-white/5 transition">
-                        Request for Revision
-                    </button>
+    <span wire:loading wire:target="proceed,saveQuote" class="flex items-center gap-2">
+        <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+            <circle class="opacity-20" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-80" d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+        Processing...
+    </span>
+</button>
 
 
                 </div>
+                <div class="mt-6">
+                    <button
+    wire:click="openRevisionModal"
+    class=" w-full border border-white/20 text-white py-3 rounded-2xl hover:bg-white/5 transition"
+>
+    Request for Revision
+</button>
+
+                </div>
 
 
+               @include('livewire.utils.quote-revision-modal')
             </div>
         </div>
     </div>
-    @include('livewire.utils.quote-revision-modal')
-
 </div>
