@@ -125,7 +125,7 @@ class MyProfile extends Component
             'password' => bcrypt($this->new_password),
         ]);
 
-        // optional: if phone is empty and user entered it, save it here too
+       
         if (!$user->phone && $this->new_phone && trim($this->new_phone) !== '') {
             $user->update(['phone' => $this->new_phone]);
             $this->phone = $user->phone;
