@@ -4,6 +4,9 @@ namespace App\Livewire\Frontend;
 
 use Livewire\Component;
 use App\Models\Company;
+use App\Models\CustomerReview;
+use App\Models\Faq;
+use App\Models\TrustedStore;
 
 class Home extends Component
 {
@@ -14,6 +17,18 @@ class Home extends Component
     }
     public function render()
     {
-        return view('livewire.frontend.home', ['company' => $this->company]);
+        $trustedStores = TrustedStore::where('is_active', true)->orderBy('sort_order')->get();
+
+$reviews = CustomerReview::where('is_active', true)->orderBy('sort_order')->get();
+
+$faqs = Faq::where('is_active', true)->orderBy('sort_order')->get();
+
+$company = Company::first();
+        return view('livewire.frontend.home', [
+            'company' => $this->company,
+            'trustedStores' => $trustedStores,
+            'reviews' => $reviews,
+            'faqs' => $faqs
+        ]);
     }
 }

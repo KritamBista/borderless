@@ -26,6 +26,8 @@
         }
     </script>
 
+
+
     {{-- Custom CSS --}}
     <style>
         body {
@@ -47,6 +49,73 @@
             box-shadow: 0 0 25px rgba(214,177,94,.4);
             transform: translateY(-2px);
         }
+        /* Trusted Stores Marquee */
+.bb-marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+.bb-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: bb-scroll 28s linear infinite;
+}
+
+/* Pause when hovering anywhere inside the slider */
+.bb-marquee:hover .bb-track {
+  animation-play-state: paused;
+}
+
+@keyframes bb-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* because we duplicated items */
+}
+
+/* Store card */
+.bb-card {
+  min-width: 180px;
+  max-width: 220px;
+  border-radius: 18px;
+  padding: 14px 14px;
+  background: rgba(15,22,33,.65);
+  border: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(10px);
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bb-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(214,177,94,.22);
+  box-shadow: 0 0 18px rgba(214,177,94,.10);
+}
+
+.bb-logo {
+  height: 46px;
+  width: 46px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+.bb-name {
+  font-weight: 800;
+  font-size: 14px;
+  color: #e6e8ee;
+  line-height: 1.2;
+}
+
+/* Responsive speed tweak */
+@media (max-width: 640px) {
+  .bb-track { animation-duration: 22s; }
+  .bb-card { min-width: 160px; }
+}
     </style>
 
     @livewireStyles
