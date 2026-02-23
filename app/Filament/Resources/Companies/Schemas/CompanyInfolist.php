@@ -42,6 +42,22 @@ class CompanyInfolist
                 TextEntry::make('updated_at')
                     ->dateTime()
                     ->placeholder('-'),
+                TextEntry::make('facebook_url')
+                    ->placeholder('-'),
+                TextEntry::make('instagram_url')
+                    ->placeholder('-'),
+                TextEntry::make('linkedin_url')
+                    ->placeholder('-'),
+                TextEntry::make('youtube_url')
+                    ->placeholder('-'),
+                TextEntry::make('contact_email')
+                    ->placeholder('-'),
+                TextEntry::make('contact_phone')
+                    ->placeholder('-'),
+                TextEntry::make('whatsapp_number')
+                    ->placeholder('-'),
+                TextEntry::make('address')
+                    ->placeholder('-'),
             ]);
     }
 }

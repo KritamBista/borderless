@@ -129,7 +129,7 @@
         <div class="glass rounded-3xl p-6 mt-6">
             <h2 class="font-extrabold text-white mb-2">Details</h2>
             <p class="text-gray-300 text-sm">
-                {{ $order->admin_notes }}
+                {{ !! $order->admin_notes !! }}
             </p>
         </div>
     @endif

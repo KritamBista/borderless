@@ -18,11 +18,48 @@ class BlogForm
             ->components([
                 TextInput::make('title')
                     ->required(),
-                TextInput::make('slug')
-                    ->required(),
+                TextInput::make('slug'),
+
+                    // ->required(),
                 RichEditor::make('excerpt')
+                   ->toolbarButtons([
+         'attachFiles',
+        'blockquote',
+        'bold',
+        'bulletList',
+        'codeBlock',
+        'h2',
+        'h3',
+        'italic',
+        'link',
+        'orderedList',
+        'redo',
+        'strike',
+        'underline',
+        'undo',
+        'textColor'
+
+    ])
                     ->columnSpanFull(),
                 RichEditor::make('content')
+                   ->toolbarButtons([
+         'attachFiles',
+        'blockquote',
+        'bold',
+        'bulletList',
+        'codeBlock',
+        'h2',
+        'h3',
+        'italic',
+        'link',
+        'orderedList',
+        'redo',
+        'strike',
+        'underline',
+        'undo',
+        'textColor'
+
+    ])
                     ->required()
                     ->columnSpanFull(),
                 FileUpload::make('featured_image')

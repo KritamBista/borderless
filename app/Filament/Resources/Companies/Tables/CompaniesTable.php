@@ -39,6 +39,22 @@ class CompaniesTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('facebook_url')
+                    ->searchable(),
+                TextColumn::make('instagram_url')
+                    ->searchable(),
+                TextColumn::make('linkedin_url')
+                    ->searchable(),
+                TextColumn::make('youtube_url')
+                    ->searchable(),
+                TextColumn::make('contact_email')
+                    ->searchable(),
+                TextColumn::make('contact_phone')
+                    ->searchable(),
+                TextColumn::make('whatsapp_number')
+                    ->searchable(),
+                TextColumn::make('address')
+                    ->searchable(),
             ])
             ->filters([
                 //

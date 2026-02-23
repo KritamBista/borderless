@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Orders\Schemas;
 
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -44,7 +45,7 @@ class OrderForm
                 TextInput::make('status')
                     ->required()
                     ->default('pending_verification'),
-                Textarea::make('admin_notes')
+                RichEditor::make('admin_notes')
                     ->columnSpanFull(),
             ]);
     }
