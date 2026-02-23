@@ -65,16 +65,21 @@ class AssistedOrderForm extends Component
 
     public function submit()
     {
-        $this->validate();
+        // dd('here');
+            // dd($this->country_id['id']);
 
+        // dd($this->items);
+        // $this->validate();
+            // dd('jere');
         $order = AssistedOrder::create([
-            'user_id'       => auth()->id(),
-            'country_id'    => $this->country_id,
+            // 'user_id'       => auth()->id() ?? "",
+            'country_id'    => $this->country_id['id'],
             'contact_name'  => $this->contact_name,
             'contact_email' => $this->contact_email,
             'contact_phone' => $this->contact_phone,
             'status'        => 'submitted',
         ]);
+
 
         foreach ($this->items as $item) {
             AssistedOrderItem::create([

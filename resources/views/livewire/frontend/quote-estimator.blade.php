@@ -1,82 +1,41 @@
-<div class="max-w-7xl mx-auto px-6 py-10">
-    <section
-        class="relative rounded-3xl overflow-hidden border border-white/10 bg-[#0f141b] px-6 sm:px-10 py-12 sm:py-16">
+<div class="max-w-7xl mx-auto px-6">
 
-        {{-- subtle gold glow --}}
-        <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-yellow-400/10 blur-3xl">
-        </div>
-        <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-yellow-400/10 blur-3xl">
-        </div>
-
-        <div class="relative z-10 max-w-4xl">
-            <div
-                class="inline-flex items-center gap-2 rounded-full border border-yellow-400/25 bg-yellow-400/10 px-3 py-1 text-xs tracking-widest uppercase text-yellow-200">
-                BorderlessBazzar
-            </div>
-
-            <h1 class="mt-6 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]">
-                Get Live Quote <span class="text-gold">— Submit Order</span>
-            </h1>
-
-            <p class="text-gray-400 mt-4 max-w-2xl sm:text-lg leading-relaxed">
-                Enter product price, quantity, weight and category.
-                Totals update instantly (CIF → Duty → VAT).
-            </p>
-
-            {{-- optional quick highlight row --}}
-            <div class="mt-6 flex flex-wrap gap-4 text-xs text-gray-400">
-                <span class="inline-flex items-center gap-2">
-                    <span class="h-2 w-2 rounded-full bg-yellow-400"></span>
-                    Real-time calculation
-                </span>
-                <span class="inline-flex items-center gap-2">
-                    <span class="h-2 w-2 rounded-full bg-yellow-400"></span>
-                    Transparent breakdown
-                </span>
-                <span class="inline-flex items-center gap-2">
-                    <span class="h-2 w-2 rounded-full bg-yellow-400"></span>
-                    Confirm before order
-                </span>
-            </div>
-        </div>
-
-    </section>
-    <div class="flex items-start justify-between gap-6 flex-col py-10 ">
+    <div class="flex items-start justify-between gap-6 flex-col py-4 ">
 
 
         <div class="glass rounded-2xl p-4 w-full lg:w-[380px]">
             <div class="text-sm font-bold">Shipping From</div>
             <div class="mt-3">
-   <div x-data="{ open: false, selected: @entangle('country_id') }" class="relative w-64">
-    <!-- Selected Button -->
-    <button @click="open = !open"
-        class="w-full bg-[#0b0f14] border border-white/10 rounded-2xl px-4 py-3 text-white flex items-center justify-between">
-        <template x-if="selected">
-            <span class="flex items-center gap-2">
-            <img :src="selected.flag " class="w-5 h-5 rounded" alt="">
-                <span x-text="selected.name ?? 'Select Country' "></span>
-            </span>
-        </template>
-        <template x-if="!selected">
-            <span>Select country</span>
-        </template>
-        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-    </button>
+                <div x-data="{ open: false, selected: @entangle('country_id') }" class="relative w-64">
+                    <!-- Selected Button -->
+                    <button @click="open = !open"
+                        class="w-full bg-[#0b0f14] border border-white/10 rounded-2xl px-4 py-3 text-white flex items-center justify-between">
+                        <template x-if="selected">
+                            <span class="flex items-center gap-2">
+                                <img :src="selected.flag" class="w-5 h-5 rounded" alt="">
+                                <span x-text="selected.name ?? 'Select Country' "></span>
+                            </span>
+                        </template>
+                        <template x-if="!selected">
+                            <span>Select country</span>
+                        </template>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
 
-    <!-- Dropdown List -->
-    <ul x-show="open" @click.outside="open = false"
-        class="absolute z-50 w-full mt-1 bg-[#0b0f14] border border-white/10 rounded-xl max-h-60 overflow-y-auto">
-        @foreach ($countries as $c)
-            <li @click="selected = { id: {{ $c['id'] }}, name: '{{ $c['name'] }}', currency: '{{ $c['currency_code'] }}', flag: '{{ Storage::url($c['flag']) }}' }; $wire.set('country_id', {{ $c['id'] }}); open = false"
-                class="flex items-center px-4 py-2 hover:bg-gray-700 cursor-pointer gap-2">
-                <img src="{{ Storage::url($c['flag']) }}" class="w-5 h-5 rounded" alt="">
-                {{ $c['name'] }} ({{ $c['currency_code'] }})
-            </li>
-        @endforeach
-    </ul>
-</div>
+                    <!-- Dropdown List -->
+                    <ul x-show="open" @click.outside="open = false"
+                        class="absolute z-50 w-full mt-1 bg-[#0b0f14] border border-white/10 rounded-xl max-h-60 overflow-y-auto">
+                        @foreach ($countries as $c)
+                            <li @click="selected = { id: {{ $c['id'] }}, name: '{{ $c['name'] }}', currency: '{{ $c['currency_code'] }}', flag: '{{ Storage::url($c['flag']) }}' }; $wire.set('country_id', {{ $c['id'] }}); open = false"
+                                class="flex items-center px-4 py-2 hover:bg-gray-700 cursor-pointer gap-2">
+                                <img src="{{ Storage::url($c['flag']) }}" class="w-5 h-5 rounded" alt="">
+                                {{ $c['name'] }} ({{ $c['currency_code'] }})
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
 
             <div class="mt-3 text-xs text-gray-400 leading-relaxed">

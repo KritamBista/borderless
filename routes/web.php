@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::get('/', Home::class)->name('home');
-Route::get('/request-order', QuoteEstimator::class)->name('request.order');
+// Route::get('/request-order', QuoteEstimator::class)->name('request.order');
 Route::get('/checkout/{public_id}', \App\Livewire\Frontend\Checkout::class)
     ->middleware('auth')
     ->name('checkout');
@@ -55,6 +55,9 @@ Route::get('/blogs/{blog:slug}', BlogShow::class)->name('blog.show');
 
 use App\Livewire\Frontend\GuideList;
 use App\Livewire\Frontend\GuideShow;
+use App\Livewire\Frontend\RequestOrder;
 
 Route::get('/guides', GuideList::class)->name('guide.index');
 Route::get('/guides/{guide:slug}', GuideShow::class)->name('guide.show');
+
+Route::get('/request-order',  RequestOrder::class )->name('request.order');

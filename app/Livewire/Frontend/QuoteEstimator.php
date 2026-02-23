@@ -435,7 +435,7 @@ class QuoteEstimator extends Component
         // Make sure calculations are updated
         $this->recalculate();
 
-        $country = Country::find($this->country_id);
+        $country = Country::find($this->country_id['id']);
         if (!$country) {
             $this->addError('country_id', 'Invalid country selected.');
             return;

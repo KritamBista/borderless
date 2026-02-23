@@ -12,7 +12,6 @@
         style="background: radial-gradient(800px 420px at 50% 0%, rgba(214,177,94,.16), transparent 60%);">
     </div>
 
-    {{-- Navbar --}}
 
     {{-- Hero --}}
     <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-12 sm:pb-20">
@@ -45,7 +44,7 @@
                     </div>
                 </div>
                 {{-- HERO TITLE --}}
-                @if (!empty($company->hero_title))
+                @if (!$company->hero_title="")
                     <h1>
                         {!! $company->hero_title !!}
                     </h1>
@@ -123,172 +122,461 @@
     </section>
 
 
+{{-- Why US --}}
+<section id="why-borderless" class="relative py-20 md:py-28 bg-[#0b0f14] overflow-hidden">
 
-    <section id="why-borderless" class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-        <!-- Top -->
-        <div class="max-w-3xl">
-            <div
-                class="inline-flex items-center gap-2 rounded-full border border-yellow-400/25 bg-yellow-400/10 px-3 py-1 text-xs tracking-[0.3em] uppercase text-yellow-200">
+<!-- Subtle background glows -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl translate-y-1/2"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-5 sm:px-6">
+
+        <!-- Header -->
+        <div class="max-w-3xl lg:max-w-7xl mb-16 md:mb-16">
+
+            <div class="inline-flex items-center rounded-full
+                border border-gold/30 bg-gold/10
+                px-4 md:px-5 py-1.5
+                text-xs md:text-sm tracking-[0.25em] uppercase text-gold">
                 Why BorderlessBazzar
             </div>
 
-            <h2 class="mt-4 text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+            <h2 class="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
                 Cross-border shopping made simple for Nepal
             </h2>
 
-            <p class="mt-3 text-gray-300/90 leading-relaxed">
+            <p class="mt-4 text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl">
                 Clear pricing, faster quotes, and end-to-end visibility — from product link to delivery at your door.
             </p>
+
         </div>
 
-        <!-- Cards -->
-        <div class="mt-10 grid gap-6 lg:grid-cols-3">
-            <!-- Card 1 -->
-            <div
-                class="rounded-3xl p-6 border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
-                <div class="flex items-start gap-4">
-                    <div
-                        class="h-12 w-12 rounded-2xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center">
-                        <!-- bolt icon -->
-                        <svg class="h-6 w-6 text-yellow-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 2L3 14h7l-1 8 12-14h-7l1-6z" />
-                        </svg>
+        <!-- Grid -->
+        <div class="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+            <!-- CARD 1 -->
+            <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
+                <div class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
+                    transition duration-500 hover:-translate-y-1">
+
+                    <!-- Soft Glow -->
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
                     </div>
 
-                    <div>
-                        <h3 class="text-lg font-extrabold text-white">Instant quote estimator</h3>
-                        <p class="mt-2 text-sm text-gray-300/90 leading-relaxed">
-                            Paste the product link, add weight/price — get a quick NPR estimate in seconds.
-                        </p>
+                    <div class="relative flex items-start gap-4">
+
+                        <div class="h-12 w-12 flex-shrink-0 rounded-xl
+                            bg-gradient-to-br from-gold/20 to-gold/5
+                            border border-gold/30
+                            flex items-center justify-center text-gold">
+
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 2L3 14h7l-1 8 12-14h-7l1-6z" />
+                            </svg>
+
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg md:text-xl font-semibold text-white">
+                                Instant quote estimator
+                            </h3>
+
+                            <p class="mt-2 text-sm md:text-base text-gray-400 leading-relaxed">
+                                Paste the product link, add weight and price — get a quick NPR estimate instantly.
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div
-                class="rounded-3xl p-6 border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
-                <div class="flex items-start gap-4">
-                    <div
-                        class="h-12 w-12 rounded-2xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center">
-                        <!-- qr icon -->
-                        <svg class="h-6 w-6 text-yellow-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 4h2m-2-4h6v6h-6v-6z" />
-                        </svg>
+            <!-- CARD 2 -->
+            <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
+                <div class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
+                    transition duration-500 hover:-translate-y-1">
+
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
                     </div>
 
-                    <div>
-                        <h3 class="text-lg font-extrabold text-white">Easy payment options</h3>
-                        <p class="mt-2 text-sm text-gray-300/90 leading-relaxed">
-                            Pay via eSewa/Khalti/bank transfer — with clear steps and confirmation updates.
-                        </p>
+                    <div class="relative flex items-start gap-4">
+
+                        <div class="h-12 w-12 flex-shrink-0 rounded-xl
+                            bg-gradient-to-br from-gold/20 to-gold/5
+                            border border-gold/30
+                            flex items-center justify-center text-gold">
+
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 4h2m-2-4h6v6h-6v-6z" />
+                            </svg>
+
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg md:text-xl font-semibold text-white">
+                                Easy payment options
+                            </h3>
+
+                            <p class="mt-2 text-sm md:text-base text-gray-400 leading-relaxed">
+                                Pay via eSewa, Khalti or bank transfer — with clear steps and confirmations.
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Card 3 -->
-            <div
-                class="rounded-3xl p-6 border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
-                <div class="flex items-start gap-4">
-                    <div
-                        class="h-12 w-12 rounded-2xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center">
-                        <!-- receipt icon -->
-                        <svg class="h-6 w-6 text-yellow-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 14h6m-6-4h6M7 3h10a2 2 0 012 2v16l-3-2-3 2-3-2-3 2V5a2 2 0 012-2z" />
-                        </svg>
+            <!-- CARD 3 -->
+            <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
+                <div class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
+                    transition duration-500 hover:-translate-y-1">
+
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
                     </div>
 
-                    <div>
-                        <h3 class="text-lg font-extrabold text-white">Transparent cost breakdown</h3>
-                        <p class="mt-2 text-sm text-gray-300/90 leading-relaxed">
-                            Duty, freight, service fees — everything itemized before you confirm the order.
-                        </p>
+                    <div class="relative flex items-start gap-4">
+
+                        <div class="h-12 w-12 flex-shrink-0 rounded-xl
+                            bg-gradient-to-br from-gold/20 to-gold/5
+                            border border-gold/30
+                            flex items-center justify-center text-gold">
+
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 14h6m-6-4h6M7 3h10a2 2 0 012 2v16l-3-2-3 2-3-2-3 2V5a2 2 0 012-2z" />
+                            </svg>
+
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg md:text-xl font-semibold text-white">
+                                Transparent cost breakdown
+                            </h3>
+
+                            <p class="mt-2 text-sm md:text-base text-gray-400 leading-relaxed">
+                                Duty, freight, and service fees — fully itemized before you confirm.
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Card 4 -->
-            <div
-                class="rounded-3xl p-6 border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
-                <div class="flex items-start gap-4">
-                    <div
-                        class="h-12 w-12 rounded-2xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center">
-                        <!-- shield icon -->
-                        <svg class="h-6 w-6 text-yellow-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" />
-                        </svg>
+            <!-- CARD 4 -->
+            <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
+                <div class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
+                    transition duration-500 hover:-translate-y-1">
+
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
                     </div>
 
-                    <div>
-                        <h3 class="text-lg font-extrabold text-white">Verified order handling</h3>
-                        <p class="mt-2 text-sm text-gray-300/90 leading-relaxed">
-                            We confirm product details and prevent surprises before it ships.
-                        </p>
+                    <div class="relative flex items-start gap-4">
+
+                        <div class="h-12 w-12 flex-shrink-0 rounded-xl
+                            bg-gradient-to-br from-gold/20 to-gold/5
+                            border border-gold/30
+                            flex items-center justify-center text-gold">
+
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" />
+                            </svg>
+
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg md:text-xl font-semibold text-white">
+                                Verified order handling
+                            </h3>
+
+                            <p class="mt-2 text-sm md:text-base text-gray-400 leading-relaxed">
+                                We double-check product details before shipment to prevent surprises.
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Card 5 -->
-            <div
-                class="rounded-3xl p-6 border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
-                <div class="flex items-start gap-4">
-                    <div
-                        class="h-12 w-12 rounded-2xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center">
-                        <!-- map pin icon -->
-                        <svg class="h-6 w-6 text-yellow-300" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 10a2 2 0 100-4 2 2 0 000 4z" />
-                        </svg>
+            <!-- CARD 5 -->
+            <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
+                <div class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
+                    transition duration-500 hover:-translate-y-1">
+
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
                     </div>
 
-                    <div>
-                        <h3 class="text-lg font-extrabold text-white">Track progress end-to-end</h3>
-                        <p class="mt-2 text-sm text-gray-300/90 leading-relaxed">
-                            Quote → payment → shipment → delivery updates, all in one dashboard.
-                        </p>
+                    <div class="relative flex items-start gap-4">
+
+                        <div class="h-12 w-12 flex-shrink-0 rounded-xl
+                            bg-gradient-to-br from-gold/20 to-gold/5
+                            border border-gold/30
+                            flex items-center justify-center text-gold">
+
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 10a2 2 0 100-4 2 2 0 000 4z" />
+                            </svg>
+
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg md:text-xl font-semibold text-white">
+                                Track progress end-to-end
+                            </h3>
+
+                            <p class="mt-2 text-sm md:text-base text-gray-400 leading-relaxed">
+                                Quote → payment → shipment → delivery updates in one dashboard.
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Card 6 -->
-            <div
-                class="rounded-3xl p-6 border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
-                <div class="flex items-start gap-4">
-                    <div
-                        class="h-12 w-12 rounded-2xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center">
-                        <!-- box icon -->
-                        <svg class="h-6 w-6 text-yellow-300" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 8l-9 5-9-5m18 0l-9-5-9 5m18 0v10l-9 5-9-5V8" />
-                        </svg>
+            <!-- CARD 6 -->
+            <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
+                <div class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
+                    transition duration-500 hover:-translate-y-1">
+
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
                     </div>
 
-                    <div>
-                        <h3 class="text-lg font-extrabold text-white">Special handling when needed</h3>
-                        <p class="mt-2 text-sm text-gray-300/90 leading-relaxed">
-                            Fragile or high-value items get extra checks, packing, and careful dispatch.
-                        </p>
+                    <div class="relative flex items-start gap-4">
+
+                        <div class="h-12 w-12 flex-shrink-0 rounded-xl
+                            bg-gradient-to-br from-gold/20 to-gold/5
+                            border border-gold/30
+                            flex items-center justify-center text-gold">
+
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 8l-9 5-9-5m18 0l-9-5-9 5m18 0v10l-9 5-9-5V8" />
+                            </svg>
+
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg md:text-xl font-semibold text-white">
+                                Special handling when needed
+                            </h3>
+
+                            <p class="mt-2 text-sm md:text-base text-gray-400 leading-relaxed">
+                                Fragile or high-value items receive extra care and protective dispatch.
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>
+
         </div>
-    </section>
-    {{-- Trusted Stores (Auto Slider) --}}
+
+    </div>
+</section>
+{{-- How it works --}}
+<section id="how" class="py-20 md:py-28 bg-[#0b0f14] relative overflow-hidden">
+<!-- Subtle background glows -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl translate-y-1/2"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6">
+
+        <!-- Header -->
+     <div class="text-center mb-16 md:mb-24">
+
+    <div class="inline-flex items-center rounded-full border border-gold/30 bg-gold/10 px-4 md:px-5 py-1.5 text-xs md:text-sm text-gold mb-5 md:mb-6">
+        How it works
+    </div>
+
+    <h2 class="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-5 md:mb-6 tracking-tight leading-tight">
+        Simple, transparent process
+    </h2>
+
+    <p class="text-gray-400 text-base md:text-lg max-w-xl md:max-w-2xl mx-auto">
+        From order to delivery, we make international shopping effortless for Nepal.
+    </p>
+
+</div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+
+            <!-- CARD -->
+            <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
+
+                <div class="relative bg-[#0f141a] rounded-2xl p-8 h-full overflow-hidden transition duration-500">
+
+                    <!-- Glow -->
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
+                    </div>
+
+                    <!-- Number -->
+                    <div class="absolute top-5 right-5 text-5xl md:text-6xl font-bold text-white/5">
+                        01
+                    </div>
+
+                    <!-- Icon -->
+                    <div class="relative w-12 h-12 flex items-center justify-center
+                        bg-gradient-to-br from-gold/20 to-gold/5
+                        border border-gold/30
+                        rounded-xl text-gold mb-5 md:mb-6">
+
+                        <!-- Link Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.828 10.172a4 4 0 015.656 5.656l-3 3a4 4 0 01-5.656-5.656m0 0l-1.414-1.414a4 4 0 00-5.656 5.656l3 3a4 4 0 005.656-5.656" />
+                        </svg>
+                    </div>
+
+                    <h3 class="text-white text-lg font-semibold mb-3">
+                        Paste Product Link
+                    </h3>
+
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Copy the product URL from Amazon, AliExpress, Myntra or any supported store and paste it in our order form.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Repeat for remaining 3 cards -->
+
+            <!-- CARD 02 -->
+            <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
+                <div class="relative bg-[#0f141a] rounded-2xl p-8 h-full overflow-hidden transition duration-500">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
+                    </div>
+
+                    <div class="absolute top-6 right-6 text-6xl font-bold text-white/5">02</div>
+
+                    <div class="relative w-12 h-12 flex items-center justify-center
+                        bg-gradient-to-br from-gold/20 to-gold/5
+                        border border-gold/30
+                        rounded-xl text-gold mb-6">
+                        <!-- Box Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10" />
+                        </svg>
+                    </div>
+
+                    <h3 class="text-white text-lg font-semibold mb-3">
+                        We Purchase & Verify
+                    </h3>
+
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        We place your order, verify the product quality and prepare it for safe international shipping.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CARD 03 -->
+            <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
+                <div class="relative bg-[#0f141a] rounded-2xl p-8 h-full overflow-hidden transition duration-500">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
+                    </div>
+
+                    <div class="absolute top-6 right-6 text-6xl font-bold text-white/5">03</div>
+
+                    <div class="relative w-12 h-12 flex items-center justify-center
+                        bg-gradient-to-br from-gold/20 to-gold/5
+                        border border-gold/30
+                        rounded-xl text-gold mb-6">
+                        <!-- Plane Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.5 19l19-7-19-7v5l13 2-13 2v5z" />
+                        </svg>
+                    </div>
+
+                    <h3 class="text-white text-lg font-semibold mb-3">
+                        Customs Cleared
+                    </h3>
+
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        We handle customs paperwork, duties and taxes — no surprises at delivery.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CARD 04 -->
+            <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
+                <div class="relative bg-[#0f141a] rounded-2xl p-8 h-full overflow-hidden transition duration-500">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
+                    </div>
+
+                    <div class="absolute top-6 right-6 text-6xl font-bold text-white/5">04</div>
+
+                    <div class="relative w-12 h-12 flex items-center justify-center
+                        bg-gradient-to-br from-gold/20 to-gold/5
+                        border border-gold/30
+                        rounded-xl text-gold mb-6">
+                        <!-- Home Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 10l9-7 9 7v10a2 2 0 01-2 2h-4v-6H9v6H5a2 2 0 01-2-2V10z" />
+                        </svg>
+                    </div>
+
+                    <h3 class="text-white text-lg font-semibold mb-3">
+                        Delivered to You
+                    </h3>
+
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Your package arrives at your doorstep in Nepal — fully tracked from start to finish.
+                    </p>
+
+                    <div class="text-green-400 text-sm mt-4">
+                        ✓ Complete
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="mt-20 text-center text-gray-500 text-sm">
+            No hidden fees • Real-time tracking • Full transparency at every step
+        </div>
+
+    </div>
+</section>
+
+
+
+
     <section class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+
+
         <div class=" gap-8 items-start">
-            {{-- Left text --}}
+
             <div class="lg:col-span-5">
-                <div
-                    class="inline-flex items-center gap-2 rounded-full border border-yellow-400/25 bg-yellow-400/10 px-3 py-1 text-xs tracking-[0.3em] uppercase text-yellow-200">
-                    Trusted Stores
-                </div>
+
+                   <div class="inline-flex items-center rounded-full
+                border border-gold/30 bg-gold/10
+                px-4 md:px-5 py-1.5
+                text-xs md:text-sm tracking-[0.25em] uppercase text-gold">
+            TRUSTED STORES
+            </div>
 
                 <h2 class="mt-4 text-3xl sm:text-4xl font-extrabold leading-tight">
                     Order from the stores you already trust.
@@ -428,57 +716,26 @@
             </div>
     </section>
 
-    {{-- How it works --}}
-    <section id="how" class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
-        <div class="max-w-2xl">
-            <div
-                class="inline-flex items-center gap-2 rounded-full border border-yellow-400/25 bg-yellow-400/10 px-3 py-1 text-xs tracking-[0.3em] uppercase text-yellow-200">
-                How it works
-            </div>
 
-            <p class="text-gray-400 mt-2">Three simple steps. No confusion, no hidden cost.</p>
-        </div>
-
-        <div class="mt-8 grid md:grid-cols-3 gap-6">
-            <div class="glass rounded-3xl p-6">
-                <div class="h-10 w-10 rounded-2xl flex items-center justify-center mb-4"
-                    style="background: rgba(214,177,94,.12); border: 1px solid rgba(214,177,94,.25);">
-                    <span class="text-gold font-black">1</span>
-                </div>
-                <div class="font-extrabold">Paste product link</div>
-                <div class="text-sm text-gray-400 mt-2">Add name, price, weight & quantity. Get instant estimate.</div>
-            </div>
-
-            <div class="glass rounded-3xl p-6">
-                <div class="h-10 w-10 rounded-2xl flex items-center justify-center mb-4"
-                    style="background: rgba(214,177,94,.12); border: 1px solid rgba(214,177,94,.25);">
-                    <span class="text-gold font-black">2</span>
-                </div>
-                <div class="font-extrabold">Pay with QR</div>
-                <div class="text-sm text-gray-400 mt-2">Choose payment method and upload proof in checkout.</div>
-            </div>
-
-            <div class="glass rounded-3xl p-6">
-                <div class="h-10 w-10 rounded-2xl flex items-center justify-center mb-4"
-                    style="background: rgba(214,177,94,.12); border: 1px solid rgba(214,177,94,.25);">
-                    <span class="text-gold font-black">3</span>
-                </div>
-                <div class="font-extrabold">Track delivery</div>
-                <div class="text-sm text-gray-400 mt-2">See status updates: verified → shipping → delivered.</div>
-            </div>
-        </div>
-    </section>
 
     {{-- Reviews --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+        <!-- Subtle background glows -->
+<!-- Subtle background glows -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl translate-y-1/2"></div>
+    </div>
         <div class="flex items-end justify-between gap-6">
             <div class="max-w-2xl">
-                <div
-                    class="inline-flex items-center gap-2 rounded-full border border-yellow-400/25 bg-yellow-400/10 px-3 py-1 text-xs tracking-[0.3em] uppercase text-yellow-200">
-                    What Shoppers Say
-                </div>
 
-                <p class="text-gray-400 mt-2">Real reviews from real cross-border shoppers.</p>
+            <div class="inline-flex items-center rounded-full
+                border border-gold/30 bg-gold/10
+                px-4 md:px-5 py-1.5
+                text-xs md:text-sm tracking-[0.25em] uppercase text-gold">
+             What Shoppers Say
+            </div>
+
             </div>
         </div>
 
@@ -506,6 +763,8 @@
 
     {{-- FAQ --}}
     <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+        <!-- Subtle background glows -->
+
         <div class="max-w-2xl">
             <h2 class="text-2xl font-extrabold">FAQ</h2>
             <p class="text-gray-400 mt-2">Short and direct answers.</p>
@@ -557,6 +816,8 @@
 
     {{-- CTA --}}
     <section id="estimate" class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+        <!-- Subtle background glows -->
+
         <div
             class="glass rounded-3xl p-8 sm:p-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div class="max-w-2xl">

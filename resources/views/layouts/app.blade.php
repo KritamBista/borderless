@@ -47,8 +47,8 @@
                         darkcard: '#0f1621'
                     },
                     fontFamily: {
-                sans: ['Inter', 'system-ui', 'sans-serif'],
-            },
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
                 }
             }
         }
@@ -190,7 +190,15 @@
                 min-width: 160px;
             }
         }
+
+        .glass-depth {
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.03) 0%,
+                    rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(6px);
+        }
     </style>
+
 
     @livewireStyles
 </head>
@@ -220,8 +228,8 @@
 
                 {{-- Desktop nav --}}
                 <nav class="hidden lg:flex items-center gap-8">
-                    <a href="{{ $isHome ? '#why-borderless' : $homeUrl . '#why-borderless' }}"
-                        class="text-gray-400 hover:text-white transition">Why Us ?</a>
+
+            
 
                     <a href="{{ $isHome ? '#how' : $homeUrl . '#how' }}"
                         class="text-gray-400 hover:text-white transition">How it works</a>
@@ -229,15 +237,21 @@
                     <a href="{{ $isHome ? '#faq' : $homeUrl . '#faq' }}"
                         class="text-gray-400 hover:text-white transition">FAQ</a>
 
-                    <a href="{{ $isHome ? '#contact' : $homeUrl . '#contact' }}"
-                        class="text-gray-400 hover:text-white transition">Contact</a>
-
-                    @auth
-                        <a href="{{ route('user.orders') }}" class="btn-gold px-4 py-2 rounded-xl">Dashboard</a>
+                    <a href="/blogs" class="text-gray-400 hover:text-white transition">Blogs</a>
+                    <a href="/guides" class="text-gray-400 hover:text-white transition">Guides</a>
+<!-- Create Order – standout but elegant -->
+           @auth
+                        <a href="{{ route('user.orders') }}" class="text-gray-400 hover:text-white transition">Dashboard</a>
                     @else
-                        <a href="" class="btn-gold px-4 py-2 rounded-xl">Login / Register</a>
+                        <a href="" class="text-gray-400 hover:text-white transition">Login / Register</a>
                     @endauth
                 </nav>
+                        <a href="{{ route('user.orders') }}" class="ml-4 btn-gold px-4 py-2 rounded-xl flex items-start gap-2 ">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+                            Create Order
+                        </a>
 
                 {{-- Mobile hamburger --}}
                 <button type="button"
