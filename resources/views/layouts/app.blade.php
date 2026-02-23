@@ -22,7 +22,8 @@
 
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta property="og:type" content="website" />
@@ -44,7 +45,10 @@
                         gold: '#d6b15e',
                         darkbg: '#0b0f14',
                         darkcard: '#0f1621'
-                    }
+                    },
+                    fontFamily: {
+                sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
                 }
             }
         }
@@ -88,7 +92,6 @@
             transform: translateY(-2px);
         }
 
-        /* Trusted Stores Marquee */
         .bb-marquee {
             overflow: hidden;
             width: 100%;
@@ -98,15 +101,30 @@
             display: flex;
             gap: 14px;
             width: max-content;
-            animation: bb-scroll 28s linear infinite;
         }
 
-        /* Pause when hovering anywhere inside the slider */
-        .bb-marquee:hover .bb-track {
-            animation-play-state: paused;
+        /* Direction 1: Left */
+        .bb-left {
+            animation: bb-scroll-left 28s linear infinite;
         }
 
-        @keyframes bb-scroll {
+        /* Direction 2: Right */
+        .bb-right {
+            animation: bb-scroll-right 28s linear infinite;
+        }
+
+
+        @keyframes bb-scroll-right {
+            0% {
+                transform: translateX(-50%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bb-scroll-left {
             0% {
                 transform: translateX(0);
             }
@@ -114,9 +132,14 @@
             100% {
                 transform: translateX(-50%);
             }
-
-            /* because we duplicated items */
         }
+
+        /* Pause when hovering anywhere inside the slider */
+        .bb-marquee:hover .bb-track {
+            animation-play-state: paused;
+        }
+
+
 
         /* Store card */
         .bb-card {

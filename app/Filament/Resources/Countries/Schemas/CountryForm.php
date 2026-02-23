@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\Countries\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
+use SebastianBergmann\CodeUnit\FileUnit;
 
 class CountryForm
 {
@@ -14,6 +16,13 @@ class CountryForm
             ->components([
                 TextInput::make('name')
                     ->required(),
+                FileUpload::make('flag')
+                ->image()
+                ->visibility('public')
+                ->disk('public')
+                ->directory('flags')
+                ,
+
                 TextInput::make('code')
                     ->required(),
                 TextInput::make('currency_code')

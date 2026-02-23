@@ -31,6 +31,8 @@ class CountryInfolist
                 TextEntry::make('updated_at')
                     ->dateTime()
                     ->placeholder('-'),
+                TextEntry::make('flag')
+                    ->placeholder('-'),
             ]);
     }
 }

@@ -1,41 +1,31 @@
 <?php
 
-namespace App\Filament\Resources\Countries\Tables;
+namespace App\Filament\Resources\AssistedOrderItems\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class CountriesTable
+class AssistedOrderItemsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('assisted_order_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('product_name')
                     ->searchable(),
-                TextColumn::make('code')
-                    ->searchable(),
-                TextColumn::make('currency_code')
-                    ->searchable(),
-                TextColumn::make('exchange_rate_to_npr')
+                TextColumn::make('quantity')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('shipping_rate_per_kg')
+                TextColumn::make('weight_kg')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('service_fee_npr')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('min_chargeable_weight_kg')
-                    ->numeric()
-                    ->sortable(),
-                IconColumn::make('is_active')
-                    ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -44,8 +34,6 @@ class CountriesTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('flag')
-                    ->searchable(),
             ])
             ->filters([
                 //

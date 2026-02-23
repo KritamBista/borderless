@@ -41,3 +41,20 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('/logout-success', [LogoutController::class, 'success'])
     ->name('logout.success');
+Route::get('/assisted-order', \App\Livewire\Frontend\AssistedOrderForm::class)
+    ->name('assisted.order');
+Route::view('/assisted-order/thank-you', 'frontend.assisted-thankyou')
+    ->name('assisted.thankyou');
+
+use App\Livewire\Frontend\BlogList;
+use App\Livewire\Frontend\BlogShow;
+
+Route::get('/blogs', BlogList::class)->name('blog.index');
+Route::get('/blogs/{blog:slug}', BlogShow::class)->name('blog.show');
+
+
+use App\Livewire\Frontend\GuideList;
+use App\Livewire\Frontend\GuideShow;
+
+Route::get('/guides', GuideList::class)->name('guide.index');
+Route::get('/guides/{guide:slug}', GuideShow::class)->name('guide.show');

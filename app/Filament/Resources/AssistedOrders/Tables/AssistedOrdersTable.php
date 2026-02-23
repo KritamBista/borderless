@@ -1,41 +1,36 @@
 <?php
 
-namespace App\Filament\Resources\Countries\Tables;
+namespace App\Filament\Resources\AssistedOrders\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class CountriesTable
+class AssistedOrdersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('user_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('country_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('public_id')
                     ->searchable(),
-                TextColumn::make('code')
+                TextColumn::make('contact_name')
                     ->searchable(),
-                TextColumn::make('currency_code')
+                TextColumn::make('contact_email')
                     ->searchable(),
-                TextColumn::make('exchange_rate_to_npr')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('shipping_rate_per_kg')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('service_fee_npr')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('min_chargeable_weight_kg')
-                    ->numeric()
-                    ->sortable(),
-                IconColumn::make('is_active')
-                    ->boolean(),
+                TextColumn::make('contact_phone')
+                    ->searchable(),
+                TextColumn::make('status')
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -44,8 +39,6 @@ class CountriesTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('flag')
-                    ->searchable(),
             ])
             ->filters([
                 //
