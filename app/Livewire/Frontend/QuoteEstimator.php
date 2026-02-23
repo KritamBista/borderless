@@ -85,13 +85,16 @@ class QuoteEstimator extends Component
             ->get()
             ->map(fn($c) => [
                 'id' => $c->id,
+
                 'name' => $c->name,
+                // 'flag' => $this->getCountryFlagEmoji($c->code ?? 'XX'),
                 'code' => $c->code,
                 'currency_code' => $c->currency_code,
                 'exchange_rate_to_npr' => (float) $c->exchange_rate_to_npr,
                 'shipping_rate_per_kg' => (float) $c->shipping_rate_per_kg,
                 'service_fee_npr' => (float) $c->service_fee_npr,
                 'min_chargeable_weight_kg' => (float) $c->min_chargeable_weight_kg,
+                'flag' => $c->flag ?? '🌍',   // ← this line
             ])->toArray();
 
         $this->categories = ProductCategory::query()
@@ -117,6 +120,7 @@ class QuoteEstimator extends Component
         $this->recalculate();
         $this->payable_npr = (float)($this->totals['grand'] ?? 0);
     }
+
 
     private function blankItem(): array
     {

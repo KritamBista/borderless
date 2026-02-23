@@ -47,14 +47,36 @@
         <div class="glass rounded-2xl p-4 w-full lg:w-[380px]">
             <div class="text-sm font-bold">Shipping From</div>
             <div class="mt-3">
-                <select wire:model.live="country_id"
-                    class="w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white">
-                    @foreach ($countries as $c)
-                        <option value="{{ $c['id'] }}" class="bg-[#0b0f14]">
-                            {{ $c['name'] }} ({{ $c['currency_code'] }})
-                        </option>
-                    @endforeach
-                </select>
+   <div x-data="{ open: false, selected: @entangle('country_id') }" class="relative w-64">
+    <!-- Selected Button -->
+    <button @click="open = !open"
+        class="w-full bg-[#0b0f14] border border-white/10 rounded-2xl px-4 py-3 text-white flex items-center justify-between">
+        <template x-if="selected">
+            <span class="flex items-center gap-2">
+            <img :src="selected.flag " class="w-5 h-5 rounded" alt="">
+                <span x-text="selected.name ?? 'Select Country' "></span>
+            </span>
+        </template>
+        <template x-if="!selected">
+            <span>Select country</span>
+        </template>
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </button>
+
+    <!-- Dropdown List -->
+    <ul x-show="open" @click.outside="open = false"
+        class="absolute z-50 w-full mt-1 bg-[#0b0f14] border border-white/10 rounded-xl max-h-60 overflow-y-auto">
+        @foreach ($countries as $c)
+            <li @click="selected = { id: {{ $c['id'] }}, name: '{{ $c['name'] }}', currency: '{{ $c['currency_code'] }}', flag: '{{ Storage::url($c['flag']) }}' }; $wire.set('country_id', {{ $c['id'] }}); open = false"
+                class="flex items-center px-4 py-2 hover:bg-gray-700 cursor-pointer gap-2">
+                <img src="{{ Storage::url($c['flag']) }}" class="w-5 h-5 rounded" alt="">
+                {{ $c['name'] }} ({{ $c['currency_code'] }})
+            </li>
+        @endforeach
+    </ul>
+</div>
             </div>
 
             <div class="mt-3 text-xs text-gray-400 leading-relaxed">
@@ -276,10 +298,10 @@
                 </div>
 
                 @error("items.$index.unit_price_foreign")
-    <div class="text-red-400 text-xs mt-1">
-        {{ $message }}
-    </div>
-@enderror
+                    <div class="text-red-400 text-xs mt-1">
+                        {{ $message }}
+                    </div>
+                @enderror
                 <div class="mt-6">
                     <button wire:click="proceed" wire:loading.attr="disabled" wire:target="proceed,saveQuote"
                         class="btn-gold w-full px-5 py-3 rounded-2xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
