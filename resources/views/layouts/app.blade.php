@@ -58,6 +58,9 @@
 
     {{-- Custom CSS --}}
     <style>
+        html {
+    scroll-behavior: smooth;
+}
         .scroll-hidden::-webkit-scrollbar {
             display: none;
         }
@@ -69,33 +72,68 @@
             /* Firefox */
         }
 
-        body {
+        /* body {
             background: #0b0f14;
             color: #e6e8ee;
-        }
-
-        .glass {
+        } */
+body {
+    background:
+        radial-gradient(circle at 20% 10%, rgba(214,177,94,0.08), transparent 40%),
+        radial-gradient(circle at 80% 90%, rgba(214,177,94,0.06), transparent 40%),
+        #0b0f14;
+    color: #e6e8ee;
+    letter-spacing: 0.2px;
+      letter-spacing: 0.2px;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+        /* .glass {
             background: rgba(15, 22, 33, .7);
             border: 1px solid rgba(255, 255, 255, .08);
             backdrop-filter: blur(10px);
-        }
-
-        .btn-gold {
+        } */
+.glass {
+    background: rgba(15, 22, 33, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+        /* .btn-gold {
             background: #d6b15e;
             color: #0b0f14;
             font-weight: 700;
             transition: .2s;
-        }
+        } */
 
-        .btn-gold:hover {
+        /* .btn-gold:hover {
             box-shadow: 0 0 25px rgba(214, 177, 94, .4);
             transform: translateY(-2px);
-        }
+        } */
 
-        .bb-marquee {
+        .btn-gold {
+    background: linear-gradient(135deg, #d6b15e, #f0d58a);
+    color: #0b0f14;
+    font-weight: 700;
+    transition: all .25s ease;
+    box-shadow: 0 6px 18px rgba(214, 177, 94, .25);
+}
+
+.btn-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(214, 177, 94, .45);
+}
+
+        /* .bb-marquee {
             overflow: hidden;
             width: 100%;
-        }
+        } */
+         .bb-marquee {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
 
         .bb-track {
             display: flex;
@@ -112,6 +150,16 @@
         .bb-right {
             animation: bb-scroll-right 28s linear infinite;
         }
+        .bb-marquee:hover .bb-track {
+  animation-play-state: paused;
+}
+        @keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeUp {
+  animation: fadeUp .7s ease-out forwards;
+}
 
 
         @keyframes bb-scroll-right {
@@ -215,13 +263,13 @@
     @livewireStyles
 </head>
 
-<body class="min-h-screen pb-24 lg:pb-0">
+<body class=" w-full pb-24 lg:pb-0">
 
     <header x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 10 })"
         :class="scrolled
             ?
-            'bg-[#0b0f14] border-white/10 shadow-lg' :
-            'bg-transparent border-transparent'"
+             'bg-[#0b0f14]/95 backdrop-blur-xl border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.4)]'
+    : 'bg-transparent border-transparent'"
         class="sticky top-0 z-50 border-b transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
 
@@ -244,18 +292,18 @@
 
 
                     <a href="{{ $isHome ? '#how' : $homeUrl . '#how' }}"
-                        class="text-gray-400 hover:text-white transition">How it works</a>
+                        class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">How it works</a>
 
                     <a href="{{ $isHome ? '#faq' : $homeUrl . '#faq' }}"
-                        class="text-gray-400 hover:text-white transition">FAQ</a>
+                        class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">FAQ</a>
 
-                    <a href="/blogs" class="text-gray-400 hover:text-white transition">Blogs</a>
-                    <a href="/guides" class="text-gray-400 hover:text-white transition">Guides</a>
+                    <a href="/blogs" class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">Blogs</a>
+                    <a href="/guides" class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">Guides</a>
 <!-- Create Order – standout but elegant -->
            @auth
-                        <a href="{{ route('user.orders') }}" class="text-gray-400 hover:text-white transition">Dashboard</a>
+                        <a href="{{ route('user.orders') }}" class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">Dashboard</a>
                     @else
-                        <a href="" class="text-gray-400 hover:text-white transition">Login / Register</a>
+                        <a href="" class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">Login / Register</a>
                     @endauth
                 </nav>
                         <a href="{{ route('user.orders') }}" class="hidden ml-4 btn-gold px-4 py-2 rounded-xl lg:flex items-start gap-2 ">
@@ -342,9 +390,12 @@
 
         </div>
     </header>
+    <main>
     {{ $slot }}
 
-    <footer id="contact" class="border-t border-white/10 bg-[#0b0f14]">
+    </main>
+
+    <footer id="contact" class="border-t border-white/5 bg-gradient-to-b from-[#0b0f14] to-black">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid md:grid-cols-3 gap-10">
 
             {{-- Company Info --}}
@@ -436,9 +487,9 @@
                 <div class="font-semibold text-white">Quick Links</div>
 
                 <div class="mt-3 space-y-2 text-sm">
-                    <a href="#why-borderless" class="block text-gray-400 hover:text-white transition">Why Us</a>
-                    <a href="#how" class="block text-gray-400 hover:text-white transition">How it works</a>
-                    <a href="#faq" class="block text-gray-400 hover:text-white transition">FAQ</a>
+                    <a href="#why-borderless" class="block text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">Why Us</a>
+                    <a href="#how" class="block text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">How it works</a>
+                    <a href="#faq" class="block text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">FAQ</a>
                 </div>
             </div>
 
@@ -457,7 +508,7 @@
 {{-- Mobile / Tablet Bottom Navigation --}}
 <nav class="lg:hidden fixed bottom-0 left-0 w-full z-50">
 
-    <div class="bg-[#0b0f14]/95 backdrop-blur-xl border-t border-white/5">
+    <div class="bg-[#0b0f14]/80  backdrop-blur-xl border-t border-white/5">
 
         <div class="relative flex items-end justify-between px-4 sm:px-8 pt-3 pb-2">
 
@@ -487,7 +538,7 @@
 
 
             {{-- CENTER FLOATING CTA --}}
-            <div class="absolute left-1/2 -translate-x-1/2 -top-6">
+            <div class="absolute left-1/2 -translate-x-1/2 -top-6 shadow-[0_15px_40px_rgba(214,177,94,0.45)]">
 
                 <a href="{{ route('user.orders') }}"
                    class="h-16 w-16 rounded-2xl bg-gold text-[#0b0f14]
@@ -538,6 +589,50 @@ document.addEventListener('alpine:init', () => {
         mobileMenu: false
     })
 })
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+
+    const startCounting = (counter) => {
+        const target = +counter.getAttribute('data-target');
+        let count = 0;
+
+        const update = () => {
+            const increment = target / speed;
+
+            if (count < target) {
+                count += increment;
+                // counter.innerText = Math.ceil(count);
+                counter.innerText = Math.ceil(count).toLocaleString();
+                requestAnimationFrame(update);
+            } else {
+                counter.innerText = target.toLocaleString() + "+";
+                // counter.innerText = target + "+";
+            }
+        };
+
+        update();
+    };
+
+    // Trigger when visible
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startCounting(entry.target);
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.6 });
+
+    counters.forEach(counter => {
+        observer.observe(counter);
+    });
+
+});
 </script>
 {{-- VERY IMPORTANT: Prevent content from hiding behind nav --}}
 <div class="h-20 sm:h-24 lg:hidden"></div>

@@ -5,7 +5,7 @@
 @section('og_image', $company?->preview_image ? Storage::url($company->preview_image) : asset('default-event.jpg'))
 
 @section('og_url', url()->current())
-<div class="bg-darkbg text-white">
+<div class="bg-darkbg w-full text-white">
 
     {{-- Top Gradient Glow --}}
     <div class="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
@@ -14,7 +14,7 @@
 
 
     {{-- Hero --}}
-    <section class="relative  w-full mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-12 sm:pb-20">
+    <section class="relative max-w-7xl mx-auto  px-4 sm:px-6 pt-14 sm:pt-20 pb-12 sm:pb-20 animate-fadeUp">
         <div class="pointer-events-none absolute inset-0 -z-10">
             <div class="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-yellow-400/10 blur-3xl">
             </div>
@@ -44,29 +44,29 @@
                     </div>
                 </div>
                 {{-- HERO TITLE --}}
-                @if (!($company->hero_title = ''))
+                {{-- @if (!($company->hero_title = ''))
                     <h1>
                         {!! $company->hero_title !!}
                     </h1>
-                @else
+                @else --}}
                     <h1 class="text-4xl sm:text-5xl font-extrabold leading-[1.05] tracking-tight">
                         Place your order in
                         <span class="text-gold"> under 1 minute.</span>
                     </h1>
-                @endif
+                {{-- @endif --}}
 
 
                 {{-- HERO DESCRIPTION --}}
-                @if (!empty($company->hero_description))
-                    <p>
+                {{-- @if (!empty($company->hero_description)) --}}
+                    {{-- <p>
                         {!! $company->hero_description !!}
                     </p>
-                @else
+                @else --}}
                     <p class="mt-6 text-gray-300 sm:text-lg max-w-2xl">
                         Shop from Amazon, AliExpress, Myntra and more. We handle shipping & customs,
                         deliver to your doorstep in Nepal.
                     </p>
-                @endif
+                {{-- @endif --}}
 
                 {{-- URL input --}}
                 <div class="mt-8">
@@ -122,6 +122,69 @@
     </section>
 
 
+        <section class="py-24 relative bg-gradient-to-b from-black to-neutral-950">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+        {{-- Section Header --}}
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+             Powering cross-border commerce in Nepal
+            </h2>
+            <p class="mt-4 text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+                Delivering measurable growth and seamless e-commerce experiences across global markets.
+            </p>
+        </div>
+
+        {{-- Stats Grid --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+
+            {{-- Orders Placed --}}
+            <div class="glass rounded-3xl p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(214,177,94,0.25)] transition duration-500 ease-out">
+                <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
+                     data-target="{{ $company->orders_placed ?? 1000 }}">
+                    0
+                </div>
+                <div class="mt-4 text-base font-semibold text-white">
+                    Orders Processed
+                </div>
+                <p class="mt-2 text-sm text-gray-400">
+                    Successfully fulfilled transactions across our ecosystem.
+                </p>
+            </div>
+
+            {{-- E-commerce Stores --}}
+            <div class="glass rounded-3xl p-10 hover:scale-105 transition duration-500 ease-out">
+                <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
+                     data-target="{{ $company->ecommerce_stores ?? 100 }}">
+                    0
+                </div>
+                <div class="mt-4 text-base font-semibold text-white">
+                    Active E-commerce Stores
+                </div>
+                <p class="mt-2 text-sm text-gray-400">
+                    Optimized and accessible storefronts delivering real results.
+                </p>
+            </div>
+
+            {{-- Countries --}}
+            <div class="glass rounded-3xl p-10 hover:scale-105 transition duration-500 ease-out">
+                <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
+                     data-target="{{ $company->countries ?? 7 }}">
+                    0
+                </div>
+                <div class="mt-4 text-base font-semibold text-white">
+                    Countries Reached
+                </div>
+                <p class="mt-2 text-sm text-gray-400">
+                    Expanding global presence through scalable commerce solutions.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
     {{-- Why US --}}
     <section id="why-borderless" class="relative py-20 md:py-28 bg-[#0b0f14] overflow-hidden">
 
@@ -161,7 +224,7 @@
                 <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
                     <div
                         class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
-                    transition duration-500 hover:-translate-y-1">
+                   transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-gold/30 hover:border-gold/30">
 
                         <!-- Soft Glow -->
                         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
@@ -201,7 +264,7 @@
                 <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
                     <div
                         class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
-                    transition duration-500 hover:-translate-y-1">
+                   transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-gold/30 hover:border-gold/30">
 
                         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
                             <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
@@ -240,7 +303,7 @@
                 <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
                     <div
                         class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
-                    transition duration-500 hover:-translate-y-1">
+                   transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-gold/30 hover:border-gold/30">
 
                         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
                             <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
@@ -279,7 +342,7 @@
                 <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
                     <div
                         class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
-                    transition duration-500 hover:-translate-y-1">
+                   transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-gold/30 hover:border-gold/30">
 
                         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
                             <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
@@ -318,7 +381,7 @@
                 <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
                     <div
                         class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
-                    transition duration-500 hover:-translate-y-1">
+                   transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-gold/30 hover:border-gold/30">
 
                         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
                             <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
@@ -359,7 +422,7 @@
                 <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">
                     <div
                         class="relative bg-[#0f141a] rounded-2xl p-6 md:p-8 h-full overflow-hidden
-                    transition duration-500 hover:-translate-y-1">
+                   transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-gold/30 hover:border-gold/30">
 
                         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
                             <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl"></div>
@@ -399,12 +462,14 @@
         </div>
     </section>
     {{-- How it works --}}
-    <section id="how" class="py-20 md:py-28 bg-[#0b0f14] relative overflow-hidden">
+    {{-- <section id="how" class="py-20 md:py-28 bg-gradient-to-b from-[#0f141a] to-[#0c1117]  relative overflow-hidden"> --}}
+    <section id="how" class="py-20 md:py-28 bg-gradient-to-b from-black to-neutral-950  relative overflow-hidden">
+
         <!-- Subtle background glows -->
-        <div class="absolute inset-0 pointer-events-none">
+        {{-- <div class="absolute inset-0 pointer-events-none">
             <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2"></div>
             <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl translate-y-1/2"></div>
-        </div>
+        </div> --}}
         <div class="max-w-7xl mx-auto px-6">
 
             <!-- Header -->
@@ -747,14 +812,14 @@
 
 
     @if ($hotProducts->count())
-        <section class="py-20 relative">
+        <section class="py-20 relative bg-gradient-to-b from-black to-neutral-950">
 
             {{-- Subtle golden glow background --}}
-            <div class="absolute inset-0 pointer-events-none">
+            {{-- <div class="absolute inset-0 pointer-events-none">
                 <div class="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full"
                     style="background: radial-gradient(circle, rgba(214,177,94,.12), transparent 70%);">
                 </div>
-            </div>
+            </div> --}}
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
 
@@ -775,10 +840,10 @@
 
                     @foreach ($hotProducts as $product)
                         <div
-                            class="group glass rounded-3xl p-5 transition duration-300 hover:-translate-y-2 hover:border-gold/30 border border-white/5">
+                            class="group glass rounded-3xl p-5 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
 
                             {{-- Image --}}
-                            <div class="relative overflow-hidden rounded-2xl bg-darkcard">
+                            <div class="relative overflow-hidden rounded-2xl bg-darkcard ring-1 ring-white/5">
                                 @if ($product->image)
                                     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
                                         class="h-48 w-full object-cover transition duration-500 group-hover:scale-105">
@@ -832,6 +897,8 @@
             </div>
         </section>
     @endif
+
+
     {{-- Reviews --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
         <!-- Subtle background glows -->
@@ -877,7 +944,7 @@
     </section>
 
     {{-- FAQ --}}
-    <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+    <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 bg-gradient-to-b from-black to-neutral-950">
         <!-- Subtle background glows -->
 
         <div class="max-w-2xl">
@@ -930,7 +997,7 @@
     </script>
 
     {{-- CTA --}}
-    <section id="estimate" class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+    <section id="estimate" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 bg-gradient-to-b from-[#0f141a] to-[#0c1117]">
         <!-- Subtle background glows -->
 
         <div
