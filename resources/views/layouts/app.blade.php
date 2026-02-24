@@ -161,6 +161,18 @@
             border-color: rgba(214, 177, 94, .22);
             box-shadow: 0 0 18px rgba(214, 177, 94, .10);
         }
+        .nav-active {
+    position: relative;
+}
+.nav-active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    width: 4px;
+    height: 4px;
+    background: #d6b15e;
+    border-radius: 9999px;
+}
 
         .bb-logo {
             height: 46px;
@@ -203,7 +215,7 @@
     @livewireStyles
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen pb-24 lg:pb-0">
 
     <header x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 10 })"
         :class="scrolled
@@ -224,12 +236,12 @@
                 $homeUrl = route('home');
             @endphp
 
-            <div x-data="{ open: false }" class="flex items-center gap-3">
+            <div $store.ui.mobileMenu class="flex items-center gap-3">
 
                 {{-- Desktop nav --}}
                 <nav class="hidden lg:flex items-center gap-8">
 
-            
+
 
                     <a href="{{ $isHome ? '#how' : $homeUrl . '#how' }}"
                         class="text-gray-400 hover:text-white transition">How it works</a>
@@ -246,7 +258,7 @@
                         <a href="" class="text-gray-400 hover:text-white transition">Login / Register</a>
                     @endauth
                 </nav>
-                        <a href="{{ route('user.orders') }}" class="ml-4 btn-gold px-4 py-2 rounded-xl flex items-start gap-2 ">
+                        <a href="{{ route('user.orders') }}" class="hidden ml-4 btn-gold px-4 py-2 rounded-xl lg:flex items-start gap-2 ">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
@@ -256,7 +268,7 @@
                 {{-- Mobile hamburger --}}
                 <button type="button"
                     class="lg:hidden h-10 w-10 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center hover:bg-white/10 transition"
-                    @click="open = true" aria-label="Open menu">
+        @click="$store.ui.mobileMenu = true"      aria-label="Open menu">
                     <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
@@ -264,11 +276,11 @@
                 </button>
 
                 {{-- Backdrop --}}
-                <div x-show="open" x-transition.opacity class="fixed inset-0 z-40 bg-black/60 lg:hidden"
-                    @click="open = false" @keydown.escape.window="open = false"></div>
+                <div x-show= "$store.ui.mobileMenu"  x-transition.opacity class="fixed inset-0 z-40 bg-black/60 lg:hidden"
+                     @click="$store.ui.mobileMenu = false     @keydown.escape.window="$store.ui.mobileMenu = false"></div>
 
                 {{-- Drawer --}}
-                <aside x-show="open" x-transition:enter="transition ease-out duration-200"
+                <aside x-show="$store.ui.mobileMenu"  x-transition:enter="transition ease-out duration-200"
                     x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
                     x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-x-0"
                     x-transition:leave-end="translate-x-full"
@@ -277,7 +289,7 @@
                         <div class="text-white font-extrabold">Menu</div>
                         <button
                             class="h-10 w-10 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center hover:bg-white/10 transition"
-                            @click="open = false" aria-label="Close menu">
+                        @click="$store.ui.mobileMenu = false" aria-label="Close menu">
                             <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -442,6 +454,93 @@
 
 
     @livewireScripts
+{{-- Mobile / Tablet Bottom Navigation --}}
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50">
+
+    <div class="bg-[#0b0f14]/95 backdrop-blur-xl border-t border-white/5">
+
+        <div class="relative flex items-end justify-between px-4 sm:px-8 pt-3 pb-2">
+
+            {{-- Home --}}
+            <a href="/"
+               class="flex flex-col items-center justify-end flex-1 gap-1 transition duration-200
+               {{ request()->is('/') ? 'text-gold' : 'text-gray-400' }}">
+                <i class="fas fa-house text-lg"></i>
+                <span class="text-[10px] tracking-wide">Home</span>
+            </a>
+
+            {{-- Orders / Login --}}
+            @auth
+            <a href="{{ route('user.orders') }}"
+               class="flex flex-col items-center mr-8 justify-end flex-1 gap-1 transition duration-200
+               {{ request()->routeIs('user.orders') ? 'text-gold' : 'text-gray-400' }}">
+                <i class="fas fa-box text-lg"></i>
+                <span class="text-[10px] tracking-wide">My Profile</span>
+            </a>
+            @else
+            <a href="#"
+               class="flex flex-col items-center justify-end flex-1 gap-1 text-gray-400 transition duration-200">
+                <i class="fa-solid fa-right-to-bracket text-lg"></i>
+                <span class="text-[10px] tracking-wide">Login</span>
+            </a>
+            @endauth
+
+
+            {{-- CENTER FLOATING CTA --}}
+            <div class="absolute left-1/2 -translate-x-1/2 -top-6">
+
+                <a href="{{ route('user.orders') }}"
+                   class="h-16 w-16 rounded-2xl bg-gold text-[#0b0f14]
+                          flex items-center justify-center
+                          shadow-[0_8px_30px_rgba(212,175,55,0.35)]
+                          ring-4 ring-[#0b0f14]
+                          active:scale-95 transition duration-200">
+
+                    <i class="fas fa-plus text-xl"></i>
+                </a>
+
+                <p class="text-[10px] text-center mt-1 text-gray-400">Create</p>
+
+            </div>
+
+
+            {{-- Blogs --}}
+            <a href="/blogs"
+               class="flex flex-col items-center justify-end flex-1 gap-1 ml-8 transition duration-200
+               {{ request()->is('blogs') ? 'text-gold' : 'text-gray-400' }}">
+                <i class="fas fa-book text-lg"></i>
+                <span class="text-[10px] tracking-wide">Blogs</span>
+            </a>
+
+               <a href="/blogs"
+               class="flex flex-col items-center justify-end flex-1 gap-1  transition duration-200
+               {{ request()->is('blogs') ? 'text-gold' : 'text-gray-400' }}">
+                {{-- <i class="fas fa-book text-lg"></i> --}}
+                <i class="fa-solid fa-compass text-lg"></i>
+                <span class="text-[10px] tracking-wide">Guides</span>
+            </a>
+
+
+            {{-- Menu --}}
+            {{-- <button    @click="open = true" aria-label="Open menu"
+                class="flex flex-col items-center justify-end flex-1 gap-1 text-gray-400 transition duration-200">
+                <i class="fas fa-bars text-lg"></i>
+                <span class="text-[10px] tracking-wide">Menu</span>
+            </button> --}}
+
+
+        </div>
+    </div>
+</nav>
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.store('ui', {
+        mobileMenu: false
+    })
+})
+</script>
+{{-- VERY IMPORTANT: Prevent content from hiding behind nav --}}
+<div class="h-20 sm:h-24 lg:hidden"></div>
 </body>
 
 </html>

@@ -14,7 +14,7 @@
 
 
     {{-- Hero --}}
-    <section class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-12 sm:pb-20">
+    <section class="relative  w-full mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-12 sm:pb-20">
         <div class="pointer-events-none absolute inset-0 -z-10">
             <div class="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-yellow-400/10 blur-3xl">
             </div>
