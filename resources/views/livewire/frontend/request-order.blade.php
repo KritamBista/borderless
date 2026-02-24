@@ -17,18 +17,20 @@
         </div>
 
         <div class="relative z-10 max-w-4xl">
-            <div
-                class="inline-flex items-center gap-2 rounded-full border border-yellow-400/25 bg-yellow-400/10 px-3 py-1 text-xs tracking-widest uppercase text-yellow-200">
-                BorderlessBazzar
-            </div>
 
+                   <div class="inline-flex items-center rounded-full
+                border border-gold/30 bg-gold/10
+                px-4 md:px-5 py-1.5
+                text-xs md:text-sm tracking-[0.25em] uppercase text-gold">
+      Borderless bazzar
+            </div>
             <h1 class="mt-6 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]">
                 Get Your Quote <span class="text-gold">— Submit Order</span>
             </h1>
 
             <p class="text-gray-400 mt-4 max-w-2xl sm:text-lg leading-relaxed">
                 Enter product price, quantity, weight and category.
-                Totals update instantly (CIF → Duty → VAT).
+                Totals update instantly (CIF → Duty → VAT) or you can choose for assisted order.
             </p>
 
             {{-- optional quick highlight row --}}
@@ -37,6 +39,11 @@
                     <span class="h-2 w-2 rounded-full bg-yellow-400"></span>
                     Real-time calculation
                 </span>
+                   <span class="inline-flex items-center gap-2">
+                    <span class="h-2 w-2 rounded-full bg-yellow-400"></span>
+              Assisted Quote
+                </span>
+
                 <span class="inline-flex items-center gap-2">
                     <span class="h-2 w-2 rounded-full bg-yellow-400"></span>
                     Transparent breakdown

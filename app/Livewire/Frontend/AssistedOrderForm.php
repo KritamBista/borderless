@@ -29,6 +29,11 @@ class AssistedOrderForm extends Component
             'quantity'     => 1,
             'weight_kg'    => '',
         ];
+        if (auth()->user()) {
+            $this->contact_name  = auth()->user()->name;
+            $this->contact_email = auth()->user()->email;
+            $this->contact_phone = auth()->user()->phone ?? '';
+        }
     }
 
     protected function rules()
@@ -66,11 +71,11 @@ class AssistedOrderForm extends Component
     public function submit()
     {
         // dd('here');
-            // dd($this->country_id['id']);
+        // dd($this->country_id['id']);
 
         // dd($this->items);
         // $this->validate();
-            // dd('jere');
+        // dd('jere');
         $order = AssistedOrder::create([
             // 'user_id'       => auth()->id() ?? "",
             'country_id'    => $this->country_id['id'],

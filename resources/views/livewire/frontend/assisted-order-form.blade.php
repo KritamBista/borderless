@@ -144,21 +144,20 @@
 
 </div> --}}
 
-<div class="min-h-screen bg-darkbg py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-5xl mx-auto">
+<div class="min-h-screen bg-darkbg py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
 
         <!-- Header -->
+    <!-- Country Selection -->
+        <div class="glass rounded-2xl mb-4 p-4 shadow-2xl border border-white/5">
+            <div class="text-sm font-bold">Shipping From</div>
 
-
-        <!-- Main Form Card -->
-        <div class="glass rounded-3xl p-6 md:p-10 shadow-2xl border border-white/5">
-
-            <!-- Country Selection -->
-          <div class="mt-3">
-                <div x-data="{ open: false, selected: @entangle('country_id') }" class="relative w-64">
+          <div class="mt-3 mb-4 w-full">
+                <div x-data="{ open: false, selected: @entangle('country_id') }" class="relative w-full">
                     <!-- Selected Button -->
                     <button @click="open = !open"
-                        class="w-full bg-[#0b0f14] border border-white/10 rounded-2xl px-4 py-3 text-white flex items-center justify-between">
+
+                        class=" flex items-center justify-between mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3  text-white focus:border-gold/50 focus:ring-2 focus:ring-gold transition outline-none">
                         <template x-if="selected">
                             <span class="flex items-center gap-2">
                                 <img :src="selected.flag" class="w-5 h-5 rounded" alt="">
@@ -166,7 +165,7 @@
                             </span>
                         </template>
                         <template x-if="!selected">
-                            <span>Select country</span>
+                            <span>Select the country </span>
                         </template>
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -186,37 +185,36 @@
                     </ul>
                 </div>
           </div>
+    </div>
+        <!-- Main Form Card -->
+        <div class="glass rounded-2xl p-6 md:p-10 shadow-2xl border border-white/5">
+
+
             <!-- Contact Info -->
             <div class="grid md:grid-cols-3 gap-6 mb-10">
                 <div>
                     <label class="block text-sm font-semibold text-gray-300 mb-2">Full Name</label>
                     <input type="text" wire:model="contact_name"
-                           class="w-full bg-[#0f141b] border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-500 focus:border-gold/50 focus:ring-2 focus:ring-gold/20 transition outline-none"
+                           class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3  text-white focus:border-gold/50 focus:ring-2 focus:ring-gold transition outline-none"
                            placeholder="Your full name">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-300 mb-2">Email Address</label>
                     <input type="email" wire:model="contact_email"
-                           class="w-full bg-[#0f141b] border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-500 focus:border-gold/50 focus:ring-2 focus:ring-gold/20 transition outline-none"
+                           class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3  text-white focus:border-gold focus:ring-2 focus:ring-gold transition outline-none"
                            placeholder="your@email.com">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-300 mb-2">Phone Number</label>
                     <input type="text" wire:model="contact_phone"
-                           class="w-full bg-[#0f141b] border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-500 focus:border-gold/50 focus:ring-2 focus:ring-gold/20 transition outline-none"
+                           class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3  text-white  focus:border-gold focus:ring-2 focus:ring-gold transition outline-none"
                            placeholder="+977 98XXXXXXXX">
                 </div>
             </div>
 
             <!-- Product Items -->
             <div class="mb-10">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-xl font-extrabold text-white">Product Items</h2>
-                    <button type="button" wire:click="addItem"
-                            class="btn-gold px-5 py-2.5 rounded-xl text-sm font-medium inline-flex items-center gap-2 hover:shadow-gold/30 transition">
-                        + Add Item
-                    </button>
-                </div>
+                    <h2 class="text-xl font-extrabold mb-4 text-white">Product Items</h2>
 
                 @foreach($items as $index => $item)
                     <div class="glass rounded-2xl p-6 mb-6 relative border border-white/5">
@@ -230,32 +228,39 @@
                             <div>
                                 <label class="block text-sm text-gray-400 mb-2">Product Name</label>
                                 <input type="text" wire:model="items.{{ $index }}.product_name"
-                                       class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:border-gold/50 focus:ring-2 focus:ring-gold/20 transition outline-none"
+                                       class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white focus:border-gold focus:ring-2 focus:ring-gold transition "
                                        placeholder="e.g. Wireless Earbuds">
                             </div>
 
                             <div>
                                 <label class="block text-sm text-gray-400 mb-2">Product Link (optional)</label>
                                 <input type="text" wire:model="items.{{ $index }}.product_link"
-                                       class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:border-gold/50 focus:ring-2 focus:ring-gold/20 transition outline-none"
+                                       class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3  text-white focus:border-gold focus:ring-2 focus:ring-gold transition outline-none"
                                        placeholder="https://...">
                             </div>
 
                             <div>
                                 <label class="block text-sm text-gray-400 mb-2">Quantity</label>
                                 <input type="number" min="1" wire:model="items.{{ $index }}.quantity"
-                                       class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:border-gold/50 focus:ring-2 focus:ring-gold/20 transition outline-none">
+                                       class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3  text-white focus:border-gold focus:ring-2 focus:ring-gold transition outline-none">
                             </div>
 
                             <div>
                                 <label class="block text-sm text-gray-400 mb-2">Weight (kg)</label>
                                 <input type="number" step="0.01" min="0" wire:model="items.{{ $index }}.weight_kg"
-                                       class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:border-gold/50 focus:ring-2 focus:ring-gold/20 transition outline-none"
+                                       class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3  text-white focus:border-gold focus:ring-2 focus:ring-gold transition outline-none"
                                        placeholder="0.5">
                             </div>
                         </div>
                     </div>
                 @endforeach
+                     <div class="flex items-center justify-end mb-6">
+                    <button type="button" wire:click="addItem"
+                            class="btn-gold px-5 py-3 rounded-2xl inline-flex items-center gap-2">
+                        + Add another item
+                    </button>
+                </div>
+
             </div>
 
             <!-- Submit -->

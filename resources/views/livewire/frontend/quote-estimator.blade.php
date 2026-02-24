@@ -9,7 +9,7 @@
                 <div x-data="{ open: false, selected: @entangle('country_id') }" class="relative w-64">
                     <!-- Selected Button -->
                     <button @click="open = !open"
-                        class="w-full bg-[#0b0f14] border border-white/10 rounded-2xl px-4 py-3 text-white flex items-center justify-between">
+                        class="w-full bg-[#0b0f14] border border-white/10 rounded-2xl px-4 py-3 text-white flex items-center justify-between focus:border-gold focus:ring-2 focus:ring-gold transition outline-none">
                         <template x-if="selected">
                             <span class="flex items-center gap-2">
                                 <img :src="selected.flag" class="w-5 h-5 rounded" alt="">
@@ -74,7 +74,7 @@
                         <div class="sm:col-span-6">
                             <label class="text-xs text-gray-400">Product Name</label>
                             <input wire:model.live="items.{{ $index }}.product_name"
-                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white"
+                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3  text-white  focus:border-gold focus:ring-2 focus:ring-gold transition outline-none"
                                 placeholder="e.g., AirPods Pro">
                         </div>
 
@@ -82,17 +82,17 @@
                             <label class="text-xs text-gray-400">Product Link (optional)</label>
                             <input wire:model.live="items.{{ $index }}.product_link"
                                 value="{{ $link }}"
-                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white"
+                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white focus:border-gold focus:ring-2 focus:ring-gold transition"
                                 placeholder="Paste URL for reference">
                         </div>
 
                         <div class="sm:col-span-4">
                             <label class="text-xs text-gray-400">Category (Duty %)</label>
                             <select wire:model.live="items.{{ $index }}.category_id"
-                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white">
+                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white focus:border-gold focus:ring-2 focus:ring-gold transition ">
                                 @foreach ($categories as $cat)
                                     <option value="{{ $cat['id'] }}" class="bg-[#0b0f14]">
-                                        {{ $cat['name'] }} ({{ (int) round($cat['duty_rate'] * 100) }}%)
+                                        {{ $cat['name'] }}
                                     </option>
                                 @endforeach
                             </select>
@@ -103,14 +103,14 @@
                                 ({{ $country['currency_code'] ?? '' }})</label>
                             <input type="number" step="0.01" min="0"
                                 wire:model.live="items.{{ $index }}.unit_price_foreign"
-                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white"
+                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white focus:border-gold focus:ring-2 focus:ring-gold transition "
                                 placeholder="0.00">
                         </div>
 
                         <div class="sm:col-span-2">
                             <label class="text-xs text-gray-400">Qty</label>
                             <input type="number" min="1" wire:model.live="items.{{ $index }}.quantity"
-                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white"
+                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white focus:border-gold focus:ring-2 focus:ring-gold transition "
                                 placeholder="1">
                         </div>
 
@@ -118,7 +118,7 @@
                             <label class="text-xs text-gray-400">Weight (kg)</label>
                             <input type="number" step="0.001" min="0"
                                 wire:model.live="items.{{ $index }}.weight_kg"
-                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white"
+                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white focus:border-gold focus:ring-2 focus:ring-gold transition"
                                 placeholder="0.500">
                             <div class="text-[11px] text-gray-500 mt-1">
                                 Min chargeable weight applies.
@@ -214,7 +214,7 @@
                         @else
                             <div class="flex gap-2">
                                 <input wire:model.defer="coupon_code"
-                                    class="flex-1 bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white"
+                                    class="flex-1 bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white focus:border-gold focus:ring-2 focus:ring-gold transition"
                                     placeholder="Enter coupon code">
                                 <button wire:click="applyCoupon" class="btn-dark px-4 py-3 rounded-2xl">
                                     Apply
