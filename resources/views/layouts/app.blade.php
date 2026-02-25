@@ -395,10 +395,9 @@ h1, h2, h3 {
 
     </main>
 
-    <footer id="contact" class="border-t border-white/5 bg-gradient-to-b from-[#0b0f14] to-black">
+    {{-- <footer id="contact" class="border-t border-white/5 bg-gradient-to-b from-[#0b0f14] to-black">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid md:grid-cols-3 gap-10">
 
-            {{-- Company Info --}}
             <div>
                 <div class="font-extrabold text-xl">
                     {{ $company?->name ?? 'Borderless Bazzar' }}
@@ -409,7 +408,6 @@ h1, h2, h3 {
                     We handle shipping, customs and delivery.
                 </p>
 
-                {{-- Social Icons --}}
                 <div class="flex gap-4 mt-5">
 
                     @if ($company?->facebook_url)
@@ -443,7 +441,6 @@ h1, h2, h3 {
                 </div>
             </div>
 
-            {{-- Contact Info --}}
             <div>
                 <div class="font-semibold text-white">Contact</div>
 
@@ -482,7 +479,6 @@ h1, h2, h3 {
                 @endif
             </div>
 
-            {{-- Quick Links (Optional Clean Column) --}}
             <div>
                 <div class="font-semibold text-white">Quick Links</div>
 
@@ -495,12 +491,261 @@ h1, h2, h3 {
 
         </div>
 
-        {{-- Bottom --}}
         <div class="border-t border-white/10 text-center text-xs text-gray-500 py-6">
             © {{ date('Y') }} {{ $company?->name ?? 'Borderless Bazzar' }}.
             All rights reserved.
         </div>
-    </footer>
+    </footer> --}}
+
+    {{-- <footer id="contact" class="relative text-white">
+
+    <div class="absolute inset-0">
+        <img src="{{ asset('footer-bg.png') }}"
+             alt="Footer Background"
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/70"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 grid md:grid-cols-3 gap-12">
+
+        <div>
+            <div class="text-2xl font-extrabold tracking-tight">
+                <span class="text-white">
+                    {{ $company?->name ?? 'BorderlessBazzar' }}
+                </span>
+            </div>
+
+            <p class="text-sm mt-4 max-w-sm leading-relaxed text-white/80">
+                Cross-border shopping made simple for Nepal.
+                We handle shipping, customs and delivery.
+            </p>
+
+            <div class="flex gap-4 mt-6">
+
+                @foreach ([
+                    'facebook_url' => 'fab fa-facebook-f',
+                    'instagram_url' => 'fab fa-instagram',
+                    'linkedin_url' => 'fab fa-linkedin-in',
+                    'youtube_url' => 'fab fa-youtube'
+                ] as $field => $icon)
+
+                    @if ($company?->$field)
+                        <a href="{{ $company->$field }}" target="_blank"
+                           class="h-10 w-10 flex items-center justify-center rounded-xl
+                                  bg-white/10 backdrop-blur-sm
+                                  hover:bg-white/20 transition duration-300">
+                            <i class="{{ $icon }}"></i>
+                        </a>
+                    @endif
+
+                @endforeach
+
+            </div>
+        </div>
+
+        <div>
+            <div class="font-semibold text-white text-lg">Contact</div>
+
+            <div class="mt-4 space-y-3 text-sm text-white/80">
+
+                @if ($company?->contact_email)
+                    <div>
+                        Email:
+                        <a href="mailto:{{ $company->contact_email }}"
+                           class="hover:text-white underline underline-offset-4">
+                            {{ $company->contact_email }}
+                        </a>
+                    </div>
+                @endif
+
+                @if ($company?->contact_phone)
+                    <div>
+                        Phone:
+                        <a href="tel:{{ $company->contact_phone }}"
+                           class="hover:text-white underline underline-offset-4">
+                            {{ $company->contact_phone }}
+                        </a>
+                    </div>
+                @endif
+
+                @if ($company?->whatsapp_number)
+                    <div>
+                        WhatsApp:
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $company->whatsapp_number) }}"
+                           target="_blank"
+                           class="hover:text-white underline underline-offset-4">
+                            {{ $company->whatsapp_number }}
+                        </a>
+                    </div>
+                @endif
+
+                @if ($company?->address)
+                    <div>
+                        {{ $company->address }}
+                    </div>
+                @endif
+
+            </div>
+        </div>
+
+        <div>
+            <div class="font-semibold text-white text-lg">Quick Links</div>
+
+            <div class="mt-4 space-y-3 text-sm">
+                <a href="#why-borderless" class="block text-white/80 hover:text-white transition">
+                    Why Us
+                </a>
+                <a href="#how" class="block text-white/80 hover:text-white transition">
+                    How it works
+                </a>
+                <a href="#faq" class="block text-white/80 hover:text-white transition">
+                    FAQ
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="relative border-t border-white/20 text-center text-sm text-white/70 py-6">
+        © {{ date('Y') }}
+        <span class="font-bold text-white">
+            {{ $company?->name ?? 'BorderlessBazzar' }}
+        </span>.
+        All rights reserved.
+    </div>
+
+</footer> --}}
+<footer id="contact" class="relative text-white">
+
+    {{-- Background Image --}}
+    <div class="absolute inset-0">
+        <img src="{{ asset('footer-bg.png') }}"
+             alt="Footer Background"
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/70"></div>
+    </div>
+
+    {{-- Content --}}
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 grid md:grid-cols-3 gap-12">
+
+        {{-- Company Info --}}
+        <div>
+            <div class="text-2xl font-extrabold tracking-tight">
+                <span class="text-white">
+                    {{ $company?->name ?? 'BorderlessBazzar' }}
+                </span>
+            </div>
+
+            <p class="text-sm mt-4 max-w-sm leading-relaxed text-white/80">
+                Cross-border shopping made simple for Nepal.
+                We handle shipping, customs and delivery.
+            </p>
+
+            {{-- Social Icons --}}
+            <div class="flex gap-4 mt-6">
+
+                @foreach ([
+                    'facebook_url' => 'fab fa-facebook-f',
+                    'instagram_url' => 'fab fa-instagram',
+                    'linkedin_url' => 'fab fa-linkedin-in',
+                    'youtube_url' => 'fab fa-youtube'
+                ] as $field => $icon)
+
+                    @if ($company?->$field)
+                        <a href="{{ $company->$field }}" target="_blank"
+                           class="h-10 w-10 flex items-center justify-center rounded-xl
+                                  bg-white/10 backdrop-blur-sm
+                                  hover:bg-white/20 transition duration-300">
+                            <i class="{{ $icon }}"></i>
+                        </a>
+                    @endif
+
+                @endforeach
+
+            </div>
+        </div>
+
+        {{-- Contact --}}
+        <div>
+            <div class="font-semibold text-white text-lg">Contact</div>
+
+            <div class="mt-4 space-y-3 text-sm text-white/80">
+
+                @if ($company?->contact_email)
+                    <div>
+                        Email:
+                        <a href="mailto:{{ $company->contact_email }}"
+                           class="hover:text-white underline underline-offset-4">
+                            {{ $company->contact_email }}
+                        </a>
+                    </div>
+                @endif
+
+                @if ($company?->contact_phone)
+                    <div>
+                        Phone:
+                        <a href="tel:{{ $company->contact_phone }}"
+                           class="hover:text-white underline underline-offset-4">
+                            {{ $company->contact_phone }}
+                        </a>
+                    </div>
+                @endif
+
+                @if ($company?->whatsapp_number)
+                    <div>
+                        WhatsApp:
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $company->whatsapp_number) }}"
+                           target="_blank"
+                           class="hover:text-white underline underline-offset-4">
+                            {{ $company->whatsapp_number }}
+                        </a>
+                    </div>
+                @endif
+
+                @if ($company?->address)
+                    <div>
+                        {{ $company->address }}
+                    </div>
+                @endif
+
+            </div>
+        </div>
+
+        {{-- Quick Links --}}
+        <div>
+            <div class="font-semibold text-white text-lg">Quick Links</div>
+
+            <div class="mt-4 space-y-3 text-sm">
+                <a href="#why-borderless" class="block text-white/80 hover:text-white transition">
+                    Why Us
+                </a>
+                <a href="#how" class="block text-white/80 hover:text-white transition">
+                    How it works
+                </a>
+                <a href="#faq" class="block text-white/80 hover:text-white transition">
+                    FAQ
+                </a>
+                  <a href="/blogs" class="block text-white/80 hover:text-white transition">
+                  Blogs
+                </a>
+                  <a href="/guides" class="block text-white/80 hover:text-white transition">
+                Guides
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    {{-- Bottom Bar --}}
+    <div class="relative border-t border-white/20 text-center text-sm text-white/70 py-6">
+        © {{ date('Y') }}
+        <span class="font-bold text-white">
+            {{ $company?->name ?? 'BorderlessBazzar' }}
+        </span>.
+        All rights reserved.
+    </div>
+
+</footer>
     @livewire('frontend.auth-modal')
 
 
