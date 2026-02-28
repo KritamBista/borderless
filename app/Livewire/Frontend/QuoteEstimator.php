@@ -21,7 +21,7 @@ class QuoteEstimator extends Component
     protected $listeners = ['auth-success' => 'saveQuote'];
     public $countries = [];
     public $categories = [];
-
+    
     public $country_id = null;
 
     // Items (same country)
@@ -57,15 +57,15 @@ class QuoteEstimator extends Component
 
     public function proceed()
     {
-          foreach ($this->items as $index => $item) {
-        if (empty($item['unit_price_foreign']) || $item['unit_price_foreign'] <= 0) {
-            $this->addError(
-                "items.$index.unit_price_foreign",
-                "Unit price must be greater than 0."
-            );
-            return;
+        foreach ($this->items as $index => $item) {
+            if (empty($item['unit_price_foreign']) || $item['unit_price_foreign'] <= 0) {
+                $this->addError(
+                    "items.$index.unit_price_foreign",
+                    "Unit price must be greater than 0."
+                );
+                return;
+            }
         }
-    }
         if (!auth()->check()) {
             $this->dispatch('open-auth-modal');
             return;
@@ -174,15 +174,15 @@ class QuoteEstimator extends Component
 
     public function openRevisionModal()
     {
-              foreach ($this->items as $index => $item) {
-        if (empty($item['unit_price_foreign']) || $item['unit_price_foreign'] <= 0) {
-            $this->addError(
-                "items.$index.unit_price_foreign",
-                "Unit price must be greater than 0."
-            );
-            return;
+        foreach ($this->items as $index => $item) {
+            if (empty($item['unit_price_foreign']) || $item['unit_price_foreign'] <= 0) {
+                $this->addError(
+                    "items.$index.unit_price_foreign",
+                    "Unit price must be greater than 0."
+                );
+                return;
+            }
         }
-    }
         $this->resetValidation();
         $this->showRevisionModal = true;
 
@@ -427,10 +427,19 @@ class QuoteEstimator extends Component
 
     public function saveQuote()
     {
+
+
         if (!auth()->check()) {
             $this->dispatch('open-auth-modal');
             return;
         }
+        $this->validate([
+        'items.*.product_name'       => 'required|string|max:255',
+        'items.*.product_link'       => 'required|url',           // ← enforce required here
+        'items.*.quantity'           => 'required|integer|min:1',
+        'items.*.weight_kg'          => 'required|numeric|min:0.01',
+        'items.*.unit_price_foreign' => 'nullable|numeric|min:0',
+    ]);
 
         // Make sure calculations are updated
         $this->recalculate();
@@ -443,11 +452,15 @@ class QuoteEstimator extends Component
 
         // VAT snapshot (store as RATE, e.g. 0.13)
         $vatRate = ((float)($this->company?->vat_percent ?? 13.00)) / 100;
-
+        // dd($this->items);
         // Basic validation
         foreach ($this->items as $idx => $it) {
             if (empty(trim($it['product_name'] ?? ''))) {
                 $this->addError("items.$idx.product_name", "Product name is required.");
+                return;
+            }
+            if (empty(trim($it['product_link'] ?? ''))) {
+                $this->addError("items.$idx.product_link", "Product Link is required.");
                 return;
             }
             if ((float)($it['weight_kg'] ?? 0) <= 0) {

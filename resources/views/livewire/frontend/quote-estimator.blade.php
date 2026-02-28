@@ -12,13 +12,16 @@
                         class="w-full bg-[#0b0f14] border border-white/10 rounded-2xl px-4 py-3 text-white flex items-center justify-between focus:border-gold focus:ring-2 focus:ring-gold transition outline-none">
                         <template x-if="selected">
                             <span class="flex items-center gap-2">
-                                <img :src="selected.flag" class="w-5 h-5 rounded" alt="">
+                                {{-- <img v-if="selected.flag" :src="selected.flag" class="w-5 h-5 rounded" alt=""> --}}
+                                <template x-if="selected.flag">
+                                    <img :src="selected.flag" class="w-5 h-5 rounded" alt="">
+                                </template>
                                 <span x-text="selected.name ?? 'Select Country' "></span>
                             </span>
                         </template>
-                        <template x-if="!selected">
+                        {{-- <template x-if="!selected">
                             <span>Select country</span>
-                        </template>
+                        </template> --}}
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
@@ -73,14 +76,14 @@
                     <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 mt-4">
                         <div class="sm:col-span-6">
                             <label class="text-xs text-gray-400">Product Name</label>
-                            <input wire:model.live="items.{{ $index }}.product_name"
-                                class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3  text-white  focus:border-gold focus:ring-2 focus:ring-gold transition outline-none"
+                            <input wire:model.live="items.{{ $index }}.product_name" required
+                                class="mt-1  w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3  text-white  focus:border-gold focus:ring-2 focus:ring-gold transition outline-none"
                                 placeholder="e.g., AirPods Pro">
                         </div>
 
                         <div class="sm:col-span-6">
-                            <label class="text-xs text-gray-400">Product Link (optional)</label>
-                            <input wire:model.live="items.{{ $index }}.product_link"
+                            <label class="text-xs text-gray-400">Product Link </label>
+                            <input wire:model.live="items.{{ $index }}.product_link" required
                                 value="{{ $link }}"
                                 class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white focus:border-gold focus:ring-2 focus:ring-gold transition"
                                 placeholder="Paste URL for reference">
@@ -261,6 +264,21 @@
                         {{ $message }}
                     </div>
                 @enderror
+                <!-- at the bottom of each item card / section -->
+                <div class="mt-3 text-sm">
+                    @if ($errors->has("items.$index.*"))
+                        <div class="p-3 bg-red-50 border border-red-200 rounded-lg">
+                            <p class="font-medium text-red-800 mb-1">Please fix the following:</p>
+                            <ul class="list-disc list-inside text-red-700 space-y-1">
+                                @foreach ($errors->get("items.$index.*") as $fieldErrors)
+                                    @foreach ($fieldErrors as $err)
+                                        <li>{{ $err }}</li>
+                                    @endforeach
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
                 <div class="mt-6">
                     <button wire:click="proceed" wire:loading.attr="disabled" wire:target="proceed,saveQuote"
                         class="btn-gold w-full px-5 py-3 rounded-2xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">

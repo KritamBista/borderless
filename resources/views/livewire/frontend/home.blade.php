@@ -8,9 +8,9 @@
 <div class="bg-darkbg w-full text-white">
 
     {{-- Top Gradient Glow --}}
-    <div class="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
+    {{-- <div class="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
         style="background: radial-gradient(800px 420px at 50% 0%, rgba(214,177,94,.16), transparent 60%);">
-    </div>
+    </div> --}}
 
 
     {{-- Hero --}}
