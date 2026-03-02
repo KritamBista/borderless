@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Country;
 use App\Models\AssistedOrder;
 use App\Models\AssistedOrderItem;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class AssistedOrderForm extends Component
@@ -68,7 +69,7 @@ class AssistedOrderForm extends Component
             ],
         ];
     }
-protected $validationAttributes = [
+    protected $validationAttributes = [
         'country_id'    => 'country',
         'contact_phone' => 'phone number',
         'items.*.product_link' => 'product link',
@@ -92,9 +93,13 @@ protected $validationAttributes = [
     public function submit()
     {
 
-    $validated = $this->validate();
-    // Extra safety (though validate() already failed if data is bad)
-        if (empty($this->country_id) || empty(trim($this->contact_phone))) {
+        // $validated = $this->validate();
+        // Extra safety (though validate() already failed if data is bad)
+        if (empty($this->country_id)) {
+            $this->addError('country_id', 'Country is required.');
+            return;
+        }
+        if (empty(trim($this->contact_phone))) {
             $this->addError('contact_phone', 'Phone number is required.');
             return;
         }
@@ -105,9 +110,10 @@ protected $validationAttributes = [
             $this->addError('items', 'At least one product link is required.');
             return;
         }
-       try {
+        try {
             $order = AssistedOrder::create([
                 'user_id'       => auth()->id() ?? null,           // better than empty string
+
                 'country_id'    => $this->country_id,
                 'contact_name'  => $this->contact_name,
                 'contact_email' => $this->contact_email,
@@ -128,13 +134,14 @@ protected $validationAttributes = [
             session()->flash('success', 'Your assisted order has been submitted successfully.');
 
             return redirect()->route('assisted.thankyou');
-
         } catch (\Exception $e) {
+            // Log::error();
             // In production → log it
-            \Log::error('Assisted order submission failed', [
-                'error' => $e->getMessage(),
-                'data'  => $this->all(),
-            ]);
+            Log::info('here', ['error' => $e]);
+            // Log::error('Assisted order submission failed', [
+            //     'error' => $e->getMessage(),
+            //     'data'  => $this->all(),
+            // ]);
 
             $this->addError('submit', 'Something went wrong. Please try again or contact support.');
         }

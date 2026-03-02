@@ -185,10 +185,8 @@
 
     </div>
 </section>
-    {{-- Why US --}}
     <section id="why-borderless" class="relative py-20 md:py-28 bg-[#0b0f14] overflow-hidden">
 
-        <!-- Subtle background glows -->
         <div class="absolute inset-0 pointer-events-none">
             <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2"></div>
             <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl translate-y-1/2"></div>
@@ -535,7 +533,6 @@
                     </div>
                 </div>
 
-                <!-- Repeat for remaining 3 cards -->
 
                 <!-- CARD 02 -->
                 <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-transparent group">

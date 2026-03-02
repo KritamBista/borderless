@@ -259,12 +259,12 @@
                     </div>
                 </div>
 
-                @error("items.$index.unit_price_foreign")
+                {{-- @error("items.$index.unit_price_foreign")
                     <div class="text-red-400 text-xs mt-1">
                         {{ $message }}
                     </div>
-                @enderror
-                <!-- at the bottom of each item card / section -->
+                @enderror --}}
+             
                 <div class="mt-3 text-sm">
                     @if ($errors->has("items.$index.*"))
                         <div class="p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -279,14 +279,14 @@
                         </div>
                     @endif
                 </div>
-                <div class="mt-6">
+                <div class="mt-6 relative w-full">
                     <button wire:click="proceed" wire:loading.attr="disabled" wire:target="proceed,saveQuote"
-                        class="btn-gold w-full px-5 py-3 rounded-2xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                        class="btn-gold w-full px-5 py-3 rounded-2xl  disabled:opacity-60 disabled:cursor-not-allowed">
                         <span wire:loading.remove wire:target="proceed,saveQuote">
                             Proceed to Order
                         </span>
 
-                        <span wire:loading.flex wire:target="proceed,saveQuote" class="flex items-center gap-2">
+                        <span wire:loading.flex wire:target="proceed,saveQuote" class="flex items-center justify-center gap-2">
                             <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
                                 <circle class="opacity-20" cx="12" cy="12" r="10"
                                     stroke="currentColor" stroke-width="4"></circle>
