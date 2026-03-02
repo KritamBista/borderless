@@ -63,6 +63,9 @@ class BlogForm
                     ->required()
                     ->columnSpanFull(),
                 FileUpload::make('featured_image')
+                ->visibility('public')
+                ->disk('public')
+                ->directory('blog-images')
                     ->image(),
                 Toggle::make('is_published')
                     ->required(),

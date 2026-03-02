@@ -8,6 +8,7 @@ use App\Mail\VerifyOtpMail;
 use App\Models\EmailOtp;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthModal extends Component
 {
@@ -122,20 +123,27 @@ class AuthModal extends Component
 
     public function login(): void
     {
+        // dd('here');
+
+          try {
+        // Validate inputs
         $this->validate([
-            'login_email' => 'required|email',
+            'login_email' => 'required|email|max:255',
             'login_password' => 'required|min:1',
         ]);
 
-        if (!auth()->attempt(['email' => $this->login_email, 'password' => $this->login_password], true)) {
+        // Normalize email
+        $email = strtolower(trim($this->login_email));
+
+        // Attempt login
+        if (!auth()->attempt(['email' => $email, 'password' => $this->login_password], true)) {
             $this->addError('login_email', 'Invalid email or password.');
             return;
         }
 
-        /** @var User $user */
         $user = auth()->user();
 
-        // If not verified → require OTP
+        // If user is not verified → send OTP
         if (($user->user_status ?? 'not_verified') !== 'verified') {
             $this->otp_email = $user->email;
             $this->pending_user_id = $user->id;
@@ -147,9 +155,47 @@ class AuthModal extends Component
             return;
         }
 
-        // Verified → success
+        // Verified → login success
         $this->open = false;
         $this->dispatch('auth-success');
+
+    } catch (\Throwable $e) {
+        // Log the error for debugging
+        Log::info('Login error: '.$e->getMessage(), [
+            'email' => $this->login_email,
+        ]);
+
+        // Show generic error to user
+        $this->addError('login_email', 'Something went wrong. Please try again.');
+    }
+
+        // $this->validate([
+        //     'login_email' => 'required|email',
+        //     'login_password' => 'required|min:1',
+        // ]);
+
+        // if (!auth()->attempt(['email' => $this->login_email, 'password' => $this->login_password], true)) {
+        //     $this->addError('login_email', 'Invalid email or password.');
+        //     return;
+        // }
+
+        // $user = auth()->user();
+
+        // // If not verified → require OTP
+        // if (($user->user_status ?? 'not_verified') !== 'verified') {
+        //     $this->otp_email = $user->email;
+        //     $this->pending_user_id = $user->id;
+
+        //     $this->sendOtpTo($user->email);
+
+        //     $this->screen = 'otp';
+        //     $this->otp = '';
+        //     return;
+        // }
+
+        // // Verified → success
+        // $this->open = false;
+        // $this->dispatch('auth-success');
     }
 
     public function resendOtp(): void

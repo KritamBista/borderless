@@ -42,7 +42,8 @@
 
                             <div class="p-6 md:p-7 flex flex-col flex-grow">
                                 <div class="text-xs text-gold/80 uppercase tracking-wider mb-3">
-                                    {{ $blog->published_at?->format('M d, Y') }}
+                                    {{-- {{ $blog->published_at?->format('M , d, Y') }} --}}
+                                    {{ $blog->published_at ? \Carbon\Carbon::parse($blog->published_at)->format('M d, Y') : 'Not published yet' }}
                                 </div>
 
                                 <h3 class="text-xl font-bold leading-tight mb-4 group-hover:text-gold transition-colors line-clamp-2">
@@ -50,7 +51,8 @@
                                 </h3>
 
                                 <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
-                                    {{ $blog->excerpt ?? Str::words(strip_tags($blog->content), 35) }}
+                                  
+                                    {!! $blog->excerpt ?? \Illuminate\Support\Str::words(strip_tags($blog->content), 35) !!}
                                 </p>
 
                                 <div class="flex items-center text-gold text-sm font-medium mt-auto">

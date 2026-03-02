@@ -1,4 +1,5 @@
-<article class="py-16 md:py-24 bg-darkbg">
+<section>
+    <article class="py-16 md:py-24 bg-darkbg">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
 
         <!-- Back Link -->
@@ -14,15 +15,18 @@
         <!-- Header -->
         <header class="text-center mb-16">
             <div class="text-sm text-gold/70 uppercase tracking-wider mb-4">
-                {{ $blog->published_at?->format('F d, Y') }}
+                                                                  {{ $blog->published_at ? \Carbon\Carbon::parse($blog->published_at)->format('M d, Y') : 'Not published yet' }}
+
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
                 {{ $blog->title }}
             </h1>
             @if ($blog->excerpt)
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                    {{ $blog->excerpt }}
-                </p>
+                <div>
+                        {!! $blog->excerpt  !!}
+
+                </div>
+
             @endif
         </header>
 
@@ -51,4 +55,6 @@
             Create Your Order Now →
         </a>
     </div>
+</section>
+
 </section>

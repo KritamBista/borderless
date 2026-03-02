@@ -325,7 +325,7 @@
                                 Resend
                             </button>
 
-                            <button wire:click="login" wire:loading.attr="disabled"
+                            <button wire:click="verifyOtp" wire:loading.attr="disabled"
                                 class="btn-gold w-full mt-2 px-5 py-3 rounded-2xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
                                 <!-- Normal / idle state -->
                                 <span wire:loading.remove wire:target="login">

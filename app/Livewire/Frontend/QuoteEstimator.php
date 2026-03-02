@@ -21,7 +21,7 @@ class QuoteEstimator extends Component
     protected $listeners = ['auth-success' => 'saveQuote'];
     public $countries = [];
     public $categories = [];
-    
+
     public $country_id = null;
 
     // Items (same country)
@@ -213,7 +213,7 @@ class QuoteEstimator extends Component
 
         $quote = Quote::create([
             'user_id' => auth()->id(),
-            'country_id' => $this->country_id,
+            'country_id' => $this->country_id['id'],
             'grand_total_npr' => $this->totals['grand'] ?? 0,
             'discount_npr' => $this->discount_npr ?? 0,
             'payable_npr' => $this->payable_npr ?? 0,

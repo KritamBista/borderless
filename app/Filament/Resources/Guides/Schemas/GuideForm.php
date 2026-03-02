@@ -41,6 +41,9 @@ class GuideForm
                     ->required()
                     ->columnSpanFull(),
                 FileUpload::make('featured_image')
+                    ->visibility('public')
+                    ->disk('public')
+                    ->directory('guide-images')
                     ->image(),
                 TextInput::make('category'),
                 Toggle::make('is_published')
