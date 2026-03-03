@@ -70,6 +70,16 @@
                     <div class="text-red-400 text-xs mt-1">{{ $message }}</div>
                 @enderror
             </div>
+            {{-- All Validation Errors --}}
+            @if ($errors->any())
+                <div class="bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl p-4 text-sm space-y-1">
+                    <ul class="list-disc list-inside space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <button wire:click="nextStep" class="btn-gold w-full mt-4 py-3 rounded-xl">
                 Continue →
@@ -123,6 +133,18 @@
                     class="w-full sm:w-auto border border-white/20 text-white py-3 rounded-xl disabled:opacity-60 disabled:cursor-not-allowed">
                     ← Back
                 </button>
+
+
+                {{-- All Validation Errors --}}
+                @if ($errors->any())
+                    <div class="bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl p-4 text-sm space-y-1">
+                        <ul class="list-disc list-inside space-y-1">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
 
                 <button wire:click="placeOrder" wire:loading.attr="disabled" wire:target="placeOrder,payment_proof"

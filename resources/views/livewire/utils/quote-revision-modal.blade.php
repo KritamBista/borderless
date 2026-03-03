@@ -36,15 +36,36 @@
         @endguest
 
         <div>
-            <label class="text-xs text-gray-400">Phone (optional)</label>
+            <label class="text-xs text-gray-400">Phone</label>
             <input wire:model="revision_phone"
                 class="w-full mt-1 bg-transparent border border-white/10 rounded-xl px-4 py-3 text-white">
+            @error('revision_phone') <div class="text-red-400 text-xs mt-1">{{ $message }}</div> @enderror
+
         </div>
 
-        <button wire:click="submitRevision"
+        {{-- <button wire:click="submitRevision"
             class="btn-gold w-full py-3 rounded-2xl">
             Submit Revision
-        </button>
+        </button> --}}
+        <button
+    wire:click="submitRevision"
+    wire:loading.attr="disabled"
+    wire:target="submitRevision"
+    class="btn-gold w-full py-3 rounded-2xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+>
+    <span wire:loading.remove wire:target="submitRevision">
+        Submit Revision
+    </span>
+
+    <span wire:loading.flex wire:target="submitRevision" class="flex items-center gap-2">
+        <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+            <circle class="opacity-20" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-80" d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="4"
+                stroke-linecap="round"></path>
+        </svg>
+        Submitting...
+    </span>
+</button>
     </div>
 </div>
 @endif

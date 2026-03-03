@@ -326,22 +326,16 @@
             <!-- Submit -->
             <div class="pt-6 border-t border-white/10">
 
-                @error('contact_phone')
-                    <div class="text-red-600 text-sm mb-2">{{ $message }}</div>
-                @enderror
-                @error('country_id')
-                    <div class="text-red-600 text-sm mb-2">{{ $message }}</div>
-                @enderror
-                @error('items')
-                    <div class="text-red-600 text-sm mb-2">{{ $message }}</div>
-                @enderror <!-- custom message -->
-
-                <!-- For items loop -->
-                @foreach ($items as $index => $item)
-                    @error("items.{$index}.product_link")
-                        <div class="text-red-600 text-sm mb-2">{{ $message }}</div>
-                    @enderror
-                @endforeach
+                    {{-- All Validation Errors --}}
+                @if ($errors->any())
+                    <div class="bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl p-4 text-sm space-y-2 mb-2">
+                        <ul class="list-disc list-inside space-y-2">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 {{-- <button type="button" wire:click="submit"
                         class="w-full py-5 bg-gold text-[#0b0f14] font-bold text-lg rounded-2xl hover:shadow-2xl hover:shadow-gold/30 transition duration-300 disabled:opacity-60 disabled:cursor-not-allowed">
                     Submit Assisted Order Request

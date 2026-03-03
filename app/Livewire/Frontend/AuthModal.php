@@ -109,7 +109,7 @@ class AuthModal extends Component
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'password' => bcrypt($this->password),
+            'password' => Hash::make($this->password),
             'user_status' => 'not_verified',
         ]);
 
@@ -122,56 +122,64 @@ class AuthModal extends Component
         $this->otp = '';
     }
 
-    public function login(): void
+    public function login()
     {
         // dd('here');
 
-          try {
-        // Validate inputs
-        $this->validate([
-            'login_email' => 'required|email|max:255',
-            'login_password' => 'required|min:1',
-        ]);
+        try {
+            // Validate inputs
+            $this->validate([
+                'login_email' => 'required|email|max:255',
+                'login_password' => 'required|min:1',
+            ]);
 
-        // Normalize email
-        $email = strtolower(trim($this->login_email));
+            // Normalize email
+            $email = strtolower(trim($this->login_email));
 
-        // Attempt login
-        if (!auth()->attempt(['email' => $email, 'password' => $this->login_password], true)) {
-            $this->addError('login_email', 'Invalid email or password.');
-            return;
+
+
+            // Attempt login
+            if (!auth()->attempt(['email' => $email, 'password' => $this->login_password], true)) {
+                $this->addError('login_email', 'Invalid email or password.');
+                return;
+            }
+
+
+            $user = Auth::user();
+
+
+
+
+            // If user is not verified → send OTP
+            if (($user->user_status ?? 'not_verified') !== 'verified') {
+                $this->otp_email = $user->email;
+                $this->pending_user_id = $user->id;
+
+                $this->sendOtpTo($user->email);
+
+                $this->screen = 'otp';
+                $this->otp = '';
+                return;
+            }
+            session()->flash('success-login', 'Successful! you can now Proceed');
+
+            $this->open = false;
+            return redirect()->route('request.order');
+
+
+
+            // Verified → login success
+            // $this->dispatch('auth-success');
+
+        } catch (\Throwable $e) {
+            // Log the error for debugging
+            Log::info('Login error: ' . $e->getMessage(), [
+                'email' => $this->login_email,
+            ]);
+
+            // Show generic error to user
+            $this->addError('login_email', 'Something went wrong. Please try again.');
         }
-
-        $user = Auth::user();
-
-        // If user is not verified → send OTP
-        if (($user->user_status ?? 'not_verified') !== 'verified') {
-            $this->otp_email = $user->email;
-            $this->pending_user_id = $user->id;
-
-            $this->sendOtpTo($user->email);
-
-            $this->screen = 'otp';
-            $this->otp = '';
-            return;
-        }
-
-        session()->flash('success-login', 'Successful! you can now Proceed');
-
-
-        // Verified → login success
-        $this->open = false;
-        // $this->dispatch('auth-success');
-
-    } catch (\Throwable $e) {
-        // Log the error for debugging
-        Log::info('Login error: '.$e->getMessage(), [
-            'email' => $this->login_email,
-        ]);
-
-        // Show generic error to user
-        $this->addError('login_email', 'Something went wrong. Please try again.');
-    }
 
         // $this->validate([
         //     'login_email' => 'required|email',
@@ -211,7 +219,7 @@ class AuthModal extends Component
         $this->sendOtpTo($this->otp_email);
     }
 
-    public function verifyOtp(): void
+    public function verifyOtp()
     {
         $this->validate([
             'otp_email' => 'required|email',
@@ -249,87 +257,91 @@ class AuthModal extends Component
 
         // auth()->login($user, true);
         Auth::login($user);
+        session('success', 'Success ,You can now Proceed');
 
-        session()->flash('success', 'Successful! you can now Proceed');
+        $this->open = false;
+        return redirect()->route('request.order');
+
+
         // session('success' ,'Success ,You can now Proceed');
         // $this->dispatch('auth-success');
     }
     public function openForgot(): void
-{
-    $this->resetValidation();
-    $this->showForgot = true;
-    $this->forgotStep = 1;
-}
-public function sendForgotOtp(): void
-{
-    $this->validate([
-        'forgot_email' => 'required|email|exists:users,email',
-    ]);
-
-    $code = (string) random_int(100000, 999999);
-
-    EmailOtp::where('email', $this->forgot_email)
-        ->where('purpose', 'forgot_password')
-        ->whereNull('used_at')
-        ->update(['used_at' => now()]);
-
-    EmailOtp::create([
-        'email' => $this->forgot_email,
-        'purpose' => 'forgot_password',
-        'code_hash' => bcrypt($code),
-        'expires_at' => now()->addMinutes(10),
-    ]);
-
-    Mail::to($this->forgot_email)->send(new VerifyOtpMail($code));
-
-    $this->forgotStep = 2;
-}
-public function verifyForgotOtp(): void
-{
-    $this->validate([
-        'forgot_otp' => 'required|digits:6',
-    ]);
-
-    $row = EmailOtp::where('email', $this->forgot_email)
-        ->where('purpose', 'forgot_password')
-        ->whereNull('used_at')
-        ->latest()
-        ->first();
-
-    if (!$row || now()->greaterThan($row->expires_at)) {
-        $this->addError('forgot_otp', 'OTP expired. Please resend.');
-        return;
+    {
+        $this->resetValidation();
+        $this->showForgot = true;
+        $this->forgotStep = 1;
     }
+    public function sendForgotOtp(): void
+    {
+        $this->validate([
+            'forgot_email' => 'required|email|exists:users,email',
+        ]);
 
-    if (!Hash::check($this->forgot_otp, $row->code_hash)) {
-        $this->addError('forgot_otp', 'Invalid OTP.');
-        return;
+        $code = (string) random_int(100000, 999999);
+
+        EmailOtp::where('email', $this->forgot_email)
+            ->where('purpose', 'forgot_password')
+            ->whereNull('used_at')
+            ->update(['used_at' => now()]);
+
+        EmailOtp::create([
+            'email' => $this->forgot_email,
+            'purpose' => 'forgot_password',
+            'code_hash' => bcrypt($code),
+            'expires_at' => now()->addMinutes(10),
+        ]);
+
+        Mail::to($this->forgot_email)->send(new VerifyOtpMail($code));
+
+        $this->forgotStep = 2;
     }
+    public function verifyForgotOtp(): void
+    {
+        $this->validate([
+            'forgot_otp' => 'required|digits:6',
+        ]);
 
-    $row->update(['used_at' => now()]);
+        $row = EmailOtp::where('email', $this->forgot_email)
+            ->where('purpose', 'forgot_password')
+            ->whereNull('used_at')
+            ->latest()
+            ->first();
 
-    $this->forgotStep = 3;
-}
-public function resetForgotPassword(): void
-{
-    $this->validate([
-        'forgot_password' => 'required|min:6|confirmed',
-    ]);
+        if (!$row || now()->greaterThan($row->expires_at)) {
+            $this->addError('forgot_otp', 'OTP expired. Please resend.');
+            return;
+        }
 
-    $user = User::where('email', $this->forgot_email)->first();
+        if (!Hash::check($this->forgot_otp, $row->code_hash)) {
+            $this->addError('forgot_otp', 'Invalid OTP.');
+            return;
+        }
 
-    if (!$user) {
-        $this->addError('forgot_email', 'User not found.');
-        return;
+        $row->update(['used_at' => now()]);
+
+        $this->forgotStep = 3;
     }
+    public function resetForgotPassword(): void
+    {
+        $this->validate([
+            'forgot_password' => 'required|min:6|confirmed',
+        ]);
 
-    $user->update([
-        'password' => bcrypt($this->forgot_password),
-    ]);
+        $user = User::where('email', $this->forgot_email)->first();
 
-    $this->showForgot = false;
-    $this->screen = 'login';
-}
+        if (!$user) {
+            $this->addError('forgot_email', 'User not found.');
+            return;
+        }
+
+        $user->update([
+            'password' => bcrypt($this->forgot_password),
+        ]);
+
+        $this->showForgot = false;
+        $this->screen = 'login';
+    }
 
     public function render()
     {

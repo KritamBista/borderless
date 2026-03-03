@@ -45,6 +45,9 @@ Route::get('/assisted-order', \App\Livewire\Frontend\AssistedOrderForm::class)
     ->name('assisted.order');
 Route::view('/assisted-order/thank-you', 'frontend.assisted-thankyou')
     ->name('assisted.thankyou');
+    Route::view('/revision-submit/success', 'frontend.revision-success')
+    ->name('revision.success');
+
 
 use App\Livewire\Frontend\BlogList;
 use App\Livewire\Frontend\BlogShow;

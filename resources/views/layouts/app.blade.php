@@ -330,9 +330,13 @@
                         <a href="{{ route('user.orders') }}"
                             class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">Dashboard</a>
                     @else
-                        <a href=""
+                        {{-- <a href=""
                             class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">Login /
-                            Register</a>
+                            Register</a> --}}
+                        <a href="#" onclick="window.dispatchEvent(new CustomEvent('open-auth-modal'))"
+                            class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">
+                            Login / Register
+                        </a>
                     @endauth
                 </nav>
                 <a href="{{ route('user.orders') }}"
@@ -407,9 +411,11 @@
                                 Dashboard
                             </a>
                         @else
-                            <a href="" class="btn-gold w-full px-4 py-3 rounded-2xl text-center font-bold block">
+                            <a href="#" onclick="window.dispatchEvent(new CustomEvent('open-auth-modal'))"
+                                class="btn-gold w-full px-4 py-3 rounded-2xl text-center font-bold block">
                                 Login / Register
                             </a>
+
                         @endauth
                     </div>
 
@@ -555,7 +561,19 @@
     </footer>
     {{-- @livewire('frontend.auth-modal') --}}
     <livewire:frontend.auth-modal />
-
+<script>
+    window.addEventListener('scroll-to-proceed', () => {
+        setTimeout(() => {
+            const el = document.getElementById('proceed-section');
+            if (el) {
+                el.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        }, 150);
+    });
+</script>
 
 
     @livewireScripts
@@ -584,6 +602,9 @@
                     </a>
                 @else
                     <a href="#"
+
+                       onclick="window.dispatchEvent(new CustomEvent('open-auth-modal'))"
+
                         class="flex flex-col items-center justify-end flex-1 gap-1 text-gray-400 transition duration-200">
                         <i class="fa-solid fa-right-to-bracket text-lg"></i>
                         <span class="text-[10px] tracking-wide">Login</span>
@@ -594,7 +615,7 @@
                 {{-- CENTER FLOATING CTA --}}
                 <div class="absolute left-1/2 -translate-x-1/2 -top-6 shadow-[0_15px_40px_rgba(214,177,94,0.45)]">
 
-                    <a href="{{ route('user.orders') }}"
+                    <a href="/request-order"
                         class="h-16 w-16 rounded-2xl bg-gold text-[#0b0f14]
                           flex items-center justify-center
                           shadow-[0_8px_30px_rgba(212,175,55,0.35)]
@@ -631,70 +652,72 @@
             </div>
         </div>
     </nav>
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.store('ui', {
-                mobileMenu: false
-            })
-        })
-    </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200;
-
-            const startCounting = (counter) => {
-                const target = +counter.getAttribute('data-target');
-                let count = 0;
-
-                const update = () => {
-                    const increment = target / speed;
-
-                    if (count < target) {
-                        count += increment;
-                        // counter.innerText = Math.ceil(count);
-                        counter.innerText = Math.ceil(count).toLocaleString();
-                        requestAnimationFrame(update);
-                    } else {
-                        counter.innerText = target.toLocaleString() + "+";
-                    }
-                };
-
-                update();
-            };
-
-
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        startCounting(entry.target);
-                        obs.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.6
-            });
-
-            counters.forEach(counter => {
-                observer.observe(counter);
-            });
-
-        });
-    </script>
 
     <div class="h-20 sm:h-24 lg:hidden"></div>
     <script>
-    window.addEventListener('refresh-page', () => {
-        window.location.reload();
-    });
+        window.addEventListener('refresh-page', () => {
+            window.location.reload();
+        });
+    </script>
+    <script>
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted && window.Livewire) {
+      Livewire.dispatch('reset-estimator');
+    }
+  });
 </script>
+@if (request()->routeIs('checkout'))
+    <script>sessionStorage.setItem('bb_from_checkout','1');</script>
+@endif
 <script>
-    window.addEventListener('run-save-quote', () => {
-        Livewire.dispatch('execute-save-quote');
+  (function () {
+    function shouldResetEstimator() {
+      // flag set when user visited checkout
+      return sessionStorage.getItem('bb_from_checkout') === '1';
+    }
+
+    function consumeFlag() {
+      sessionStorage.removeItem('bb_from_checkout');
+    }
+
+    // Runs on normal load AND back/forward navigation (persisted or not)
+    window.addEventListener('pageshow', function () {
+      // Only reset when we're on estimator page
+      // (adjust this path to your estimator route path)
+      const isEstimator = location.pathname.includes('/quote-estimator')
+                       || location.pathname.includes('/quote'); // change to your real path
+
+      if (!isEstimator) return;
+
+      if (shouldResetEstimator()) {
+        consumeFlag();
+        // hard reload ensures Livewire mounts fresh and state matches UI
+        window.location.reload();
+      }
+    });
+  })();
+</script>
+
+    <script>
+        window.addEventListener('open-auth-modal', () => {
+            Livewire.dispatch('open-auth-modal');
+        });
+    </script>
+    <script>
+    window.addEventListener('scroll-to-proceed', () => {
+        setTimeout(() => {
+            const el = document.getElementById('proceed-section');
+            if (el) {
+                el.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        }, 150);
     });
 </script>
+
 </body>
 
 </html>

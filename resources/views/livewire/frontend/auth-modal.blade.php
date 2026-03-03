@@ -266,7 +266,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                                 <span class="font-medium">{{ session('success-login') }}</span>
-                                {{-- <div wire:poll.1000ms="closeModal"></div> --}}
+                                <div wire:poll.1000ms="closeModal"></div>
                             </div>
                         @endif
                         <p class="text-gray-400 text-sm mt-2">
