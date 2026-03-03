@@ -11,6 +11,7 @@ use App\Models\Quote;
 use App\Models\QuoteItem;
 use App\Models\Coupon;
 use App\Models\QuoteRevision;
+use Illuminate\Support\Facades\Auth;
 // use App\Models\Country;
 use Illuminate\Support\Facades\DB;
 
@@ -66,7 +67,13 @@ class QuoteEstimator extends Component
                 return;
             }
         }
-        if (!auth()->check()) {
+        // if (!auth()->check()) {
+        //     $this->dispatch('open-auth-modal');
+        //     return;
+        // }
+          $user = Auth::user();
+
+        if (!$user) {
             $this->dispatch('open-auth-modal');
             return;
         }
@@ -429,10 +436,11 @@ class QuoteEstimator extends Component
     {
 
 
-        if (!auth()->check()) {
-            $this->dispatch('open-auth-modal');
-            return;
-        }
+
+        // if (!auth()->check()) {
+        //     $this->dispatch('open-auth-modal');
+        //     return;
+        // }
         $this->validate([
         'items.*.product_name'       => 'required|string|max:255',
         'items.*.product_link'       => 'required|url',           // ← enforce required here
@@ -478,11 +486,14 @@ class QuoteEstimator extends Component
         }
 
         try {
+// dd($userId);
             DB::transaction(function () use ($country, $vatRate) {
+                dd('hereeee');
+          $user=Auth::user();
 
                 // Create quote header
                 $quote = Quote::create([
-                    'user_id' => auth()->id(),
+                    'user_id' => $user->id,
                     'country_id' => $country->id,
 
                     'currency_code_snapshot' => $country->currency_code,

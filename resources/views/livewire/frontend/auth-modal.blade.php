@@ -257,6 +257,18 @@
 
                     {{-- LOGIN SCREEN --}}
                     @if ($screen === 'login')
+                           @if (session()->has('success-login'))
+                            <div
+                                class="bg-green-100 text-green-800 px-4 py-2 rounded shadow-md border border-green-300 text-sm mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.707a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span class="font-medium">{{ session('success-login') }}</span>
+                                {{-- <div wire:poll.1000ms="closeModal"></div> --}}
+                            </div>
+                        @endif
                         <p class="text-gray-400 text-sm mt-2">
                             Login to continue. If not verified, OTP will be required.
                         </p>
@@ -305,6 +317,19 @@
 
                     {{-- OTP SCREEN --}}
                     @if ($screen === 'otp')
+                        <!-- Success Flash -->
+                        @if (session()->has('success'))
+                            <div
+                                class="bg-green-100 text-green-800 px-4 py-2 rounded shadow-md border border-green-300 text-sm mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.707a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span class="font-medium">{{ session('success') }}</span>
+                                <div wire:poll.1000ms="closeModal"></div>
+                            </div>
+                        @endif
                         <p class="text-gray-400 text-sm mt-2">
                             We sent an OTP to
                             <span class="text-gold font-semibold">{{ $otp_email }}</span>
@@ -328,12 +353,12 @@
                             <button wire:click="verifyOtp" wire:loading.attr="disabled"
                                 class="btn-gold w-full mt-2 px-5 py-3 rounded-2xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
                                 <!-- Normal / idle state -->
-                                <span wire:loading.remove wire:target="login">
+                                <span wire:loading.remove wire:target="verifyOtp">
                                     Login →
                                 </span>
 
                                 <!-- Loading state -->
-                                <span wire:loading.flex wire:target="login" class="flex items-center gap-2">
+                                <span wire:loading.flex wire:target="verifyOtp" class="flex items-center gap-2">
                                     <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
                                         <circle class="opacity-20" cx="12" cy="12" r="10"
                                             stroke="currentColor" stroke-width="4"></circle>

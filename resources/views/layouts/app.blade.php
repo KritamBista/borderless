@@ -553,7 +553,9 @@
         </div>
 
     </footer>
-    @livewire('frontend.auth-modal')
+    {{-- @livewire('frontend.auth-modal') --}}
+    <livewire:frontend.auth-modal />
+
 
 
     @livewireScripts
@@ -683,6 +685,16 @@
     </script>
 
     <div class="h-20 sm:h-24 lg:hidden"></div>
+    <script>
+    window.addEventListener('refresh-page', () => {
+        window.location.reload();
+    });
+</script>
+<script>
+    window.addEventListener('run-save-quote', () => {
+        Livewire.dispatch('execute-save-quote');
+    });
+</script>
 </body>
 
 </html>

@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use App\Mail\VerifyOtpMail;
 use App\Models\EmailOtp;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -141,7 +142,7 @@ class AuthModal extends Component
             return;
         }
 
-        $user = auth()->user();
+        $user = Auth::user();
 
         // If user is not verified → send OTP
         if (($user->user_status ?? 'not_verified') !== 'verified') {
@@ -155,9 +156,12 @@ class AuthModal extends Component
             return;
         }
 
+        session()->flash('success-login', 'Successful! you can now Proceed');
+
+
         // Verified → login success
         $this->open = false;
-        $this->dispatch('auth-success');
+        // $this->dispatch('auth-success');
 
     } catch (\Throwable $e) {
         // Log the error for debugging
@@ -243,10 +247,12 @@ class AuthModal extends Component
 
         $user->update(['user_status' => 'verified']);
 
-        auth()->login($user, true);
+        // auth()->login($user, true);
+        Auth::login($user);
 
-        $this->open = false;
-        $this->dispatch('auth-success');
+        session()->flash('success', 'Successful! you can now Proceed');
+        // session('success' ,'Success ,You can now Proceed');
+        // $this->dispatch('auth-success');
     }
     public function openForgot(): void
 {
