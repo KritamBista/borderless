@@ -54,7 +54,52 @@
         }
     </script>
 
+<style>
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+    font-weight: 800;
+    color: white;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
 
+.blog-content h1 { font-size: 2rem; }
+.blog-content h2 { font-size: 1.75rem; }
+.blog-content h3 { font-size: 1.5rem; }
+
+.blog-content p {
+    margin-bottom: 1.2rem;
+}
+
+.blog-content a {
+    color: #facc15;
+    text-decoration: underline;
+}
+
+.blog-content a:hover {
+    opacity: 0.8;
+}
+
+.blog-content ul,
+.blog-content ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.blog-content blockquote {
+    border-left: 4px solid #facc15;
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: #ccc;
+}
+
+.blog-content img {
+    border-radius: 1rem;
+    margin: 2rem 0;
+}
+</style>
 
     {{-- Custom CSS --}}
     <style>
@@ -561,19 +606,7 @@
     </footer>
     {{-- @livewire('frontend.auth-modal') --}}
     <livewire:frontend.auth-modal />
-<script>
-    window.addEventListener('scroll-to-proceed', () => {
-        setTimeout(() => {
-            const el = document.getElementById('proceed-section');
-            if (el) {
-                el.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            }
-        }, 150);
-    });
-</script>
+
 
 
     @livewireScripts
@@ -601,10 +634,7 @@
                         <span class="text-[10px] tracking-wide">My Profile</span>
                     </a>
                 @else
-                    <a href="#"
-
-                       onclick="window.dispatchEvent(new CustomEvent('open-auth-modal'))"
-
+                    <a href="#" onclick="window.dispatchEvent(new CustomEvent('open-auth-modal'))"
                         class="flex flex-col items-center justify-end flex-1 gap-1 text-gray-400 transition duration-200">
                         <i class="fa-solid fa-right-to-bracket text-lg"></i>
                         <span class="text-[10px] tracking-wide">Login</span>
@@ -655,68 +685,80 @@
 
 
     <div class="h-20 sm:h-24 lg:hidden"></div>
+
+
+
+
+<script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('ui', {
+                mobileMenu: false
+            })
+        })
+    </script>
+
     <script>
-        window.addEventListener('refresh-page', () => {
-            window.location.reload();
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            const startCounting = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+
+                const update = () => {
+                    const increment = target / speed;
+
+                    if (count < target) {
+                        count += increment;
+                        // counter.innerText = Math.ceil(count);
+                        counter.innerText = Math.ceil(count).toLocaleString();
+                        requestAnimationFrame(update);
+                    } else {
+                        counter.innerText = target.toLocaleString() + "+";
+                    }
+                };
+
+                update();
+            };
+
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startCounting(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.6
+            });
+
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+
         });
     </script>
-    <script>
-  window.addEventListener('pageshow', function (event) {
-    if (event.persisted && window.Livewire) {
-      Livewire.dispatch('reset-estimator');
-    }
-  });
-</script>
-@if (request()->routeIs('checkout'))
-    <script>sessionStorage.setItem('bb_from_checkout','1');</script>
-@endif
-<script>
-  (function () {
-    function shouldResetEstimator() {
-      // flag set when user visited checkout
-      return sessionStorage.getItem('bb_from_checkout') === '1';
-    }
-
-    function consumeFlag() {
-      sessionStorage.removeItem('bb_from_checkout');
-    }
-
-    // Runs on normal load AND back/forward navigation (persisted or not)
-    window.addEventListener('pageshow', function () {
-      // Only reset when we're on estimator page
-      // (adjust this path to your estimator route path)
-      const isEstimator = location.pathname.includes('/quote-estimator')
-                       || location.pathname.includes('/quote'); // change to your real path
-
-      if (!isEstimator) return;
-
-      if (shouldResetEstimator()) {
-        consumeFlag();
-        // hard reload ensures Livewire mounts fresh and state matches UI
-        window.location.reload();
-      }
-    });
-  })();
-</script>
-
     <script>
         window.addEventListener('open-auth-modal', () => {
             Livewire.dispatch('open-auth-modal');
         });
     </script>
     <script>
-    window.addEventListener('scroll-to-proceed', () => {
-        setTimeout(() => {
-            const el = document.getElementById('proceed-section');
-            if (el) {
-                el.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            }
-        }, 150);
-    });
-</script>
+        window.addEventListener('scroll-to-proceed', () => {
+            setTimeout(() => {
+                const el = document.getElementById('proceed-section');
+                if (el) {
+                    el.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            }, 150);
+        });
+    </script>
 
 </body>
 

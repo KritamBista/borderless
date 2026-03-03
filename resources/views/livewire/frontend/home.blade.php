@@ -14,12 +14,8 @@
 
 
     {{-- Hero --}}
-    <section class="relative max-w-7xl mx-auto  px-4 sm:px-6 pt-14 sm:pt-20 pb-12 sm:pb-20 animate-fadeUp">
-        <div class="pointer-events-none absolute inset-0 -z-10">
-            <div class="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-yellow-400/10 blur-3xl">
-            </div>
-            <div class="absolute -bottom-20 right-10 h-64 w-64 rounded-full bg-yellow-400/10 blur-3xl"></div>
-        </div>
+    <section class="relative w-full mx-auto  px-4 sm:px-6 pt-14 sm:pt-20 pb-12 sm:pb-20 animate-fadeUp">
+
         <div class=" grid lg:grid-cols-12 gap-10 items-center">
 
             {{-- Left --}}
@@ -43,30 +39,18 @@
                         </span>
                     </div>
                 </div>
-                {{-- HERO TITLE --}}
-                {{-- @if (!($company->hero_title = ''))
-                    <h1>
-                        {!! $company->hero_title !!}
-                    </h1>
-                @else --}}
-                    <h1 class="text-4xl sm:text-5xl font-extrabold leading-[1.05] tracking-tight">
-                        Place your order in
-                        <span class="text-gold"> under 1 minute.</span>
-                    </h1>
-                {{-- @endif --}}
+
+                <h1 class="text-4xl sm:text-5xl font-extrabold leading-[1.05] tracking-tight">
+                    Place your order in
+                    <span class="text-gold"> under 1 minute.</span>
+                </h1>
 
 
-                {{-- HERO DESCRIPTION --}}
-                {{-- @if (!empty($company->hero_description)) --}}
-                    {{-- <p>
-                        {!! $company->hero_description !!}
-                    </p>
-                @else --}}
-                    <p class="mt-6 text-gray-300 sm:text-lg max-w-2xl">
-                        Shop from Amazon, AliExpress, Myntra and more. We handle shipping & customs,
-                        deliver to your doorstep in Nepal.
-                    </p>
-                {{-- @endif --}}
+
+                <p class="mt-6 text-gray-300 sm:text-lg max-w-2xl">
+                    Shop from Amazon, AliExpress, Myntra and more. We handle shipping & customs,
+                    deliver to your doorstep in Nepal.
+                </p>
 
                 {{-- URL input --}}
                 <div class="mt-8">
@@ -122,79 +106,80 @@
     </section>
 
 
-        <section class="py-24 relative bg-gradient-to-b from-black to-neutral-950">
+    <section class="py-24 relative bg-gradient-to-b from-black to-neutral-950">
 
-    <div class="max-w-7xl mx-auto px-6">
+        <div class="w-full mx-auto px-6">
 
-        {{-- Section Header --}}
-        <div class="text-center mb-16">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-             Powering cross-border commerce in Nepal
-            </h2>
-            <p class="mt-4 text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
-                Delivering measurable growth and seamless e-commerce experiences across global markets.
-            </p>
+            {{-- Section Header --}}
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                    Powering cross-border commerce in Nepal
+                </h2>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+                    Delivering measurable growth and seamless e-commerce experiences across global markets.
+                </p>
+            </div>
+
+            {{-- Stats Grid --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+
+                {{-- Orders Placed --}}
+                <div
+                    class="glass rounded-3xl p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(214,177,94,0.25)] transition duration-500 ease-out">
+                    <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
+                        data-target="{{ $company->orders_placed ?? 1000 }}">
+                        0
+                    </div>
+                    <div class="mt-4 text-base font-semibold text-white">
+                        Orders Processed
+                    </div>
+                    <p class="mt-2 text-sm text-gray-400">
+                        Successfully fulfilled transactions across our ecosystem.
+                    </p>
+                </div>
+
+                {{-- E-commerce Stores --}}
+                <div class="glass rounded-3xl p-10 hover:scale-105 transition duration-500 ease-out">
+                    <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
+                        data-target="{{ $company->ecommerce_stores ?? 100 }}">
+                        0
+                    </div>
+                    <div class="mt-4 text-base font-semibold text-white">
+                        Active E-commerce Stores
+                    </div>
+                    <p class="mt-2 text-sm text-gray-400">
+                        Optimized and accessible storefronts delivering real results.
+                    </p>
+                </div>
+
+                {{-- Countries --}}
+                <div class="glass rounded-3xl p-10 hover:scale-105 transition duration-500 ease-out">
+                    <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
+                        data-target="{{ $company->countries ?? 7 }}">
+                        0
+                    </div>
+                    <div class="mt-4 text-base font-semibold text-white">
+                        Countries Reached
+                    </div>
+                    <p class="mt-2 text-sm text-gray-400">
+                        Expanding global presence through scalable commerce solutions.
+                    </p>
+                </div>
+
+            </div>
+
         </div>
-
-        {{-- Stats Grid --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
-
-            {{-- Orders Placed --}}
-            <div class="glass rounded-3xl p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(214,177,94,0.25)] transition duration-500 ease-out">
-                <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
-                     data-target="{{ $company->orders_placed ?? 1000 }}">
-                    0
-                </div>
-                <div class="mt-4 text-base font-semibold text-white">
-                    Orders Processed
-                </div>
-                <p class="mt-2 text-sm text-gray-400">
-                    Successfully fulfilled transactions across our ecosystem.
-                </p>
-            </div>
-
-            {{-- E-commerce Stores --}}
-            <div class="glass rounded-3xl p-10 hover:scale-105 transition duration-500 ease-out">
-                <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
-                     data-target="{{ $company->ecommerce_stores ?? 100 }}">
-                    0
-                </div>
-                <div class="mt-4 text-base font-semibold text-white">
-                    Active E-commerce Stores
-                </div>
-                <p class="mt-2 text-sm text-gray-400">
-                    Optimized and accessible storefronts delivering real results.
-                </p>
-            </div>
-
-            {{-- Countries --}}
-            <div class="glass rounded-3xl p-10 hover:scale-105 transition duration-500 ease-out">
-                <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
-                     data-target="{{ $company->countries ?? 7 }}">
-                    0
-                </div>
-                <div class="mt-4 text-base font-semibold text-white">
-                    Countries Reached
-                </div>
-                <p class="mt-2 text-sm text-gray-400">
-                    Expanding global presence through scalable commerce solutions.
-                </p>
-            </div>
-
-        </div>
-
-    </div>
-</section>
+    </section>
     <section id="why-borderless" class="relative py-20 md:py-28 bg-[#0b0f14] overflow-hidden">
 
-        <div class="absolute inset-0 pointer-events-none">
+        {{-- <div class="absolute inset-0 pointer-events-none">
             <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2"></div>
             <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl translate-y-1/2"></div>
-        </div>
+        </div> --}}
         <div class="max-w-7xl mx-auto px-5 sm:px-6">
 
             <!-- Header -->
-            <div class="max-w-3xl lg:max-w-7xl mb-16 md:mb-16">
+            <div class="max-w-3xl lg:w-full mb-16 md:mb-16">
 
                 <div
                     class="inline-flex items-center rounded-full
@@ -461,7 +446,8 @@
     </section>
     {{-- How it works --}}
     {{-- <section id="how" class="py-20 md:py-28 bg-gradient-to-b from-[#0f141a] to-[#0c1117]  relative overflow-hidden"> --}}
-    <section id="how" class="py-20 md:py-28 bg-gradient-to-b from-black to-neutral-950  relative overflow-hidden">
+    <section id="how"
+        class="py-20 md:py-28 bg-gradient-to-b from-black to-neutral-950  relative overflow-hidden">
 
         <!-- Subtle background glows -->
         {{-- <div class="absolute inset-0 pointer-events-none">
@@ -807,17 +793,8 @@
             </div>
     </section>
 
-
     @if ($hotProducts->count())
         <section class="py-20 relative bg-gradient-to-b from-black to-neutral-950">
-
-            {{-- Subtle golden glow background --}}
-            {{-- <div class="absolute inset-0 pointer-events-none">
-                <div class="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full"
-                    style="background: radial-gradient(circle, rgba(214,177,94,.12), transparent 70%);">
-                </div>
-            </div> --}}
-
             <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
 
                 {{-- Section Header --}}
@@ -833,19 +810,20 @@
                 </div>
 
                 {{-- Products Grid --}}
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 items-stretch">
 
                     @foreach ($hotProducts as $product)
                         <div
-                            class="group glass rounded-3xl p-5 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+                            class="group glass rounded-3xl p-4 sm:p-5 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
 
-                            {{-- Image --}}
-                            <div class="relative overflow-hidden rounded-2xl bg-darkcard ring-1 ring-white/5">
+                            {{-- Image (CDN SAFE aspect ratio) --}}
+                            <div class="relative overflow-hidden rounded-2xl bg-darkcard ring-1 ring-white/5"
+                                style="aspect-ratio: 4/3;">
                                 @if ($product->image)
                                     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                        class="h-48 w-full object-cover transition duration-500 group-hover:scale-105">
+                                        class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
                                 @else
-                                    <div class="h-48 flex items-center justify-center text-gray-600">
+                                    <div class="w-full h-full flex items-center justify-center text-gray-600">
                                         No Image
                                     </div>
                                 @endif
@@ -858,52 +836,60 @@
                             </div>
 
                             {{-- Content --}}
-                            <div class="mt-5">
+                            <div class="mt-4 flex flex-col flex-1">
 
-                                <h3 class="font-bold text-lg leading-tight group-hover:text-gold transition">
+                                <h3 class="font-bold text-sm sm:text-lg leading-snug group-hover:text-gold transition"
+                                    style="
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 2;
+                                    -webkit-box-orient: vertical;
+                                    overflow: hidden;
+                                    min-height: 2.5rem;
+                                ">
                                     {{ $product->name }}
                                 </h3>
 
-                                @if ($product->origin_country)
-                                    <p class="text-xs text-gray-500 mt-1">
+                                <p class="text-xs text-gray-500 mt-1" style="min-height: 1rem;">
+                                    @if ($product->origin_country)
                                         Shipping from {{ $product->origin_country }}
-                                    </p>
-                                @endif
+                                    @else
+                                        &nbsp;
+                                    @endif
+                                </p>
 
-                                {{-- Price --}}
-                                @if ($product->price)
-                                    <div class="mt-3 text-gold font-extrabold text-lg">
+                                <div class="mt-3 text-gold font-extrabold text-base sm:text-lg"
+                                    style="min-height: 1.5rem;">
+                                    @if ($product->price)
                                         {{ $product->currency }} {{ number_format($product->price, 2) }}
-                                    </div>
-                                @endif
+                                    @else
+                                        &nbsp;
+                                    @endif
+                                </div>
 
-                                {{-- CTA --}}
                                 @if ($product->product_url)
                                     <a href="{{ $product->product_url }}" target="_blank"
-                                        class="mt-4 inline-block w-full text-center btn-gold py-2 rounded-xl">
+                                        class="mt-auto inline-block w-full text-center btn-gold py-2 rounded-xl">
                                         View Product
                                     </a>
                                 @endif
-
                             </div>
+
                         </div>
                     @endforeach
 
                 </div>
-
             </div>
         </section>
     @endif
-
 
     {{-- Reviews --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
         <!-- Subtle background glows -->
         <!-- Subtle background glows -->
-        <div class="absolute inset-0 pointer-events-none">
+        {{-- <div class="absolute inset-0 pointer-events-none">
             <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2"></div>
             <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl translate-y-1/2"></div>
-        </div>
+        </div> --}}
         <div class="flex items-end justify-between gap-6">
             <div class="max-w-2xl">
 
@@ -941,7 +927,7 @@
     </section>
 
     {{-- FAQ --}}
-    <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 bg-gradient-to-b from-black to-neutral-950">
+    <section id="faq" class=" max-w-7xl mx-auto px-4 sm:px-6 py-14 bg-gradient-to-b from-black to-neutral-950">
         <!-- Subtle background glows -->
 
         <div class="max-w-2xl">

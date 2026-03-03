@@ -25,7 +25,7 @@
                 >
 
                 <!-- Category Filter (if categories exist) -->
-                @if ($categories->isNotEmpty())
+                {{-- @if ($categories->isNotEmpty())
                     <select
                         wire:model.live="category"
                         class="w-full sm:w-48 px-4 py-3 rounded-xl bg-darkcard border border-white/10 text-white focus:border-gold/50 focus:ring-2 focus:ring-gold/20 transition"
@@ -35,7 +35,7 @@
                             <option value="{{ $cat }}">{{ $cat }}</option>
                         @endforeach
                     </select>
-                @endif
+                @endif --}}
             </div>
         </div>
 
@@ -45,33 +45,56 @@
                 @foreach ($guides as $guide)
                     <a href="{{ route('guide.show', $guide->slug) }}" class="group block">
                         <div class="glass rounded-2xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 hover:shadow-2xl hover:shadow-gold/10 h-full flex flex-col">
-                            @if ($guide->featured_image)
-                                <div class="aspect-[5/3] overflow-hidden">
-                                    <img src="{{ asset('storage/' . $guide->featured_image) }}"
-                                         alt="{{ $guide->title }}"
-                                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                                </div>
-                            @endif
+                        {{-- Image (CDN safe 5:3) --}}
+<div class="bg-darkcard ring-1 ring-white/5 overflow-hidden"
+     style="aspect-ratio: 5/3;">
+    @if ($guide->featured_image)
+        <img src="{{ asset('storage/' . $guide->featured_image) }}"
+             alt="{{ $guide->title }}"
+             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+    @else
+        <div class="w-full h-full flex items-center justify-center text-gray-600 text-sm">
+            No Image
+        </div>
+    @endif
+</div>
 
                             <div class="p-6 md:p-7 flex flex-col flex-grow">
                                 <!-- Category Badge (if exists) -->
-                                @if ($guide->category)
+                                {{-- @if ($guide->category)
                                     <div class="inline-block px-3 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs uppercase tracking-wider mb-3">
                                         {{ $guide->category }}
                                     </div>
-                                @endif
+                                @endif --}}
+                                @if ($guide->category)
+    <div class="mb-4">
+        <span class="inline-block text-xs font-semibold uppercase tracking-wider
+                     text-gold border-l-2 border-gold pl-3">
+            {{ $guide->category }}
+        </span>
+    </div>
+@endif
 
                                 <div class="text-xs text-gold/80 uppercase tracking-wider mb-3">
-                                    {{ $guide->published_at?->format('M d, Y') }}
+                                    {{-- {{ $guide->published_at?->format('M d, Y') }} --}}
+                                    {{ $guide->published_at ? \Carbon\Carbon::parse($guide->published_at)->format('M d, Y') : 'Not published yet' }}
+
                                 </div>
 
-                                <h3 class="text-xl font-bold leading-tight mb-4 group-hover:text-gold transition-colors line-clamp-2">
+                                {{-- <h3 class="text-xl font-bold leading-tight mb-4 group-hover:text-gold transition-colors line-clamp-2">
                                     {{ $guide->title }}
-                                </h3>
+                                </h3> --}}
 
-                                <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
-                                    {!! Str::words(strip_tags($guide->content), 35) !!}
-                                </p>
+                                <h3 class="text-xl font-bold leading-tight mb-4 group-hover:text-gold transition-colors"
+    style="
+        display:-webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient:vertical;
+        overflow:hidden;
+        min-height:3rem;
+    ">
+    {{ $guide->title }}
+</h3>
 
                                 <div class="flex items-center text-gold text-sm font-medium mt-auto">
                                     Read Guide

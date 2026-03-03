@@ -23,12 +23,7 @@
                 <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
                     {{ $blog->title }}
                 </h1>
-                @if ($blog->excerpt)
-                    <div>
-                        {!! $blog->excerpt !!}
 
-                    </div>
-                @endif
             </header>
 
             <!-- Featured Image -->
@@ -40,10 +35,9 @@
             @endif
 
             <!-- RichEditor Content -->
-            <div
-                class="prose prose-invert prose-gold max-w-none prose-headings:text-white prose-a:text-gold prose-a:hover:text-gold/80 prose-blockquote:border-gold prose-blockquote:bg-gold/5 prose-img:rounded-xl prose-img:border prose-img:border-white/10">
-                {!! $blog->content !!}
-            </div>
+           <div class="blog-content text-gray-300 leading-relaxed space-y-6">
+    {!! $blog->content !!}
+</div>
 
         </div>
     </article>

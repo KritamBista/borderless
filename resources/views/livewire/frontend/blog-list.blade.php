@@ -15,7 +15,7 @@
                 </p>
             </div>
 
-            <!-- Simple Search (reactive with Livewire) -->
+            <!-- Search -->
             <div class="w-full md:w-80">
                 <input
                     type="text"
@@ -28,32 +28,41 @@
 
         <!-- Blog Grid -->
         @if ($blogs->isNotEmpty())
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
                 @foreach ($blogs as $blog)
-                    <a href="{{ route('blog.show', $blog->slug) }}" class="group block">
+                    <a href="{{ route('blog.show', $blog->slug) }}" class="group block h-full">
                         <div class="glass rounded-2xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-300 hover:shadow-2xl hover:shadow-gold/10 h-full flex flex-col">
-                            @if ($blog->featured_image)
-                                <div class="aspect-[5/3] overflow-hidden">
+
+                            {{-- Image (CDN SAFE aspect ratio) --}}
+                            <div class="bg-darkcard ring-1 ring-white/5 overflow-hidden"
+                                 style="aspect-ratio: 5/3;">
+                                @if ($blog->featured_image)
                                     <img src="{{ asset('storage/' . $blog->featured_image) }}"
                                          alt="{{ $blog->title }}"
                                          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                                </div>
-                            @endif
+                                @else
+                                    <div class="w-full h-full flex items-center justify-center text-gray-600 text-sm">
+                                        No Image
+                                    </div>
+                                @endif
+                            </div>
 
                             <div class="p-6 md:p-7 flex flex-col flex-grow">
                                 <div class="text-xs text-gold/80 uppercase tracking-wider mb-3">
-                                    {{-- {{ $blog->published_at?->format('M , d, Y') }} --}}
                                     {{ $blog->published_at ? \Carbon\Carbon::parse($blog->published_at)->format('M d, Y') : 'Not published yet' }}
                                 </div>
 
-                                <h3 class="text-xl font-bold leading-tight mb-4 group-hover:text-gold transition-colors line-clamp-2">
+                                {{-- Title (CDN SAFE clamp 2 lines) --}}
+                                <h3 class="text-xl font-bold leading-tight mb-4 group-hover:text-gold transition-colors"
+                                    style="
+                                        display: -webkit-box;
+                                        -webkit-line-clamp: 2;
+                                        -webkit-box-orient: vertical;
+                                        overflow: hidden;
+                                        min-height: 3rem;
+                                    ">
                                     {{ $blog->title }}
                                 </h3>
-
-                                <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
-                                  
-                                    {!! $blog->excerpt ?? \Illuminate\Support\Str::words(strip_tags($blog->content), 35) !!}
-                                </p>
 
                                 <div class="flex items-center text-gold text-sm font-medium mt-auto">
                                     Read More
@@ -62,12 +71,12 @@
                                     </svg>
                                 </div>
                             </div>
+
                         </div>
                     </a>
                 @endforeach
             </div>
 
-            <!-- Livewire Pagination (Tailwind styled) -->
             <div class="mt-12">
                 {{ $blogs->links() }}
             </div>

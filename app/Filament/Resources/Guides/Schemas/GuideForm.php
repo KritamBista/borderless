@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Guides\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -17,9 +18,9 @@ class GuideForm
             ->components([
                 TextInput::make('title')
                     ->required(),
-                TextInput::make('slug')
-                    ->required(),
-                Textarea::make('content')
+                TextInput::make('slug'),
+
+                RichEditor::make('content')
                     ->toolbarButtons([
                         'attachFiles',
                         'blockquote',

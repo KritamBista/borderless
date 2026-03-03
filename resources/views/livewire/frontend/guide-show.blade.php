@@ -1,4 +1,6 @@
-<article class="py-16 md:py-24 bg-darkbg">
+<section>
+
+    <article class="py-16 md:py-24 bg-darkbg">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
 
         <!-- Back & Category -->
@@ -19,9 +21,10 @@
 
         <!-- Header -->
         <header class="text-center mb-16">
-            <div class="text-sm text-gold/70 uppercase tracking-wider mb-4">
-                {{ $guide->published_at?->format('F d, Y') }}
-            </div>
+             <div class="text-sm text-gold/70 uppercase tracking-wider mb-4">
+                    {{ $guide->published_at ? \Carbon\Carbon::parse($guide->published_at)->format('M d, Y') : 'Not published yet' }}
+
+                </div>
             <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
                 {{ $guide->title }}
             </h1>
@@ -36,11 +39,11 @@
             </div>
         @endif
 
-        <!-- RichEditor Content – same premium styling -->
-        <div class="prose prose-invert prose-gold max-w-none prose-headings:text-white prose-a:text-gold prose-a:hover:text-gold/80 prose-blockquote:border-gold prose-blockquote:bg-gold/5 prose-img:rounded-xl prose-img:border prose-img:border-white/10">
-            {!! $guide->content !!}
-        </div>
 
+
+        <div class="blog-content text-gray-300 leading-relaxed space-y-6">
+    {!! $guide->content !!}
+</div>
     </div>
 </article>
 
@@ -48,8 +51,10 @@
 <section class="py-16 border-t border-white/10 bg-darkbg/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
         <h2 class="text-3xl font-bold mb-6">Need Help with Your Order?</h2>
-        <a href="/" class="btn-gold px-8 py-4 rounded-xl text-lg font-bold inline-block hover:shadow-gold/30 transition">
+        <a href="/request-order" class="btn-gold px-8 py-4 rounded-xl text-lg font-bold inline-block hover:shadow-gold/30 transition">
             Get a Free Quote Now →
         </a>
-    </div>
+    </div>  
+</section>
+
 </section>

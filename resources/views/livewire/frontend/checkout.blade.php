@@ -59,6 +59,15 @@
                     <div class="text-red-400 text-xs mt-1">{{ $message }}</div>
                 @enderror
             </div>
+                <div>
+                <label class="text-xs text-gray-400">Postal Code(Optional)</label>
+                <input type="number" wire:model="postal_code"
+                    class="w-full mt-1 bg-transparent border border-white/10 rounded-xl px-4 py-3 text-white"
+                    placeholder="Street name, house number, landmark..." rows="3"></input>
+                @error('postal_code')
+                    <div class="text-red-400 text-xs mt-1">{{ $message }}</div>
+                @enderror
+            </div>
 
             {{-- Address Line --}}
             <div>
@@ -80,10 +89,33 @@
                     </ul>
                 </div>
             @endif
-
+{{--
             <button wire:click="nextStep" class="btn-gold w-full mt-4 py-3 rounded-xl">
                 Continue →
-            </button>
+            </button> --}}
+            <button
+    wire:click="nextStep"
+    wire:loading.attr="disabled"
+    wire:target="nextStep"
+    class="btn-gold w-full mt-4 py-3 rounded-xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+>
+    <span wire:loading.remove wire:target="nextStep">
+        Continue →
+    </span>
+
+    <span wire:loading.flex wire:target="nextStep" class="flex items-center gap-2">
+        <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+            <circle class="opacity-20" cx="12" cy="12" r="10"
+                stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-80"
+                d="M4 12a8 8 0 018-8"
+                stroke="currentColor"
+                stroke-width="4"
+                stroke-linecap="round"></path>
+        </svg>
+        Processing...
+    </span>
+</button>
 
         </div>
     @endif
@@ -119,52 +151,60 @@
             <div>
                 <label class="text-sm font-bold text-white">Upload Payment Proof</label>
                 <input type="file" wire:model="payment_proof" class="mt-2 text-white">
-                @error('payment_proof')
-                    <div class="text-red-400 text-xs mt-2">{{ $message }}</div>
-                @enderror
 
                 <div wire:loading wire:target="payment_proof" class="text-sm text-gold mt-2">
                     Uploading...
                 </div>
             </div>
+    @if ($errors->any())
+        <div class="w-full sm:order-3 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl p-4 text-sm">
+            <ul class="list-disc list-inside space-y-1">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+<div class="flex flex-col sm:flex-row sm:items-start gap-3">
+    {{-- Back --}}
+    <button
+        wire:click="backStep"
+        wire:loading.attr="disabled"
+        wire:target="placeOrder,payment_proof"
+        class="w-full sm:w-auto border border-white/20 text-white py-3 px-5 rounded-xl disabled:opacity-60 disabled:cursor-not-allowed"
+    >
+        ← Back
+    </button>
 
-            <div class="flex flex-col sm:flex-row gap-3">
-                <button wire:click="backStep" wire:loading.attr="disabled" wire:target="placeOrder"
-                    class="w-full sm:w-auto border border-white/20 text-white py-3 rounded-xl disabled:opacity-60 disabled:cursor-not-allowed">
-                    ← Back
-                </button>
 
 
-                {{-- All Validation Errors --}}
-                @if ($errors->any())
-                    <div class="bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl p-4 text-sm space-y-1">
-                        <ul class="list-disc list-inside space-y-1">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+    {{-- Confirm --}}
+    <button
+        wire:click="placeOrder"
+        wire:loading.attr="disabled"
+        wire:target="placeOrder,payment_proof"
+        class="btn-gold w-full sm:flex-1 py-3 rounded-xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+    >
+        <span wire:loading.remove wire:target="placeOrder,payment_proof">
+            Confirm Order →
+        </span>
 
+        {{-- IMPORTANT: use wire:loading.flex to keep horizontal --}}
+        <span wire:loading.flex wire:target="placeOrder,payment_proof" class="items-center gap-2">
+            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                <circle class="opacity-20" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-80" d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="4"
+                    stroke-linecap="round"></path>
+            </svg>
+            Submitting...
+        </span>
+    </button>
+</div>
 
-                <button wire:click="placeOrder" wire:loading.attr="disabled" wire:target="placeOrder,payment_proof"
-                    class="btn-gold w-full sm:flex-1 py-3 rounded-xl flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
-                    <span wire:loading.remove wire:target="placeOrder,payment_proof">
-                        Confirm Order →
-                    </span>
-
-                    <span wire:loading wire:target="placeOrder,payment_proof" class="flex items-center gap-2">
-                        <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
-                            <circle class="opacity-20" cx="12" cy="12" r="10" stroke="currentColor"
-                                stroke-width="4"></circle>
-                            <path class="opacity-80" d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="4"
-                                stroke-linecap="round"></path>
-                        </svg>
-                        Submitting...
-                    </span>
-                </button>
-
-            </div>
+{{-- Uploading indicator (keep it separate so it doesn't break button row) --}}
+<div wire:loading wire:target="payment_proof" class="mt-2 text-sm text-gold">
+    Uploading...
+</div>
         </div>
     @endif
 
