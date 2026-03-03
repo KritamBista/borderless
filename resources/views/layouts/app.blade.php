@@ -54,52 +54,100 @@
         }
     </script>
 
-<style>
-.blog-content h1,
-.blog-content h2,
-.blog-content h3,
-.blog-content h4 {
-    font-weight: 800;
-    color: white;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-}
+    <style>
+        .blog-content h1,
+        .blog-content h2,
+        .blog-content h3,
+        .blog-content h4 {
+            font-weight: 800;
+            color: white;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
 
-.blog-content h1 { font-size: 2rem; }
-.blog-content h2 { font-size: 1.75rem; }
-.blog-content h3 { font-size: 1.5rem; }
+        .blog-content h1 {
+            font-size: 2rem;
+        }
 
-.blog-content p {
-    margin-bottom: 1.2rem;
-}
+        .blog-content h2 {
+            font-size: 1.75rem;
+        }
 
-.blog-content a {
-    color: #facc15;
-    text-decoration: underline;
-}
+        .blog-content h3 {
+            font-size: 1.5rem;
+        }
 
-.blog-content a:hover {
-    opacity: 0.8;
-}
+        .blog-content p {
+            margin-bottom: 1.2rem;
+        }
 
-.blog-content ul,
-.blog-content ol {
-    padding-left: 1.5rem;
-    margin-bottom: 1.5rem;
-}
+        .blog-content a {
+            color: #facc15;
+            text-decoration: underline;
+        }
 
-.blog-content blockquote {
-    border-left: 4px solid #facc15;
-    padding-left: 1rem;
-    margin: 1.5rem 0;
-    color: #ccc;
-}
+        .blog-content a:hover {
+            opacity: 0.8;
+        }
 
-.blog-content img {
-    border-radius: 1rem;
-    margin: 2rem 0;
-}
-</style>
+        .blog-content ul,
+        .blog-content ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #facc15;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            color: #ccc;
+        }
+
+        .blog-content img {
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+    </style>
+
+    <style>
+        /* World map background (inline SVG) */
+        .world-map-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .world-map-bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+
+            /* Inline SVG world map (subtle, outline style) */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600'%3E%3Cg fill='none' stroke='%23d6b15e' stroke-opacity='0.45' stroke-width='2'%3E%3Cpath d='M76 350c40-40 60-90 110-110 70-30 120 10 140 50 30 60-40 120-80 140-60 30-130 10-170-20-20-15-30-35 0-60z'/%3E%3Cpath d='M330 210c40-30 90-60 160-40 60 18 90 60 70 110-15 40-55 70-105 85-70 20-150-5-180-40-25-30-5-70 55-115z'/%3E%3Cpath d='M610 170c80-40 190-40 270 10 75 45 95 120 40 170-55 52-160 70-250 55-75-12-140-55-135-115 3-45 25-85 75-120z'/%3E%3Cpath d='M860 380c60-40 150-35 190 10 35 40 15 95-40 120-60 28-150 20-190-20-35-35-20-80 40-110z'/%3E%3Cpath d='M520 390c35-25 90-35 135-10 40 22 45 60 10 85-40 30-110 35-155 10-35-20-30-55 10-85z'/%3E%3C/g%3E%3C/svg%3E");
+
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+
+            opacity: 0.12;
+            filter: blur(0.2px);
+            transform: scale(1.08);
+            pointer-events: none;
+        }
+
+        /* Dark readability overlay */
+        .world-map-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 50% 35%, rgba(11, 15, 20, 0.25) 0%, rgba(11, 15, 20, 0.75) 62%, rgba(11, 15, 20, 0.92) 100%),
+                radial-gradient(circle at 20% 10%, rgba(214, 177, 94, 0.10), transparent 40%),
+                radial-gradient(circle at 80% 90%, rgba(214, 177, 94, 0.08), transparent 40%);
+            pointer-events: none;
+        }
+    </style>
 
     {{-- Custom CSS --}}
     <style>
@@ -333,6 +381,25 @@
 
 <body class="  w-full pb-20 lg:pb-0 min-h-screen">
 
+    {{-- Floating WhatsApp Button (Global) --}}
+    @php
+        $waRaw = $company?->whatsapp_number ?? '';
+        $waNumber = preg_replace('/[^0-9]/', '', $waRaw); // keep digits only
+        $waText = urlencode('Hi! I need help with placing an order.');
+    @endphp
+
+    @if ($waNumber)
+        <a href="https://wa.me/{{ $waNumber }}?text={{ $waText }}" target="_blank" rel="noopener"
+            aria-label="Chat on WhatsApp"
+            class="fixed z-[9999] right-4 sm:right-6 bottom-[calc(env(safe-area-inset-bottom)+92px)] sm:bottom-[calc(env(safe-area-inset-bottom)+24px)]
+              h-14 w-14 sm:h-16 sm:w-16 rounded-full flex items-center justify-center
+              shadow-[0_18px_45px_rgba(0,0,0,0.45)]
+              border border-white/10
+              bg-[#25D366] text-white
+              transition duration-200 hover:scale-105 active:scale-95">
+            <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl"></i>
+        </a>
+    @endif
     <header x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 10 })"
         :class="scrolled
             ?
@@ -689,7 +756,7 @@
 
 
 
-<script>
+    <script>
         document.addEventListener('alpine:init', () => {
             Alpine.store('ui', {
                 mobileMenu: false

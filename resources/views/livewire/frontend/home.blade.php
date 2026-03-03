@@ -7,21 +7,34 @@
 @section('og_url', url()->current())
 <div class="bg-darkbg w-full text-white">
 
-    {{-- Top Gradient Glow --}}
-    {{-- <div class="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
-        style="background: radial-gradient(800px 420px at 50% 0%, rgba(214,177,94,.16), transparent 60%);">
-    </div> --}}
 
-
-    {{-- Hero --}}
     <section class="relative w-full mx-auto  px-4 sm:px-6 pt-14 sm:pt-20 pb-12 sm:pb-20 animate-fadeUp">
 
-        <div class=" grid lg:grid-cols-12 gap-10 items-center">
+        <div class="absolute inset-0 pointer-events-none  select-none overflow-hidden">
+
+            <img src="{{ asset('world.svg') }}" alt=""
+                class="absolute inset-0 w-full h-full object-cover object-center
+               opacity-[0.4] scale-100" />
+
+            <div class="absolute inset-0 opacity-50"
+                style="background: radial-gradient(circle at 55% 42%, rgba(214,177,94,.18), transparent 60%);">
+            </div>
+
+
+            <div class="absolute top-0 left-0 right-0 h-28 sm:h-32"
+                style="background: linear-gradient(to bottom, rgba(11,15,20,0.98), rgba(11,15,20,0));">
+            </div>
+
+            <div class="absolute inset-0"
+                style="background: radial-gradient(circle at 50% 45%, rgba(11,15,20,.10) 0%, rgba(11,15,20,.55) 65%, rgba(11,15,20,.85) 100%);">
+            </div>
+        </div>
+        <div class=" grid lg:grid-cols-12 gap-10  items-center  " style="position: relative; z-index: 100;">
 
             {{-- Left --}}
             <div class="lg:col-span-8">
                 {{-- Badge row --}}
-                <div class="flex flex-wrap items-center gap-3 mb-6">
+                <div class="flex flex-wrap items-center gap-3 mb-6 ">
 
 
                     <div class="hidden sm:flex items-center gap-5 text-xs text-gray-400">
@@ -44,6 +57,7 @@
                     Place your order in
                     <span class="text-gold"> under 1 minute.</span>
                 </h1>
+                {{-- @endif --}}
 
 
 
@@ -51,6 +65,7 @@
                     Shop from Amazon, AliExpress, Myntra and more. We handle shipping & customs,
                     deliver to your doorstep in Nepal.
                 </p>
+                {{-- @endif --}}
 
                 {{-- URL input --}}
                 <div class="mt-8">
