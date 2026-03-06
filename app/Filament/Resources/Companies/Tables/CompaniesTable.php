@@ -55,6 +55,15 @@ class CompaniesTable
                     ->searchable(),
                 TextColumn::make('address')
                     ->searchable(),
+                TextColumn::make('orders_placed')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('ecommerce_stores')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('countries')
+                    ->numeric()
+                    ->sortable(),
             ])
             ->filters([
                 //

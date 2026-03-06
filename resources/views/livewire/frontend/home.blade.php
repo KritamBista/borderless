@@ -154,7 +154,7 @@
                 </div>
 
                 {{-- E-commerce Stores --}}
-                <div class="glass rounded-3xl p-10 hover:scale-105 transition duration-500 ease-out">
+                <div class="glass rounded-3xl p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(214,177,94,0.25)] transition duration-500 ease-out">
                     <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
                         data-target="{{ $company->ecommerce_stores ?? 100 }}">
                         0
@@ -168,7 +168,7 @@
                 </div>
 
                 {{-- Countries --}}
-                <div class="glass rounded-3xl p-10 hover:scale-105 transition duration-500 ease-out">
+                <div class="glass rounded-3xl p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(214,177,94,0.25)] transition duration-500 ease-out">
                     <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
                         data-target="{{ $company->countries ?? 7 }}">
                         0
@@ -201,7 +201,7 @@
                 border border-gold/30 bg-gold/10
                 px-4 md:px-5 py-1.5
                 text-xs md:text-sm tracking-[0.25em] uppercase text-gold">
-                    Why BorderlessBazzar
+                    Why Borderless Bazzar
                 </div>
 
                 <h2 class="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
@@ -475,7 +475,7 @@
             <div class="text-center mb-16 md:mb-24">
 
                 <div
-                    class="inline-flex items-center rounded-full border border-gold/30 bg-gold/10 px-4 md:px-5 py-1.5 text-xs md:text-sm text-gold mb-5 md:mb-6">
+                    class="inline-flex items-center rounded-full border border-gold/30 bg-gold/10 px-4 md:px-5 py-1.5 text-xs md:text-sm text-gold mb-5 md:mb-6  text-gold">
                     How it works
                 </div>
 
@@ -899,12 +899,7 @@
 
     {{-- Reviews --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
-        <!-- Subtle background glows -->
-        <!-- Subtle background glows -->
-        {{-- <div class="absolute inset-0 pointer-events-none">
-            <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2"></div>
-            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl translate-y-1/2"></div>
-        </div> --}}
+
         <div class="flex items-end justify-between gap-6">
             <div class="max-w-2xl">
 
@@ -922,9 +917,33 @@
         <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($reviews ?? [] as $r)
                 <div class="glass rounded-3xl p-6">
-                    <div class="flex items-center justify-between">
-                        <div class="font-extrabold">{{ $r->name }}</div>
-                        <div class="text-xs text-gray-400">{{ $r->destination }}</div>
+
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3 min-w-0">
+                            @if ($r->avatar)
+                                <img src="{{ Storage::url($r->avatar) }}" alt="{{ $r->name }}"
+                                    class="h-10 w-10 rounded-full object-cover border border-white/10 shrink-0">
+                            @else
+                                <div
+                                    class="h-10 w-10 rounded-full bg-gold/20 text-gold flex items-center justify-center font-bold border border-gold/30 shrink-0">
+                                    {{ strtoupper(substr($r->name, 0, 1)) }}
+                                </div>
+                            @endif
+
+                            <div class="min-w-0">
+                                <div class="font-extrabold text-white leading-tight truncate">
+                                    {{ $r->name }}
+                                </div>
+
+                                <div class="mt-1 sm:mt-0">
+                                    <span
+                                        class="inline-flex max-w-full items-center rounded-full border border-white/10 bg-white/5
+                             px-2.5 py-1 text-[11px] sm:text-xs text-gray-300 truncate">
+                                        {{ $r->destination }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mt-3 flex items-center gap-1 text-gold text-sm">

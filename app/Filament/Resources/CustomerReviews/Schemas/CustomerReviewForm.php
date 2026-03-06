@@ -23,7 +23,11 @@ class CustomerReviewForm
                 Textarea::make('review')
                     ->required()
                     ->columnSpanFull(),
-                FileUpload::make('avatar'),
+                FileUpload::make('avatar')
+                    ->directory('customer-reviews')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->image(),
                 Toggle::make('is_active')
                     ->required(),
                 TextInput::make('sort_order')

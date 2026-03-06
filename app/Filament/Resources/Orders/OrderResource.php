@@ -22,6 +22,10 @@ class OrderResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()->with(['user', 'quote']);
+    }
     public static function form(Schema $schema): Schema
     {
         return OrderForm::configure($schema);

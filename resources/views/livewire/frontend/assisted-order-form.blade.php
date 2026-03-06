@@ -1,163 +1,14 @@
-{{-- <div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
 
-    <!-- Header -->
-    <div class="max-w-3xl mx-auto text-center mb-10">
-        <h1 class="text-3xl font-bold text-gray-900">
-            Assisted Order Request
-        </h1>
-        <p class="mt-3 text-gray-600">
-            Send us your product details and our team will prepare a custom quote for you.
-        </p>
-    </div>
 
-    <!-- Main Card -->
-    <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-8 space-y-8">
-
-        <!-- Country Section -->
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                Select Destination Country
-            </label>
-            <select wire:model="country_id"
-                class="w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="">Choose country</option>
-                @foreach ($countries as $country)
-                    <option value="{{ $country->id }}">
-                        {{ $country->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
-        <!-- Contact Section -->
-        <div class="grid md:grid-cols-3 gap-6">
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Full Name
-                </label>
-                <input type="text"
-                    wire:model="contact_name"
-                    class="w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="John Doe">
-            </div>
-
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Email Address
-                </label>
-                <input type="email"
-                    wire:model="contact_email"
-                    class="w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="john@email.com">
-            </div>
-
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Phone Number
-                </label>
-                <input type="text"
-                    wire:model="contact_phone"
-                    class="w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="+123456789">
-            </div>
-        </div>
-
-        <!-- Divider -->
-        <div class="border-t pt-6">
-
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">
-                Product Items
-            </h2>
-
-            @foreach ($items as $index => $item)
-                <div class="bg-gray-50 rounded-xl p-6 mb-6 relative">
-
-                    <button type="button"
-                        wire:click="removeItem({{ $index }})"
-                        class="absolute top-4 right-4 text-red-500 hover:text-red-700 text-sm">
-                        Remove
-                    </button>
-
-                    <div class="grid md:grid-cols-2 gap-6">
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Product Name
-                            </label>
-                            <input type="text"
-                                wire:model="items.{{ $index }}.product_name"
-                                class="w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                placeholder="Nike Shoes">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Product Link
-                            </label>
-                            <input type="text"
-                                wire:model="items.{{ $index }}.product_link"
-                                class="w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                placeholder="https://...">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Quantity
-                            </label>
-                            <input type="number"
-                                wire:model="items.{{ $index }}.quantity"
-                                class="w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Weight (kg)
-                            </label>
-                            <input type="number" step="0.01"
-                                wire:model="items.{{ $index }}.weight_kg"
-                                class="w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-
-                    </div>
-                </div>
-            @endforeach
-
-            <!-- Add Item Button -->
-            <button type="button"
-                wire:click="addItem"
-                class="inline-flex items-center px-4 py-2 bg-indigo-50 text-indigo-600 font-medium rounded-xl hover:bg-indigo-100 transition">
-                + Add Another Item
-            </button>
-
-        </div>
-
-        <!-- Submit Section -->
-        <div class="pt-6 border-t">
-            <button type="button"
-                wire:click="submit"
-                class="w-full py-4 bg-indigo-600 text-white font-semibold rounded-2xl shadow-lg hover:bg-indigo-700 transition duration-200">
-                Submit Assisted Order
-            </button>
-        </div>
-
-    </div>
-
-</div> --}}
-
-<div class="min-h-screen bg-darkbg py-8 px-4 sm:px-6 lg:px-8">
+<div class=" bg-darkbg py-8 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
 
-        {{-- <div class="relative z-100"> --}}
-        <!-- Header -->
-        <!-- Country Selection -->
+
         <div
             class="relative rounded-2xl mb-4 p-4
        bg-[#0f1621]/90
        border border-white/10
-       {{-- shadow-[0_10px_40px_rgba(0,0,0,0.45)] --}}
-       {{-- before:absolute before:inset-0
-       before:rounded-2xl
-       before:bg-gradient-to-b before:from-white/5 before:to-transparent --}}
+
        before:pointer-events-none">
             <div class="text-sm font-bold">Shipping From</div>
 
@@ -194,7 +45,7 @@
                         this.countryId = country.id;
                         this.open = false;
                     }
-                }" class="relative w-64">
+                }" class="relative w-full">
 
                     <!-- Selected Button -->
                     <button type="button" @click="open = !open"
@@ -222,7 +73,7 @@
 
                     <!-- Dropdown List -->
                     <ul x-show="open" @click.outside="open = false" x-transition
-                        class="absolute z-50 w-full mt-1 bg-[#0b0f14] border border-white/10 rounded-xl max-h-60 ">
+                        class="absolute z-50 w-full mt-1 bg-[#0b0f14] border border-white/10 rounded-xl  ">
                         <template x-for="country in countries" :key="country.id">
                             <li @click="selectCountry(country)"
                                 class="flex items-center px-4 py-2 hover:bg-gray-700 cursor-pointer gap-2">
@@ -336,10 +187,7 @@
                         </ul>
                     </div>
                 @endif
-                {{-- <button type="button" wire:click="submit"
-                        class="w-full py-5 bg-gold text-[#0b0f14] font-bold text-lg rounded-2xl hover:shadow-2xl hover:shadow-gold/30 transition duration-300 disabled:opacity-60 disabled:cursor-not-allowed">
-                    Submit Assisted Order Request
-                </button> --}}
+
                 <div class="relative ">
                     <button type="button" wire:click="submit" wire:loading.attr="disabled"
                         class="  btn-gold  px-5 py-3  w-full   font-bold text-lg rounded-2xl

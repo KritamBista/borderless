@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('assisted_orders', function (Blueprint $table) {
             $table->id();
 
-        $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-        $table->foreignId('country_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('country_id')->constrained()->cascadeOnDelete();
 
-        $table->string('public_id')->unique();
+            $table->string('public_id')->unique();
 
-        $table->string('contact_name')->nullable();
-        $table->string('contact_email')->nullable();
-        $table->string('contact_phone')->nullable();
+            $table->string('contact_name')->nullable();
+            $table->string('contact_email')->nullable();
+            $table->string('contact_phone')->nullable();
 
-        $table->string('status')->default('submitted');
-        // submitted | reviewed | quoted | converted | cancelled
+            $table->string('status')->default('submitted');
+            // submitted | reviewed | quoted | converted | cancelled
             $table->timestamps();
         });
     }

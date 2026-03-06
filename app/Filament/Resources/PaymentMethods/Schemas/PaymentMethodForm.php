@@ -15,8 +15,12 @@ class PaymentMethodForm
         return $schema
             ->components([
                 TextInput::make('name')
+
                     ->required(),
                 FileUpload::make('image')
+                    ->directory('payment-methods')
+                    ->disk('public')
+                    ->visibility('public')
                     ->image(),
                 Textarea::make('description')
                     ->columnSpanFull(),

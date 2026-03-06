@@ -58,6 +58,12 @@ class CompanyInfolist
                     ->placeholder('-'),
                 TextEntry::make('address')
                     ->placeholder('-'),
+                TextEntry::make('orders_placed')
+                    ->numeric(),
+                TextEntry::make('ecommerce_stores')
+                    ->numeric(),
+                TextEntry::make('countries')
+                    ->numeric(),
             ]);
     }
 }

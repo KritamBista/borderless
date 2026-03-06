@@ -26,6 +26,9 @@ class Company extends Model
         'contact_phone',
         'whatsapp_number',
         'address',
+        'orders_placed',
+        'ecommerce_stores',
+        'countries',
     ];
 
     protected $casts = [

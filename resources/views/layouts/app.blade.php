@@ -55,6 +55,17 @@
     </script>
 
     <style>
+        .btn-dark {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            color: white;
+            transition: all .2s ease;
+        }
+
+        .btn-dark:hover {
+            background: rgba(255, 255, 255, 0.10);
+        }
+
         .blog-content h1,
         .blog-content h2,
         .blog-content h3,
@@ -381,10 +392,9 @@
 
 <body class="  w-full pb-20 lg:pb-0 min-h-screen">
 
-    {{-- Floating WhatsApp Button (Global) --}}
     @php
         $waRaw = $company?->whatsapp_number ?? '';
-        $waNumber = preg_replace('/[^0-9]/', '', $waRaw); // keep digits only
+        $waNumber = preg_replace('/[^0-9]/', '', $waRaw);
         $waText = urlencode('Hi! I need help with placing an order.');
     @endphp
 
@@ -410,10 +420,13 @@
 
             <a href="/" class="flex items-center gap-3">
                 @if ($company?->logo)
-                    <img src="{{ asset('storage/' . $company->logo) }}" class="h-8 w-auto">
+                    <img src="{{ asset('storage/' . $company->logo) }}"
+                        class="h-8 sm:h-9 md:h-10 lg:h-12 w-auto object-contain transition-transform duration-200 hover:scale-105">
                 @endif
 
             </a>
+
+
             @php
                 $isHome = request()->routeIs('home'); // change if needed
                 $homeUrl = route('home');
@@ -437,7 +450,6 @@
                         class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">Blogs</a>
                     <a href="/guides"
                         class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">Guides</a>
-                    <!-- Create Order – standout but elegant -->
                     @auth
                         <a href="{{ route('user.orders') }}"
                             class="text-gray-400 hover:text-white transition duration-300 hover:-translate-y-0.5">Dashboard</a>
@@ -451,8 +463,7 @@
                         </a>
                     @endauth
                 </nav>
-                <a href="{{ route('user.orders') }}"
-                    class="hidden ml-4 btn-gold px-4 py-2 rounded-xl lg:flex items-start gap-2 ">
+                <a href="/request-order" class="hidden ml-4 btn-gold px-4 py-2 rounded-xl lg:flex items-start gap-2 ">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -544,132 +555,134 @@
 
     </main>
 
-
-    <footer id="contact" class="relative text-white">
-
-        {{-- Background Image --}}
+    <footer id="contact" class="relative overflow-hidden text-white">
+        {{-- Background --}}
         <div class="absolute inset-0">
-            <img src="{{ asset('footer-bg.png') }}" alt="Footer Background" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-black/70"></div>
+            <div
+                class="absolute inset-0 bg-[url('/footer.png')] bg-no-repeat bg-cover
+                   bg-[position:72%_85%]
+                   sm:bg-[position:70%_82%]
+                   lg:bg-[position:right_bottom]">
+            </div>
+
+            {{-- readability layers --}}
+            <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/30"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/72 via-black/35 to-black/20"></div>
+            <div class="absolute inset-0 bg-black/18"></div>
         </div>
 
         {{-- Content --}}
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 grid md:grid-cols-3 gap-12">
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+            <div
+                class="pt-20 sm:pt-24 lg:pt-28 pb-16 sm:pb-20 lg:pb-24 grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+                {{-- Company Info --}}
+                <div class="max-w-sm">
+                    <div class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                        <span class="text-white">
+                            {{ $company?->name ?? 'BorderlessBazzar' }}
+                        </span>
+                    </div>
 
-            {{-- Company Info --}}
-            <div>
-                <div class="text-2xl font-extrabold tracking-tight">
-                    <span class="text-white">
-                        {{ $company?->name ?? 'BorderlessBazzar' }}
-                    </span>
-                </div>
+                    <p class="text-sm sm:text-base mt-4 leading-8 text-white/90">
+                        Cross-border shopping made simple for Nepal.
+                        We handle shipping, customs and delivery.
+                    </p>
 
-                <p class="text-sm mt-4 max-w-sm leading-relaxed text-white/80">
-                    Cross-border shopping made simple for Nepal.
-                    We handle shipping, customs and delivery.
-                </p>
-
-                {{-- Social Icons --}}
-                <div class="flex gap-4 mt-6">
-
-                    @foreach ([
+                    <div class="flex gap-4 mt-6">
+                        @foreach ([
         'facebook_url' => 'fab fa-facebook-f',
         'instagram_url' => 'fab fa-instagram',
         'linkedin_url' => 'fab fa-linkedin-in',
         'youtube_url' => 'fab fa-youtube',
     ] as $field => $icon)
-                        @if ($company?->$field)
-                            <a href="{{ $company->$field }}" target="_blank"
-                                class="h-10 w-10 flex items-center justify-center rounded-xl
-                                  bg-white/10 backdrop-blur-sm
-                                  hover:bg-white/20 transition duration-300">
-                                <i class="{{ $icon }}"></i>
-                            </a>
+                            @if ($company?->$field)
+                                <a href="{{ $company->$field }}" target="_blank"
+                                    class="h-10 w-10 flex items-center justify-center rounded-xl
+                                       bg-white/10 backdrop-blur-md border border-white/10
+                                       hover:bg-white/20 transition duration-300">
+                                    <i class="{{ $icon }}"></i>
+                                </a>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                {{-- Contact --}}
+                <div class="max-w-sm">
+                    <div class="font-semibold text-white text-xl">Contact</div>
+
+                    <div class="mt-5 space-y-3 text-sm sm:text-base text-white/90">
+                        @if ($company?->contact_email)
+                            <div>
+                                Email:
+                                <a href="mailto:{{ $company->contact_email }}"
+                                    class="hover:text-white underline underline-offset-4 break-all">
+                                    {{ $company->contact_email }}
+                                </a>
+                            </div>
                         @endif
-                    @endforeach
 
+                        @if ($company?->contact_phone)
+                            <div>
+                                Phone:
+                                <a href="tel:{{ $company->contact_phone }}"
+                                    class="hover:text-white underline underline-offset-4">
+                                    {{ $company->contact_phone }}
+                                </a>
+                            </div>
+                        @endif
+
+                        @if ($company?->whatsapp_number)
+                            <div>
+                                WhatsApp:
+                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $company->whatsapp_number) }}"
+                                    target="_blank" class="hover:text-white underline underline-offset-4">
+                                    {{ $company->whatsapp_number }}
+                                </a>
+                            </div>
+                        @endif
+
+                        @if ($company?->address)
+                            <div>
+                                {{ $company->address }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                {{-- Quick Links --}}
+                <div class="max-w-sm">
+                    <div class="font-semibold text-white text-xl">Quick Links</div>
+
+                    <div class="mt-5 space-y-3 text-sm sm:text-base">
+                        <a href="#why-borderless" class="block text-white/90 hover:text-white transition">
+                            Why Us
+                        </a>
+                        <a href="#how" class="block text-white/90 hover:text-white transition">
+                            How it works
+                        </a>
+                        <a href="#faq" class="block text-white/90 hover:text-white transition">
+                            FAQ
+                        </a>
+                        <a href="/blogs" class="block text-white/90 hover:text-white transition">
+                            Blogs
+                        </a>
+                        <a href="/guides" class="block text-white/90 hover:text-white transition">
+                            Guides
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            {{-- Contact --}}
-            <div>
-                <div class="font-semibold text-white text-lg">Contact</div>
-
-                <div class="mt-4 space-y-3 text-sm text-white/80">
-
-                    @if ($company?->contact_email)
-                        <div>
-                            Email:
-                            <a href="mailto:{{ $company->contact_email }}"
-                                class="hover:text-white underline underline-offset-4">
-                                {{ $company->contact_email }}
-                            </a>
-                        </div>
-                    @endif
-
-                    @if ($company?->contact_phone)
-                        <div>
-                            Phone:
-                            <a href="tel:{{ $company->contact_phone }}"
-                                class="hover:text-white underline underline-offset-4">
-                                {{ $company->contact_phone }}
-                            </a>
-                        </div>
-                    @endif
-
-                    @if ($company?->whatsapp_number)
-                        <div>
-                            WhatsApp:
-                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $company->whatsapp_number) }}"
-                                target="_blank" class="hover:text-white underline underline-offset-4">
-                                {{ $company->whatsapp_number }}
-                            </a>
-                        </div>
-                    @endif
-
-                    @if ($company?->address)
-                        <div>
-                            {{ $company->address }}
-                        </div>
-                    @endif
-
-                </div>
+            {{-- Bottom Bar --}}
+            <div class="relative border-t border-white/15 py-6 text-center text-sm text-white/70">
+                © {{ date('Y') }}
+                <span class="font-bold text-white">
+                    {{ $company?->name ?? 'BorderlessBazzar' }}
+                </span>.
+                All rights reserved.
             </div>
-
-            {{-- Quick Links --}}
-            <div>
-                <div class="font-semibold text-white text-lg">Quick Links</div>
-
-                <div class="mt-4 space-y-3 text-sm">
-                    <a href="#why-borderless" class="block text-white/80 hover:text-white transition">
-                        Why Us
-                    </a>
-                    <a href="#how" class="block text-white/80 hover:text-white transition">
-                        How it works
-                    </a>
-                    <a href="#faq" class="block text-white/80 hover:text-white transition">
-                        FAQ
-                    </a>
-                    <a href="/blogs" class="block text-white/80 hover:text-white transition">
-                        Blogs
-                    </a>
-                    <a href="/guides" class="block text-white/80 hover:text-white transition">
-                        Guides
-                    </a>
-                </div>
-            </div>
-
         </div>
-
-        {{-- Bottom Bar --}}
-        <div class="relative border-t border-white/20 text-center text-sm text-white/70 py-6">
-            © {{ date('Y') }}
-            <span class="font-bold text-white">
-                {{ $company?->name ?? 'BorderlessBazzar' }}
-            </span>.
-            All rights reserved.
-        </div>
-
     </footer>
     {{-- @livewire('frontend.auth-modal') --}}
     <livewire:frontend.auth-modal />
@@ -677,14 +690,12 @@
 
 
     @livewireScripts
-    {{-- Mobile / Tablet Bottom Navigation --}}
-    <nav class="lg:hidden fixed  bottom-[env(safe-area-inset-bottom)] left-0 w-full z-50">
+    {{-- <nav class="lg:hidden fixed  bottom-[env(safe-area-inset-bottom)] left-0 w-full z-50">
 
         <div class="bg-[#0b0f14]/80  backdrop-blur-xl border-t border-white/5">
 
             <div class="relative flex items-end justify-between px-4 sm:px-8 pt-3 pb-2">
 
-                {{-- Home --}}
                 <a href="/"
                     class="flex flex-col items-center justify-end flex-1 gap-1 transition duration-200
                {{ request()->is('/') ? 'text-gold' : 'text-gray-400' }}">
@@ -692,7 +703,6 @@
                     <span class="text-[10px] tracking-wide">Home</span>
                 </a>
 
-                {{-- Orders / Login --}}
                 @auth
                     <a href="{{ route('user.orders') }}"
                         class="flex flex-col items-center mr-8 justify-end flex-1 gap-1 transition duration-200
@@ -709,7 +719,6 @@
                 @endauth
 
 
-                {{-- CENTER FLOATING CTA --}}
                 <div class="absolute left-1/2 -translate-x-1/2 -top-6 shadow-[0_15px_40px_rgba(214,177,94,0.45)]">
 
                     <a href="/request-order"
@@ -738,7 +747,6 @@
                 <a href="/blogs"
                     class="flex flex-col items-center justify-end flex-1 gap-1  transition duration-200
                {{ request()->is('blogs') ? 'text-gold' : 'text-gray-400' }}">
-                    {{-- <i class="fas fa-book text-lg"></i> --}}
                     <i class="fa-solid fa-compass text-lg"></i>
                     <span class="text-[10px] tracking-wide">Guides</span>
                 </a>
@@ -748,10 +756,72 @@
 
             </div>
         </div>
+    </nav> --}}
+    <nav class="lg:hidden fixed bottom-[env(safe-area-inset-bottom)] left-0 w-full z-50">
+        <div class="bg-[#0b0f14]/80 backdrop-blur-xl border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-3 sm:px-6 pt-2 pb-2">
+                <div class="grid grid-cols-5 items-end gap-1">
+
+                    {{-- Home --}}
+                    <a href="/"
+                        class="flex flex-col items-center justify-end gap-1 py-1 transition duration-200
+                   {{ request()->is('/') ? 'text-gold' : 'text-gray-400' }}">
+                        <i class="fas fa-house text-[18px] sm:text-lg"></i>
+                        <span class="text-[10px] sm:text-[11px] leading-none">Home</span>
+                    </a>
+
+                    {{-- Orders / Login --}}
+                    @auth
+                        <a href="{{ route('user.orders') }}"
+                            class="flex flex-col items-center justify-end gap-1 py-1 transition duration-200
+                       {{ request()->routeIs('user.orders') ? 'text-gold' : 'text-gray-400' }}">
+                            <i class="fas fa-box text-[18px] sm:text-lg"></i>
+                            <span class="text-[10px] sm:text-[11px] leading-none">Profile</span>
+                        </a>
+                    @else
+                        <a href="#" onclick="window.dispatchEvent(new CustomEvent('open-auth-modal'))"
+                            class="flex flex-col items-center justify-end gap-1 py-1 text-gray-400 transition duration-200">
+                            <i class="fa-solid fa-right-to-bracket text-[18px] sm:text-lg"></i>
+                            <span class="text-[10px] sm:text-[11px] leading-none">Login</span>
+                        </a>
+                    @endauth
+
+                    <div class="flex flex-col items-center -mt-6">
+                        <a href="/request-order"
+                            class="h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gold text-[#0b0f14]
+                              flex items-center justify-center
+                              {{-- shadow-[0_8px_30px_rgba(212,175,55,0.35)] --}}
+                              ring-4 ring-[#0b0f14]
+                              active:scale-95 transition duration-200">
+                            <i class="fas fa-plus text-lg sm:text-xl"></i>
+                        </a>
+                        <p class="text-[10px] sm:text-[11px] mt-1 text-gray-400 leading-none">Create</p>
+                    </div>
+
+                    {{-- Blogs --}}
+                    <a href="/blogs"
+                        class="flex flex-col items-center justify-end gap-1 py-1 transition duration-200
+                   {{ request()->is('blogs') ? 'text-gold' : 'text-gray-400' }}">
+                        <i class="fas fa-book text-[18px] sm:text-lg"></i>
+                        <span class="text-[10px] sm:text-[11px] leading-none">Blogs</span>
+                    </a>
+
+                    {{-- Guides --}}
+                    <a href="/guides"
+                        class="flex flex-col items-center justify-end gap-1 py-1 transition duration-200
+                   {{ request()->is('guides') ? 'text-gold' : 'text-gray-400' }}">
+                        <i class="fa-solid fa-compass text-[18px] sm:text-lg"></i>
+                        <span class="text-[10px] sm:text-[11px] leading-none">Guides</span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
     </nav>
 
-
     <div class="h-20 sm:h-24 lg:hidden"></div>
+
+
 
 
 
