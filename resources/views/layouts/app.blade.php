@@ -390,7 +390,7 @@
     @livewireStyles
 </head>
 
-<body class="  w-full pb-20 lg:pb-0 min-h-screen">
+<body class="  w-full min-h-screen">
 
     @php
         $waRaw = $company?->whatsapp_number ?? '';
@@ -418,13 +418,12 @@
         class="sticky top-0 z-50 border-b transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
 
-            <a href="/" class="flex items-center gap-3">
-                @if ($company?->logo)
-                    <img src="{{ asset('storage/' . $company->logo) }}"
-                        class="h-8 sm:h-9 md:h-10 lg:h-12 w-auto object-contain transition-transform duration-200 hover:scale-105">
-                @endif
-
-            </a>
+      <a href="/" class="flex items-center gap-3">
+    @if ($company?->logo)
+        <img src="{{ asset('storage/' . $company->logo) }}"
+            class="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain transition-transform duration-200 hover:scale-105">
+    @endif
+</a>
 
 
             @php
@@ -819,7 +818,6 @@
         </div>
     </nav>
 
-    <div class="h-20 sm:h-24 lg:hidden"></div>
 
 
 
@@ -834,6 +832,58 @@
         })
     </script>
 
+<script>
+    function reviewSlider() {
+        return {
+            atStart: true,
+            atEnd: false,
+            track: null,
+
+            init() {
+                this.track = this.$refs.track;
+                this.updateButtons();
+
+                window.addEventListener('resize', () => {
+                    this.updateButtons();
+                });
+            },
+
+            scrollAmount() {
+                const firstCard = this.track.querySelector('[class*="snap-start"]');
+                if (!firstCard) return 300;
+
+                const gap = 24; // approximate gap
+                return firstCard.offsetWidth + gap;
+            },
+
+            scrollLeft() {
+                this.track.scrollBy({
+                    left: -this.scrollAmount(),
+                    behavior: 'smooth'
+                });
+
+                setTimeout(() => this.updateButtons(), 350);
+            },
+
+            scrollRight() {
+                this.track.scrollBy({
+                    left: this.scrollAmount(),
+                    behavior: 'smooth'
+                });
+
+                setTimeout(() => this.updateButtons(), 350);
+            },
+
+            updateButtons() {
+                const el = this.track;
+                if (!el) return;
+
+                this.atStart = el.scrollLeft <= 5;
+                this.atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 5;
+            }
+        }
+    }
+</script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 

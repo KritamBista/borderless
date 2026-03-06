@@ -26,7 +26,8 @@
                             </span>
 
                             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
 
@@ -69,7 +70,7 @@
             <div class="lg:col-span-8 space-y-4">
                 @foreach ($items as $index => $item)
                     <div class="glass rounded-3xl p-5">
-                        <div class="flex items-center justify-between gap-3">
+                        {{-- <div class="flex items-center justify-between gap-3">
                             <div class="font-bold">
                                 Item #{{ $index + 1 }}
                                 <span class="text-xs text-gray-400 font-medium ml-2">Per-product estimate</span>
@@ -80,8 +81,22 @@
                                 @if (count($items) <= 1) disabled @endif>
                                 Remove
                             </button>
-                        </div>
+                        </div> --}}
 
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                            <div class="font-bold min-w-0">
+                                <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                                    <span>Item #{{ $index + 1 }}</span>
+                                    <span class="text-xs text-gray-400 font-medium">Per-product estimate</span>
+                                </div>
+                            </div>
+
+                            <button wire:click="removeItem({{ $index }})"
+                                class="self-start sm:self-auto text-sm text-gray-400 hover:text-white transition disabled:opacity-40 disabled:cursor-not-allowed"
+                                @if (count($items) <= 1) disabled @endif>
+                                Remove
+                            </button>
+                        </div>
                         <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 mt-4">
                             <div class="sm:col-span-6">
                                 <label class="text-xs text-gray-400">Product Name</label>
@@ -161,7 +176,8 @@
                         <div class="mt-5 grid grid-cols-2 sm:grid-cols-3 gap-3">
                             <div class="rounded-2xl p-3 border border-white/10">
                                 <div class="text-xs text-gray-400">Item Cost (NPR)</div>
-                                <div class="text-lg font-extrabold">{{ number_format($item['item_cost_npr'], 2) }}</div>
+                                <div class="text-lg font-extrabold">{{ number_format($item['item_cost_npr'], 2) }}
+                                </div>
                             </div>
                             <div class="rounded-2xl p-3 border border-white/10">
                                 <div class="text-xs text-gray-400">Shipping (NPR)</div>
@@ -177,7 +193,8 @@
                             </div>
                             <div class="rounded-2xl p-3 border border-white/10 sm:col-span-2">
                                 <div class="text-xs text-gray-400">Item Total (NPR)</div>
-                                <div class="text-lg font-extrabold text-gold">{{ number_format($item['total_npr'], 2) }}
+                                <div class="text-lg font-extrabold text-gold">
+                                    {{ number_format($item['total_npr'], 2) }}
                                 </div>
                             </div>
                         </div>
@@ -227,7 +244,8 @@
                                 <div
                                     class="flex items-center justify-between gap-3 rounded-2xl p-3 border border-white/10">
                                     <div>
-                                        <div class="text-sm font-extrabold text-gold">{{ $applied_coupon['code'] }}</div>
+                                        <div class="text-sm font-extrabold text-gold">{{ $applied_coupon['code'] }}
+                                        </div>
                                         <div class="text-xs text-gray-400">
                                             @if ($applied_coupon['type'] === 'percent')
                                                 {{ number_format((float) $applied_coupon['value'], 2) }}% off
@@ -357,8 +375,8 @@
                                 <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
                                     <circle class="opacity-20" cx="12" cy="12" r="10"
                                         stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-80" d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="4"
-                                        stroke-linecap="round"></path>
+                                    <path class="opacity-80" d="M4 12a8 8 0 018-8" stroke="currentColor"
+                                        stroke-width="4" stroke-linecap="round"></path>
                                 </svg>
                                 Processing...
                             </span>

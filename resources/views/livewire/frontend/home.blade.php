@@ -8,7 +8,7 @@
 <div class="bg-darkbg w-full text-white">
 
 
-    <section class="relative w-full mx-auto  px-4 sm:px-6 pt-14 sm:pt-20 pb-12 sm:pb-20 animate-fadeUp">
+    <section class="relative w-full mx-auto  px-6    lg:px-8 pt-14 sm:pt-20 pb-12 sm:pb-20 animate-fadeUp">
 
         <div class="absolute inset-0 pointer-events-none  select-none overflow-hidden">
 
@@ -29,7 +29,8 @@
                 style="background: radial-gradient(circle at 50% 45%, rgba(11,15,20,.10) 0%, rgba(11,15,20,.55) 65%, rgba(11,15,20,.85) 100%);">
             </div>
         </div>
-        <div class=" grid lg:grid-cols-12 gap-10  items-center  " style="position: relative; z-index: 100;">
+        <div class=" max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center  "
+            style="position: relative; z-index: 100;">
 
             {{-- Left --}}
             <div class="lg:col-span-8">
@@ -154,7 +155,8 @@
                 </div>
 
                 {{-- E-commerce Stores --}}
-                <div class="glass rounded-3xl p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(214,177,94,0.25)] transition duration-500 ease-out">
+                <div
+                    class="glass rounded-3xl p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(214,177,94,0.25)] transition duration-500 ease-out">
                     <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
                         data-target="{{ $company->ecommerce_stores ?? 100 }}">
                         0
@@ -168,7 +170,8 @@
                 </div>
 
                 {{-- Countries --}}
-                <div class="glass rounded-3xl p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(214,177,94,0.25)] transition duration-500 ease-out">
+                <div
+                    class="glass rounded-3xl p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(214,177,94,0.25)] transition duration-500 ease-out">
                     <div class="text-5xl sm:text-6xl font-extrabold text-gold counter"
                         data-target="{{ $company->countries ?? 7 }}">
                         0
@@ -755,7 +758,7 @@
                     </div>
                 </div>
 
-                <div class="grid sm:grid-cols-2 mt-6 gap-4">
+                {{-- <div class="grid sm:grid-cols-2 mt-6 gap-4">
 
                     <div class="glass rounded-2xl p-4">
                         <div class="flex items-start gap-3">
@@ -795,6 +798,61 @@
                             <div>
                                 <div class="font-bold text-white">Recommendations that make sense</div>
                                 <div class="text-sm text-gray-400 mt-1">
+                                    We suggest stores and sellers that work best for Nepal.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 mt-6 gap-4">
+
+                    {{-- Card 1 --}}
+                    <div class="glass rounded-2xl p-4 sm:p-5">
+                        <div class="flex items-start gap-3 sm:gap-4">
+                            <div
+                                class="shrink-0 h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center">
+                                {{-- Shield Check --}}
+                                <svg class="h-5 w-5 sm:h-6 sm:w-6 text-yellow-300" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.9">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 3l7 4v5c0 5-3.5 8.5-7 9.8C8.5 20.5 5 17 5 12V7l7-4z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9.5 12.5l1.7 1.7 3.8-4.2" />
+                                </svg>
+                            </div>
+
+                            <div class="min-w-0">
+                                <div class="font-bold text-white text-sm sm:text-base leading-snug">
+                                    Price checks, no surprises
+                                </div>
+                                <div class="text-sm text-gray-400 mt-1 leading-6">
+                                    We confirm price, weight, and real shipping before you approve.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Card 2 --}}
+                    <div class="glass rounded-2xl p-4 sm:p-5">
+                        <div class="flex items-start gap-3 sm:gap-4">
+                            <div
+                                class="shrink-0 h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center">
+                                {{-- Better bulb / idea icon --}}
+                                <svg class="h-5 w-5 sm:h-6 sm:w-6 text-yellow-300" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.9">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 18h6" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 21h4" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.2 14.5c-.8-.8-1.2-1.7-1.2-3a5 5 0 1110 0c0 1.3-.4 2.2-1.2 3-.7.7-1.2 1.4-1.4 2.5h-4.4c-.2-1.1-.7-1.8-1.4-2.5z" />
+                                </svg>
+                            </div>
+
+                            <div class="min-w-0">
+                                <div class="font-bold text-white text-sm sm:text-base leading-snug">
+                                    Recommendations that make sense
+                                </div>
+                                <div class="text-sm text-gray-400 mt-1 leading-6">
                                     We suggest stores and sellers that work best for Nepal.
                                 </div>
                             </div>
@@ -897,8 +955,104 @@
         </section>
     @endif
 
+
+
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-14" x-data="reviewSlider()" x-init="init()">
+
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="max-w-2xl">
+                <div
+                    class="inline-flex items-center rounded-full
+            border border-gold/30 bg-gold/10
+            px-4 md:px-5 py-1.5
+            text-xs md:text-sm tracking-[0.25em] uppercase text-gold">
+                    What Shoppers Say
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 self-start sm:self-auto sm:ml-auto">
+                <button type="button" @click="scrollLeft" :disabled="atStart"
+                    class="h-10 w-10 sm:h-11 sm:w-11 rounded-2xl border border-white/10 bg-white/5 text-white
+                   flex items-center justify-center transition
+                   hover:bg-white/10 disabled:opacity-40 disabled:cursor-not-allowed shrink-0">
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <button type="button" @click="scrollRight" :disabled="atEnd"
+                    class="h-10 w-10 sm:h-11 sm:w-11 rounded-2xl border border-white/10 bg-white/5 text-white
+                   flex items-center justify-center transition
+                   hover:bg-white/10 disabled:opacity-40 disabled:cursor-not-allowed shrink-0">
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="relative mt-8">
+            <div
+                class="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#0b0f14] to-transparent z-10">
+            </div>
+            <div
+                class="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#0b0f14] to-transparent z-10">
+            </div>
+
+            <div x-ref="track" @scroll.debounce.50ms="updateButtons"
+                class="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scroll-hidden pb-2">
+
+                @foreach ($reviews ?? [] as $r)
+                    <div class="snap-start shrink-0 w-full md:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]">
+                        <div class="glass rounded-3xl p-6 h-full min-h-[240px] flex flex-col">
+
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="flex items-start gap-3 min-w-0">
+                                    @if ($r->avatar)
+                                        <img src="{{ Storage::url($r->avatar) }}" alt="{{ $r->name }}"
+                                            class="h-10 w-10 rounded-full object-cover border border-white/10 shrink-0">
+                                    @else
+                                        <div
+                                            class="h-10 w-10 rounded-full bg-gold/20 text-gold flex items-center justify-center font-bold border border-gold/30 shrink-0">
+                                            {{ strtoupper(substr($r->name, 0, 1)) }}
+                                        </div>
+                                    @endif
+
+                                    <div class="min-w-0">
+                                        <div class="font-extrabold text-white leading-tight truncate">
+                                            {{ $r->name }}
+                                        </div>
+
+                                        <div class="mt-1 sm:mt-0">
+                                            <span
+                                                class="inline-flex max-w-full items-center rounded-full border border-white/10 bg-white/5
+                                            px-2.5 py-1 text-[11px] sm:text-xs text-gray-300 truncate">
+                                                {{ $r->destination }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 flex items-center gap-1 text-gold text-sm">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <span class="{{ $i <= $r->stars ? '' : 'opacity-30' }}">★</span>
+                                @endfor
+                            </div>
+
+                            <p class="mt-3 text-sm text-gray-300 leading-relaxed">
+                                {{ $r->review }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
     {{-- Reviews --}}
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+    {{-- <section class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
 
         <div class="flex items-end justify-between gap-6">
             <div class="max-w-2xl">
@@ -958,45 +1112,108 @@
                 </div>
             @endforeach
         </div>
-    </section>
+    </section> --}}
+
+
 
     {{-- FAQ --}}
-    <section id="faq" class=" max-w-7xl mx-auto px-4 sm:px-6 py-14 bg-gradient-to-b from-black to-neutral-950">
-        <!-- Subtle background glows -->
+    <section id="faq" x-data="{ showAllFaqs: false }"
+        class="max-w-7xl mx-auto px-4 sm:px-6 py-14 bg-gradient-to-b from-black to-neutral-950">
 
         <div class="max-w-2xl">
-            <h2 class="text-2xl font-extrabold">FAQ</h2>
+            <h2 class="text-2xl text-gold font-extrabold">FAQs</h2>
             <p class="text-gray-400 mt-2">Short and direct answers.</p>
         </div>
 
-        <div class="mt-8 grid lg:grid-cols-2 gap-6">
-            @foreach ($faqs ?? [] as $index => $f)
-                <div class="glass rounded-3xl p-6">
+        @php
+            $faqLimit = 4;
+            $faqItems = collect($faqs ?? []);
+            $initialFaqs = $faqItems->take($faqLimit);
+            $remainingFaqs = $faqItems->slice($faqLimit);
+        @endphp
 
-                    <!-- Question -->
+        <div class="mt-8 grid lg:grid-cols-2 gap-6">
+
+            {{-- First 4 FAQs --}}
+            @foreach ($initialFaqs as $index => $f)
+                <div class="glass rounded-3xl p-6">
                     <button type="button" onclick="toggleFAQ({{ $index }})"
                         class="w-full flex items-center justify-between text-left">
-                        <span class="font-extrabold">
+
+                        <span class="font-extrabold text-gold">
                             {{ $f->question }}
                         </span>
 
-                        <!-- Arrow -->
-                        <svg id="arrow-{{ $index }}" class="w-5 h-5 transition-transform duration-300"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg id="arrow-{{ $index }}"
+                            class="w-5 text-gold h-5 transition-transform duration-300" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 9l-7 7-7-7" />
                         </svg>
+
                     </button>
 
-                    <!-- Answer -->
                     <div id="answer-{{ $index }}" class="hidden text-sm text-gray-400 mt-4 leading-relaxed">
                         {{ $f->answer }}
                     </div>
-
                 </div>
             @endforeach
+
+
+
+            <template x-if="showAllFaqs">
+                <div class="contents">
+
+                    @foreach ($remainingFaqs as $index => $f)
+                        @php $realIndex = $index + $faqLimit; @endphp
+
+                        <div class="glass rounded-3xl p-6">
+                            <button type="button" onclick="toggleFAQ({{ $realIndex }})"
+                                class="w-full flex items-center justify-between text-left">
+
+                                <span class="font-extrabold text-gold">
+                                    {{ $f->question }}
+                                </span>
+
+                                <svg id="arrow-{{ $realIndex }}"
+                                    class="w-5 h-5 text-gold transition-transform duration-300" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+
+                            </button>
+
+                            <div id="answer-{{ $realIndex }}"
+                                class="hidden text-sm text-gray-400 mt-4 leading-relaxed">
+                                {{ $f->answer }}
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+            </template>
+
         </div>
+
+        {{-- Show More Button --}}
+        @if ($remainingFaqs->count() > 0)
+            <div class="mt-8 flex justify-center">
+
+                <button @click="showAllFaqs = !showAllFaqs"
+                    class="px-6 py-3 rounded-xl border border-white/10 bg-white/5 text-white
+                       hover:bg-white/10 transition">
+
+                    <span x-show="!showAllFaqs">Show more FAQs</span>
+                    <span x-show="showAllFaqs">Show less</span>
+
+                </button>
+
+            </div>
+        @endif
+
     </section>
+
 
     <script>
         function toggleFAQ(index) {
