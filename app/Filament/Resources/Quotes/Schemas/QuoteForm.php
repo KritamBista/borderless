@@ -13,8 +13,7 @@ class QuoteForm
         return $schema
             ->components([
                 Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
+                    ->relationship('user', 'name'),
                 Select::make('country_id')
                     ->relationship('country', 'name')
                     ->required(),
@@ -72,6 +71,13 @@ class QuoteForm
                     ->required()
                     ->numeric()
                     ->default(0),
+                TextInput::make('public_id')
+                    ->required(),
+                TextInput::make('service_fee_type'),
+                TextInput::make('service_fee_percent_snapshot')
+                    ->numeric(),
+                TextInput::make('service_fee_threshold_snapshot')
+                    ->numeric(),
             ]);
     }
 }

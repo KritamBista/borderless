@@ -17,6 +17,8 @@ class Country extends Model
         'service_fee_npr',
         'min_chargeable_weight_kg',
         'is_active',
+        'service_fee_threshold_npr',
+        'service_fee_percent',
     ];
 
     protected $casts = [

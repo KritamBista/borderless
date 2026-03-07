@@ -34,12 +34,12 @@ class OrderInfolist
                     TextEntry::make('discount_npr')->money('NPR')->placeholder('-'),
                     TextEntry::make('payable_npr')->money('NPR'),
 
-                    // IconEntry::make('payment_proof_uploaded')->boolean(),
-                    // TextEntry::make('payment_proof_path')
-                    //     ->label('Payment Proof')
-                    //     ->url(fn($record) => $record->payment_proof_path ? asset('storage/' . $record->payment_proof_path) : null)
-                    //     ->openUrlInNewTab()
-                    //     ->placeholder('-'),
+                    IconEntry::make('payment_proof_uploaded')->boolean(),
+                    TextEntry::make('payment_proof_path')
+                        ->label('Payment Proof')
+                        ->url(fn($record) => $record->payment_proof_path ? asset('storage/' . $record->payment_proof_path) : null)
+                        ->openUrlInNewTab()
+                        ->placeholder('-'),
 
                     TextEntry::make('admin_notes')->markdown()->placeholder('-')->columnSpanFull(),
                 ]),
@@ -104,7 +104,7 @@ class OrderInfolist
                                 ->url(fn($record) => QuoteItemResource::getUrl('view', ['record' => $record]))
 
                                 ->label('Product')->placeholder('-'),
-                            TextEntry::make('product_link ')->label('Product')->placeholder('-'),
+                            TextEntry::make('product_link ')->label('Product Link')->placeholder('-'),
 
                             TextEntry::make('quantity')->label('Qty'),
                             TextEntry::make('weight_kg')->label('Qty'),

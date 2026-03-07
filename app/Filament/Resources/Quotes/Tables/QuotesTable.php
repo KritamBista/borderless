@@ -74,6 +74,16 @@ class QuotesTable
                 TextColumn::make('payable_npr')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('public_id')
+                    ->searchable(),
+                TextColumn::make('service_fee_type')
+                    ->searchable(),
+                TextColumn::make('service_fee_percent_snapshot')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('service_fee_threshold_snapshot')
+                    ->numeric()
+                    ->sortable(),
             ])
             ->filters([
                 //

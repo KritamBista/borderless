@@ -12,7 +12,8 @@ class QuoteInfolist
         return $schema
             ->components([
                 TextEntry::make('user.name')
-                    ->label('User'),
+                    ->label('User')
+                    ->placeholder('-'),
                 TextEntry::make('country.name')
                     ->label('Country'),
                 TextEntry::make('currency_code_snapshot'),
@@ -54,6 +55,15 @@ class QuoteInfolist
                     ->numeric(),
                 TextEntry::make('payable_npr')
                     ->numeric(),
+                TextEntry::make('public_id'),
+                TextEntry::make('service_fee_type')
+                    ->placeholder('-'),
+                TextEntry::make('service_fee_percent_snapshot')
+                    ->numeric()
+                    ->placeholder('-'),
+                TextEntry::make('service_fee_threshold_snapshot')
+                    ->numeric()
+                    ->placeholder('-'),
             ]);
     }
 }

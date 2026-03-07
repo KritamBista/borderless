@@ -46,6 +46,12 @@ class CountriesTable
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('flag')
                     ->searchable(),
+                TextColumn::make('service_fee_threshold_npr')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('service_fee_percent')
+                    ->numeric()
+                    ->sortable(),
             ])
             ->filters([
                 //

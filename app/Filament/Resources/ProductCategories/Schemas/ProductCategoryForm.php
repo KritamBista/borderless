@@ -22,6 +22,8 @@ class ProductCategoryForm
                     ->default(0),
                 Toggle::make('is_active')
                     ->required(),
+                Toggle::make('is_vat_applicable')
+                    ->required(),
             ]);
     }
 }

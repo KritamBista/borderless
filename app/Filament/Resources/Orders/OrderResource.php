@@ -15,12 +15,21 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // protected static ?string $navigationGroup = 'Commerce';
+    // protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+    // protected static ?int $navigationSort = 1;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingBag;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Commerce';
+
+    protected static ?int $navigationSort = 1;
 
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {

@@ -155,7 +155,7 @@
                             <div class="sm:col-span-2">
                                 <label class="text-xs text-gray-400">Qty</label>
                                 <input type="number" min="1"
-                                    wire:model.live.debounce.500m="items.{{ $index }}.quantity"
+                                    wire:model.live.debounce.500ms="items.{{ $index }}.quantity"
                                     class="mt-1 w-full bg-transparent border border-white/10 rounded-2xl px-4 py-3 outline-none text-white focus:border-gold focus:ring-2 focus:ring-gold transition "
                                     placeholder="1">
                             </div>

@@ -15,12 +15,18 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class CustomerReviewResource extends Resource
 {
     protected static ?string $model = CustomerReview::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftRight;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Customers & Marketing';
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {

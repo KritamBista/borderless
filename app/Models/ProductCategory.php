@@ -11,7 +11,8 @@ class ProductCategory extends Model
         'name',
         'slug',
         'duty_rate',
+        'is_vat_applicable',
         'is_active',
     ];
-    
+
 }

@@ -33,6 +33,8 @@ class ProductCategoriesTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                IconColumn::make('is_vat_applicable')
+                    ->boolean(),
             ])
             ->filters([
                 //

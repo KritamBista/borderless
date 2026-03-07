@@ -15,12 +15,19 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class CountryResource extends Resource
 {
     protected static ?string $model = Country::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGlobeAlt;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Catalog & Pricing';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

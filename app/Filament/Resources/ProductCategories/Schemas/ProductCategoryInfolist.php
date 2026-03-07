@@ -24,6 +24,8 @@ class ProductCategoryInfolist
                 TextEntry::make('updated_at')
                     ->dateTime()
                     ->placeholder('-'),
+                IconEntry::make('is_vat_applicable')
+                    ->boolean(),
             ]);
     }
 }

@@ -15,13 +15,19 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ProductCategoryResource extends Resource
 {
-    protected static ?string $model = ProductCategory::class;
+    // protected static ?string $model = ProductCategory::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-tag';
+    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
+    protected static string|UnitEnum|null $navigationGroup = 'Catalog & Pricing';
 
+    // protected static ?string $navigationGroup = 'Catalog & Pricing';
+
+    protected static ?int $navigationSort = 1;
     public static function form(Schema $schema): Schema
     {
         return ProductCategoryForm::configure($schema);

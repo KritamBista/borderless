@@ -33,6 +33,12 @@ class CountryInfolist
                     ->placeholder('-'),
                 TextEntry::make('flag')
                     ->placeholder('-'),
+                TextEntry::make('service_fee_threshold_npr')
+                    ->numeric()
+                    ->placeholder('-'),
+                TextEntry::make('service_fee_percent')
+                    ->numeric()
+                    ->placeholder('-'),
             ]);
     }
 }
