@@ -21,9 +21,9 @@ class HotProductsTable
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                ImageColumn::make('image'),
+                // ImageColumn::make('image'),
                 TextColumn::make('price')
-                 
+
                     ->sortable(),
                 TextColumn::make('currency')
                     ->searchable(),

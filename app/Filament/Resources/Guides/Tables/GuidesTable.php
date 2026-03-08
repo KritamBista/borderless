@@ -21,21 +21,21 @@ class GuidesTable
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                ImageColumn::make('featured_image'),
+                // ImageColumn::make('featured_image'),
                 TextColumn::make('category')
                     ->searchable(),
                 IconColumn::make('is_published')
                     ->boolean(),
-                TextColumn::make('published_at')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('meta_title')
-                    ->searchable(),
-                TextColumn::make('meta_description')
-                    ->searchable(),
-                TextColumn::make('created_by')
-                    ->numeric()
-                    ->sortable(),
+                // TextColumn::make('published_at')
+                //     ->dateTime()
+                //     ->sortable(),
+                // TextColumn::make('meta_title')
+                //     ->searchable(),
+                // TextColumn::make('meta_description')
+                //     ->searchable(),
+                // TextColumn::make('created_by')
+                //     ->numeric()
+                //     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

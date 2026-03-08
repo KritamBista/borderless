@@ -23,8 +23,8 @@ class CustomerReviewsTable
                 TextColumn::make('stars')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('avatar')
-                    ->searchable(),
+                // TextColumn::make('avatar')
+                //     ->searchable(),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('sort_order')

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Addresses\Tables;
 
+use App\Filament\Resources\Users\UserResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -17,6 +18,9 @@ class AddressesTable
         return $table
             ->columns([
                 TextColumn::make('user_id')
+                         ->url(fn ($record) => $record->user
+                        ? UserResource::getUrl('view', ['record' => $record->user])
+                        : null)
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('full_name')

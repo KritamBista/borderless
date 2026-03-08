@@ -32,7 +32,7 @@ class OrdersTable
                     ->label('Customer')
                     ->searchable()
                     ->sortable()
-                    ->url(fn ($record) => $record->user
+                    ->url(fn($record) => $record->user
                         ? UserResource::getUrl('view', ['record' => $record->user])
                         : null)
                     ->openUrlInNewTab(),
@@ -41,7 +41,7 @@ class OrdersTable
                     ->label('Quote')
                     ->searchable()
                     ->sortable()
-                    ->url(fn ($record) => $record->quote
+                    ->url(fn($record) => $record->quote
                         ? QuoteResource::getUrl('view', ['record' => $record->quote])
                         : null)
                     ->openUrlInNewTab(),
@@ -50,7 +50,8 @@ class OrdersTable
                     ->label('Proof')
                     ->boolean()
                     ->sortable(),
-                    ImageColumn::make('payment_proof_path')
+                ImageColumn::make('payment_proof_path')
+                    ->label('Payment Proof')
                     ->disk('public'),
 
                 TextColumn::make('payable_npr')
@@ -90,7 +91,7 @@ class OrdersTable
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
                     ->requiresConfirmation()
-                    ->visible(fn ($record) => in_array($record->status, [
+                    ->visible(fn($record) => in_array($record->status, [
                         'pending_verification',
                         'payment_rejected',
                     ]))
@@ -110,7 +111,7 @@ class OrdersTable
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
                     ->requiresConfirmation()
-                    ->visible(fn ($record) => $record->status === 'pending_verification')
+                    ->visible(fn($record) => $record->status === 'pending_verification')
                     ->action(function ($record) {
                         $record->update([
                             'status' => 'payment_rejected',
@@ -126,7 +127,7 @@ class OrdersTable
                     ->label('Processing')
                     ->icon('heroicon-o-arrow-path')
                     ->color('info')
-                    ->visible(fn ($record) => $record->status === 'payment_verified')
+                    ->visible(fn($record) => $record->status === 'payment_verified')
                     ->action(function ($record) {
                         $record->update([
                             'status' => 'processing',
@@ -142,7 +143,7 @@ class OrdersTable
                     ->label('Shipping')
                     ->icon('heroicon-o-truck')
                     ->color('primary')
-                    ->visible(fn ($record) => $record->status === 'processing')
+                    ->visible(fn($record) => $record->status === 'processing')
                     ->action(function ($record) {
                         $record->update([
                             'status' => 'shipping',
@@ -158,7 +159,7 @@ class OrdersTable
                     ->label('Out for delivery')
                     ->icon('heroicon-o-map-pin')
                     ->color('primary')
-                    ->visible(fn ($record) => $record->status === 'shipping')
+                    ->visible(fn($record) => $record->status === 'shipping')
                     ->action(function ($record) {
                         $record->update([
                             'status' => 'out_for_delivery',
@@ -174,7 +175,7 @@ class OrdersTable
                     ->label('Delivered')
                     ->icon('heroicon-o-gift')
                     ->color('success')
-                    ->visible(fn ($record) => $record->status === 'out_for_delivery')
+                    ->visible(fn($record) => $record->status === 'out_for_delivery')
                     ->action(function ($record) {
                         $record->update([
                             'status' => 'delivered',
@@ -191,7 +192,7 @@ class OrdersTable
                     ->icon('heroicon-o-no-symbol')
                     ->color('gray')
                     ->requiresConfirmation()
-                    ->visible(fn ($record) => ! in_array($record->status, [
+                    ->visible(fn($record) => ! in_array($record->status, [
                         'delivered',
                         'cancelled',
                     ]))

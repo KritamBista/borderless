@@ -18,15 +18,15 @@ class TrustedStoresTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('logo')
-                    ->searchable(),
+                // TextColumn::make('logo')
+                //     ->searchable(),
                 TextColumn::make('link')
                     ->searchable(),
                 IconColumn::make('is_active')
                     ->boolean(),
-                TextColumn::make('sort_order')
-                    ->numeric()
-                    ->sortable(),
+                // TextColumn::make('sort_order')
+                //     ->numeric()
+                //     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

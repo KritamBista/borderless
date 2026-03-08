@@ -19,13 +19,13 @@ class CompaniesTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('logo')
-                    ->searchable(),
-                ImageColumn::make('preview_image'),
-                TextColumn::make('meta_title')
-                    ->searchable(),
-                TextColumn::make('hero_title')
-                    ->searchable(),
+                // TextColumn::make('logo')
+                //     ->searchable(),
+                // ImageColumn::make('preview_image'),
+                //     TextColumn::make('meta_title')
+                //         ->searchable(),
+                // TextColumn::make('hero_title')
+                //     ->searchable(),
                 TextColumn::make('vat_percent')
                     ->numeric()
                     ->sortable(),
@@ -39,22 +39,22 @@ class CompaniesTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('facebook_url')
-                    ->searchable(),
-                TextColumn::make('instagram_url')
-                    ->searchable(),
-                TextColumn::make('linkedin_url')
-                    ->searchable(),
-                TextColumn::make('youtube_url')
-                    ->searchable(),
-                TextColumn::make('contact_email')
-                    ->searchable(),
-                TextColumn::make('contact_phone')
-                    ->searchable(),
-                TextColumn::make('whatsapp_number')
-                    ->searchable(),
-                TextColumn::make('address')
-                    ->searchable(),
+                // TextColumn::make('facebook_url')
+                //     ->searchable(),
+                // TextColumn::make('instagram_url')
+                //     ->searchable(),
+                // TextColumn::make('linkedin_url')
+                //     ->searchable(),
+                // TextColumn::make('youtube_url')
+                //     ->searchable(),
+                // TextColumn::make('contact_email')
+                //     ->searchable(),
+                // TextColumn::make('contact_phone')
+                //     ->searchable(),
+                // TextColumn::make('whatsapp_number')
+                //     ->searchable(),
+                // TextColumn::make('address')
+                //     ->searchable(),
                 TextColumn::make('orders_placed')
                     ->numeric()
                     ->sortable(),
