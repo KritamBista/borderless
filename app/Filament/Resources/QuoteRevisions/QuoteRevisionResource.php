@@ -19,6 +19,11 @@ use UnitEnum;
 
 class QuoteRevisionResource extends Resource
 {
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['quote', 'user']);
+    }
     protected static ?string $model = QuoteRevision::class;
 
     // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;

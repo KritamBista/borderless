@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class QuoteRevision extends Model
 {
     //
-      protected $fillable = [
+    protected $fillable = [
         'quote_id',
         'user_id',
         'contact_name',
@@ -15,8 +15,12 @@ class QuoteRevision extends Model
         'contact_phone',
         'reason',
     ];
-       public function quote()
+    public function quote()
     {
         return $this->belongsTo(Quote::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

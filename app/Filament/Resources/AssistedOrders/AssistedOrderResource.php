@@ -19,6 +19,11 @@ use UnitEnum;
 
 class AssistedOrderResource extends Resource
 {
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+{
+    return parent::getEloquentQuery()
+        ->with(['user', 'country', 'items']);
+}
     protected static ?string $model = AssistedOrder::class;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
     protected static string|UnitEnum|null $navigationGroup = 'Commerce';

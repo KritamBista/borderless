@@ -30,11 +30,11 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandLogo(fn () =>
-    ($logo = Company::query()->value('logo'))
-        ? Storage::url($logo)
-        : asset('favicon.png')
-)
+            ->brandLogo(
+                fn() => ($logo = Company::query()->value('logo'))
+                    ? Storage::url($logo)
+                    : asset('favicon.png')
+            )
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -58,6 +58,13 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+            ])
+            ->navigationGroups([
+                'Commerce',
+                'Catalog & Pricing',
+                'Customers & Marketing',
+                'Website Content',
+                'Settings',
             ])
             ->authMiddleware([
                 Authenticate::class,

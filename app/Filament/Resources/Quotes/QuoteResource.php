@@ -26,7 +26,15 @@ class QuoteResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Commerce';
 
-
+public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+{
+    return parent::getEloquentQuery()
+        ->with([
+            'user',
+            'country',
+            'items.productCategory',
+        ]);
+}
 protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema

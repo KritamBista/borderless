@@ -118,7 +118,7 @@ class AssistedOrderForm extends Component
                 'contact_name'  => $this->contact_name,
                 'contact_email' => $this->contact_email,
                 'contact_phone' => $this->contact_phone,
-                'status'        => 'submitted',
+                'status'        => 'pending',
             ]);
 
             foreach ($this->items as $item) {

@@ -2,11 +2,15 @@
 
 namespace App\Filament\Resources\Quotes\Tables;
 
+use App\Filament\Resources\UserResource;
+use App\Filament\Resources\Users\UserResource as UsersUserResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class QuotesTable
@@ -15,78 +19,86 @@ class QuotesTable
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')
-                    ->searchable(),
-                TextColumn::make('country.name')
-                    ->searchable(),
-                TextColumn::make('currency_code_snapshot')
-                    ->searchable(),
-                TextColumn::make('exchange_rate_to_npr_snapshot')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('shipping_rate_per_kg_snapshot')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('service_fee_npr_snapshot')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('vat_rate_snapshot')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('items_cost_npr_total')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('shipping_npr_total')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('cif_npr_total')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('duty_npr_total')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('vat_npr_total')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('grand_total_npr')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('status')
-                    ->searchable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('coupon_code_snapshot')
-                    ->searchable(),
-                TextColumn::make('coupon_type_snapshot')
-                    ->searchable(),
-                TextColumn::make('coupon_value_snapshot')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('discount_npr')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('payable_npr')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('public_id')
-                    ->searchable(),
-                TextColumn::make('service_fee_type')
-                    ->searchable(),
-                TextColumn::make('service_fee_percent_snapshot')
-                    ->numeric()
+                    ->label('Quote')
+                    ->searchable()
+                    ->sortable()
+                    ->copyable(),
+
+                TextColumn::make('user.name')
+                    ->label('Customer')
+                    ->searchable()
+                    ->sortable()
+                    ->url(fn ($record) => $record->user
+                        ? UsersUserResource::getUrl('view', ['record' => $record->user])
+                        : null)
+                    ->openUrlInNewTab(),
+
+                TextColumn::make('country.name')
+                    ->label('Country')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('service_fee_threshold_snapshot')
-                    ->numeric()
+
+                TextColumn::make('items_count')
+                    ->label('Items')
+                    ->counts('items')
+                    ->badge()
                     ->sortable(),
+
+                TextColumn::make('grand_total_npr')
+                    ->label('Grand Total')
+                    ->money('NPR')
+                    ->sortable(),
+
+                TextColumn::make('discount_npr')
+                    ->label('Discount')
+                    ->money('NPR')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('payable_npr')
+                    ->label('Payable')
+                    ->money('NPR')
+                    ->sortable(),
+
+                SelectColumn::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'approved' => 'Approved',
+                        'rejected' => 'Rejected',
+                        'proceed-to-order' => 'Proceed to Order',
+                        'expired' => 'Expired',
+                    ])
+                    ->sortable(),
+
+                TextColumn::make('created_at')
+                    ->label('Created')
+                    ->dateTime()
+                    ->since()
+                    ->sortable(),
+
+                TextColumn::make('updated_at')
+                    ->label('Updated')
+                    ->dateTime()
+                    ->since()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'approved' => 'Approved',
+                        'rejected' => 'Rejected',
+                        'converted_to_order' => 'Converted to Order',
+                        'expired' => 'Expired',
+                    ]),
+
+                SelectFilter::make('country')
+                    ->relationship('country', 'name')
+                    ->searchable()
+                    ->preload(),
             ])
             ->recordActions([
                 ViewAction::make(),
