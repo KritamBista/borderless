@@ -6,20 +6,15 @@
 
 @section('og_url', url()->current())
 <div class="bg-darkbg w-full text-white">
+    <section class="relative w-full mx-auto px-6 lg:px-8 pt-14 sm:pt-20 pb-0 animate-fadeUp">
 
-
-    <section class="relative w-full mx-auto  px-6    lg:px-8 pt-14 sm:pt-20 pb-12 sm:pb-20 animate-fadeUp">
-
-        <div class="absolute inset-0 pointer-events-none  select-none overflow-hidden">
-
+        <div class="absolute inset-0 pointer-events-none select-none overflow-hidden">
             <img src="{{ asset('world.svg') }}" alt=""
-                class="absolute inset-0 w-full h-full object-cover object-center
-               opacity-[0.4] scale-100" />
+                class="absolute inset-0 w-full h-full object-cover object-center opacity-[0.45] scale-100" />
 
             <div class="absolute inset-0 opacity-50"
                 style="background: radial-gradient(circle at 55% 42%, rgba(214,177,94,.18), transparent 60%);">
             </div>
-
 
             <div class="absolute top-0 left-0 right-0 h-28 sm:h-32"
                 style="background: linear-gradient(to bottom, rgba(11,15,20,0.98), rgba(11,15,20,0));">
@@ -29,95 +24,137 @@
                 style="background: radial-gradient(circle at 50% 45%, rgba(11,15,20,.10) 0%, rgba(11,15,20,.55) 65%, rgba(11,15,20,.85) 100%);">
             </div>
         </div>
-        <div class=" max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center  "
-            style="position: relative; z-index: 100;">
 
-            {{-- Left --}}
-            <div class="lg:col-span-8">
-                {{-- Badge row --}}
-                <div class="flex flex-wrap items-center gap-3 mb-6 ">
-
-
+        <div class="max-w-7xl mx-auto relative z-[10]">
+            <div class="max-w-4xl">
+                <div class="flex flex-wrap items-center gap-3 mb-6">
                     <div class="hidden sm:flex items-center gap-5 text-xs text-gray-400">
                         <span class="inline-flex items-center gap-2">
-                            <span class="h-1.5 w-1.5 rounded-full" style="background: rgba(214,177,94,.9)"></span>
+                            <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
                             Clear breakdown
                         </span>
                         <span class="inline-flex items-center gap-2">
-                            <span class="h-1.5 w-1.5 rounded-full" style="background: rgba(214,177,94,.9)"></span>
+                            <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
                             Fast checkout
                         </span>
                         <span class="inline-flex items-center gap-2">
-                            <span class="h-1.5 w-1.5 rounded-full" style="background: rgba(214,177,94,.9)"></span>
+                            <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
                             Track orders
                         </span>
                     </div>
                 </div>
 
-                <h1 class="text-4xl sm:text-5xl font-extrabold leading-[1.05] tracking-tight">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight max-w-5xl">
                     Place your order in
-                    <span class="text-gold"> under 1 minute.</span>
+                    <span class="text-gold">under 1 minute.</span>
                 </h1>
-                {{-- @endif --}}
-
-
 
                 <p class="mt-6 text-gray-300 sm:text-lg max-w-2xl">
                     Shop from Amazon, AliExpress, Myntra and more. We handle shipping & customs,
                     deliver to your doorstep in Nepal.
                 </p>
-                {{-- @endif --}}
 
-                {{-- URL input --}}
                 <div class="mt-8">
-                    <div class="">
-                        <form action="{{ route('request.order') }}" method="GET"
-                            class="glass rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row gap-3 max-w-2xl">
+                    <form action="{{ route('request.order') }}" method="GET"
+                        class="glass rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row gap-3 max-w-2xl">
+                        <input type="url" name="product-url"
+                            class="flex-1 bg-transparent outline-none text-white placeholder-gray-500 px-3 py-3 rounded-xl"
+                            placeholder="Paste product URL here…" required>
 
-                            <input type="url" name="product-url"
-                                class="flex-1 bg-transparent outline-none text-white placeholder-gray-500 px-3 py-3 rounded-xl"
-                                placeholder="Paste product URL here…" required>
-
-                            <button type="submit" class="btn-gold px-6 py-3 rounded-xl whitespace-nowrap">
-                                Create Order →
-                            </button>
-
-                        </form>
-                    </div>
+                        <button type="submit" class="btn-gold px-6 py-3 rounded-xl whitespace-nowrap">
+                            Create Order →
+                        </button>
+                    </form>
 
                     <div class="mt-3 text-xs text-gray-500">
                         Supports: Amazon, AliExpress, Myntra, eBay, UK/USA stores & more.
                     </div>
                 </div>
-
-
-
             </div>
-            <div class="hidden lg:block lg:col-span-4">
-                <div class="glass rounded-3xl p-6 border border-white/10">
-                    <div class="text-sm text-gray-400">Today’s quick flow</div>
-                    <div class="mt-4 space-y-3 text-sm">
-                        <div class="flex items-center gap-3">
-                            <span
-                                class="h-7 w-7 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-200 font-bold">1</span>
-                            <span class="text-gray-200">Paste product link</span>
+        </div>
+
+        {{-- opened white world-map strip --}}
+        <div class="relative z-50 mt-10 sm:mt-12">
+            <div class="max-w-7xl mx-auto">
+                <div
+                    class="rounded-t-[36px] bg-white/95 border border-white/70 shadow-[0_-10px_40px_rgba(0,0,0,0.18)] px-6 sm:px-10 lg:px-14 pt-10 sm:pt-12 pb-10 sm:pb-12">
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-start text-center">
+
+                        {{-- Step 1 --}}
+                        <div class="relative max-w-[320px] mx-auto">
+                            <div
+                                class="mx-auto h-20 w-20 rounded-full bg-gradient-to-br from-[#f7c443] to-[#f2a51a] flex items-center justify-center shadow-[0_10px_28px_rgba(242,165,26,0.20)]">
+                                <i class="fa-solid fa-magnifying-glass text-white text-[34px]"></i>
+                            </div>
+
+                            <div class="hidden md:flex items-center absolute top-9 right-[-18%] w-[110px]">
+                                <div class="flex-1 h-[2px] bg-gradient-to-r from-[#f2a51a] to-[#f2a51a]/20"></div>
+                                <svg class="w-4 h-4 text-[#f2a51a]" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+                                </svg>
+                            </div>
+
+                            <div class="mt-5 flex items-baseline justify-center gap-2">
+                                <span class="text-[#f2a51a] text-[28px] sm:text-[32px] font-semibold">01</span>
+                                <h3 class="text-[#2f2f2f] text-[28px] sm:text-[34px] font-semibold leading-none">Find
+                                </h3>
+                            </div>
+
+                            <p class="mt-4 text-[16px] sm:text-[17px] leading-8 text-[#575757]">
+                                Find the product from any international online store and copy the link.
+                            </p>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <span
-                                class="h-7 w-7 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-200 font-bold">2</span>
-                            <span class="text-gray-200">Get full landed cost</span>
+
+                        {{-- Step 2 --}}
+                        <div class="relative max-w-[320px] mx-auto">
+                            <div
+                                class="mx-auto h-20 w-20 rounded-full bg-gradient-to-br from-[#f7c443] to-[#f2a51a] flex items-center justify-center shadow-[0_10px_28px_rgba(242,165,26,0.20)]">
+                                <i class="fa-solid fa-link text-white text-[34px]"></i>
+                            </div>
+
+                            <div class="hidden md:flex items-center absolute top-9 right-[-18%] w-[110px]">
+                                <div class="flex-1 h-[2px] bg-gradient-to-r from-[#f2a51a] to-[#f2a51a]/20"></div>
+                                <svg class="w-4 h-4 text-[#f2a51a]" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+                                </svg>
+                            </div>
+
+                            <div class="mt-5 flex items-baseline justify-center gap-2">
+                                <span class="text-[#f2a51a] text-[28px] sm:text-[32px] font-semibold">02</span>
+                                <h3 class="text-[#2f2f2f] text-[28px] sm:text-[34px] font-semibold leading-none">Paste
+                                </h3>
+                            </div>
+
+                            <p class="mt-4 text-[16px] sm:text-[17px] leading-8 text-[#575757]">
+                                Paste the link in the box above or submit product details to us.
+                            </p>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <span
-                                class="h-7 w-7 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-200 font-bold">3</span>
-                            <span class="text-gray-200">Confirm & track delivery</span>
+
+                        {{-- Step 3 --}}
+                        <div class="relative max-w-[320px] mx-auto">
+                            <div
+                                class="mx-auto h-20 w-20 rounded-full bg-gradient-to-br from-[#f7c443] to-[#f2a51a] flex items-center justify-center shadow-[0_10px_28px_rgba(242,165,26,0.20)]">
+                                <i class="fa-solid fa-box-open text-white text-[34px]"></i>
+                            </div>
+
+                            <div class="mt-5 flex items-baseline justify-center gap-2">
+                                <span class="text-[#f2a51a] text-[28px] sm:text-[32px] font-semibold">03</span>
+                                <h3 class="text-[#2f2f2f] text-[28px] sm:text-[34px] font-semibold leading-none">
+                                    Delivered</h3>
+                            </div>
+
+                            <p class="mt-4 text-[16px] sm:text-[17px] leading-8 text-[#575757]">
+                                We handle the rest and deliver your product safely to your doorstep.
+                            </p>
                         </div>
+
                     </div>
+
                 </div>
-
             </div>
-
-
         </div>
     </section>
 
@@ -477,13 +514,20 @@
             <!-- Header -->
             <div class="text-center mb-16 md:mb-24">
 
-                <div
+                {{-- <div
                     class="inline-flex items-center rounded-full border border-gold/30 bg-gold/10 px-4 md:px-5 py-1.5 text-xs md:text-sm text-gold mb-5 md:mb-6  text-gold">
+                    How it works
+                </div> --}}
+                <div
+                    class="inline-flex items-center rounded-full
+                border border-gold/30 bg-gold/10
+                px-4 md:px-5 py-1.5 mb-2
+                text-xs md:text-sm tracking-[0.25em] uppercase text-gold">
                     How it works
                 </div>
 
                 <h2
-                    class="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-5 md:mb-6 tracking-tight leading-tight">
+                    class="text-3xl sm:text-4xl  md:text-6xl font-bold text-white mb-6 md:mb-6 tracking-tight leading-tight">
                     Simple, transparent process
                 </h2>
 

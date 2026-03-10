@@ -1,6 +1,6 @@
     <div class="max-w-7xl mx-auto px-6">
 
-        <div class="flex items-start justify-between gap-6 flex-col py-4 ">
+        {{-- <div class="flex items-start justify-between gap-6 flex-col py-4 ">
 
 
             <div class="glass rounded-2xl p-4 w-full lg:w-[380px]">
@@ -64,7 +64,8 @@
                     <div>VAT: <span class="text-gold font-semibold">{{ number_format($vatPercent, 2) }}%</span></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
+                
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 ">
             <div class="lg:col-span-8 space-y-4">

@@ -21,7 +21,7 @@ class OrderForm
         return $schema->components([
 
             Section::make('Order')
-            ->columnSpanFull()
+                ->columnSpanFull()
                 ->columns(3)
                 ->schema([
                     TextInput::make('unique_order_id')
@@ -69,7 +69,7 @@ class OrderForm
                 ]),
 
             Section::make('Customer')
-            ->columnSpanFull()
+                ->columnSpanFull()
 
                 ->columns(2)
                 ->schema([
@@ -79,6 +79,7 @@ class OrderForm
                         ->preload()
                         ->required(),
 
+                 
                     Select::make('quote_id')
 
                         ->relationship('quote', 'public_id')
@@ -89,7 +90,7 @@ class OrderForm
                 ]),
 
             Section::make('Shipping Address')
-            ->columnSpanFull()
+                ->columnSpanFull()
 
                 ->columns(2)
                 ->schema([
@@ -105,32 +106,32 @@ class OrderForm
                 ]),
 
             Section::make('Admin Notes')
-                    ->columnSpanFull()
+                ->columnSpanFull()
 
                 ->schema([
 
                     RichEditor::make('admin_notes')
-                     ->toolbarButtons([
-                        'attachFiles',
-                        'blockquote',
-                        'bold',
-                        'bulletList',
-                        'codeBlock',
-                        'h2',
-                        'h3',
-                        'italic',
-                        'link',
-                        'orderedList',
-                        'redo',
-                        'strike',
-                        'underline',
-                        'undo',
-                        'textColor'
+                        ->toolbarButtons([
+                            'attachFiles',
+                            'blockquote',
+                            'bold',
+                            'bulletList',
+                            'codeBlock',
+                            'h2',
+                            'h3',
+                            'italic',
+                            'link',
+                            'orderedList',
+                            'redo',
+                            'strike',
+                            'underline',
+                            'undo',
+                            'textColor'
 
-                    ]),
+                        ]),
                 ]),
 
-                        // ->placeholder('Write internal notes...')
+            // ->placeholder('Write internal notes...')
 
         ]);
     }

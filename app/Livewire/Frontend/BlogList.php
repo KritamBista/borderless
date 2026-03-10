@@ -24,7 +24,7 @@ class BlogList extends Component
         $blogs = Blog::query()
             ->when($this->search, function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%')
-                      ->orWhere('excerpt', 'like', '%' . $this->search . '%');
+                    ->orWhere('excerpt', 'like', '%' . $this->search . '%');
             })
             ->where('is_published', true)
             ->latest('published_at')

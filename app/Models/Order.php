@@ -20,7 +20,9 @@ class Order extends Model
         'discount_npr',
         'payable_npr',
         'status',
+        'customer_review',
         'admin_notes',
+
     ];
 
     protected $casts = [

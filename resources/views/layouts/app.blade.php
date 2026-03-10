@@ -384,6 +384,37 @@
                     rgba(255, 255, 255, 0.01) 100%);
             backdrop-filter: blur(6px);
         }
+
+        .hero-step-glow {
+            position: relative;
+        }
+
+        icon circle: from-[#f7c443] to-[#f2a51a] title: #f0a62a description: rgba(255, 255, 255, 0.82) arrow: rgba(242, 165, 26, 0.75) .hero-step-glow::before {
+            content: "";
+            position: absolute;
+            inset: -18px;
+            border-radius: 9999px;
+            background: radial-gradient(circle, rgba(214, 177, 94, 0.16) 0%, rgba(214, 177, 94, 0.05) 45%, transparent 72%);
+            z-index: -1;
+        }
+        .hero-step-icon {
+    position: relative;
+    box-shadow:
+        0 10px 30px rgba(242, 165, 26, 0.22),
+        0 0 0 1px rgba(255, 214, 102, 0.10);
+}
+
+.hero-step-icon::before {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    border-radius: 9999px;
+    background: radial-gradient(circle,
+            rgba(244, 170, 34, 0.22) 0%,
+            rgba(244, 170, 34, 0.10) 42%,
+            transparent 72%);
+    z-index: -1;
+}
     </style>
 
 
@@ -418,12 +449,12 @@
         class="sticky top-0 z-50 border-b transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
 
-      <a href="/" class="flex items-center gap-3">
-    @if ($company?->logo)
-        <img src="{{ asset('storage/' . $company->logo) }}"
-            class="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain transition-transform duration-200 hover:scale-105">
-    @endif
-</a>
+            <a href="/" class="flex items-center gap-3">
+                @if ($company?->logo)
+                    <img src="{{ asset('storage/' . $company->logo) }}"
+                        class="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain transition-transform duration-200 hover:scale-105">
+                @endif
+            </a>
 
 
             @php
@@ -832,58 +863,58 @@
         })
     </script>
 
-<script>
-    function reviewSlider() {
-        return {
-            atStart: true,
-            atEnd: false,
-            track: null,
+    <script>
+        function reviewSlider() {
+            return {
+                atStart: true,
+                atEnd: false,
+                track: null,
 
-            init() {
-                this.track = this.$refs.track;
-                this.updateButtons();
-
-                window.addEventListener('resize', () => {
+                init() {
+                    this.track = this.$refs.track;
                     this.updateButtons();
-                });
-            },
 
-            scrollAmount() {
-                const firstCard = this.track.querySelector('[class*="snap-start"]');
-                if (!firstCard) return 300;
+                    window.addEventListener('resize', () => {
+                        this.updateButtons();
+                    });
+                },
 
-                const gap = 24; // approximate gap
-                return firstCard.offsetWidth + gap;
-            },
+                scrollAmount() {
+                    const firstCard = this.track.querySelector('[class*="snap-start"]');
+                    if (!firstCard) return 300;
 
-            scrollLeft() {
-                this.track.scrollBy({
-                    left: -this.scrollAmount(),
-                    behavior: 'smooth'
-                });
+                    const gap = 24; // approximate gap
+                    return firstCard.offsetWidth + gap;
+                },
 
-                setTimeout(() => this.updateButtons(), 350);
-            },
+                scrollLeft() {
+                    this.track.scrollBy({
+                        left: -this.scrollAmount(),
+                        behavior: 'smooth'
+                    });
 
-            scrollRight() {
-                this.track.scrollBy({
-                    left: this.scrollAmount(),
-                    behavior: 'smooth'
-                });
+                    setTimeout(() => this.updateButtons(), 350);
+                },
 
-                setTimeout(() => this.updateButtons(), 350);
-            },
+                scrollRight() {
+                    this.track.scrollBy({
+                        left: this.scrollAmount(),
+                        behavior: 'smooth'
+                    });
 
-            updateButtons() {
-                const el = this.track;
-                if (!el) return;
+                    setTimeout(() => this.updateButtons(), 350);
+                },
 
-                this.atStart = el.scrollLeft <= 5;
-                this.atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 5;
+                updateButtons() {
+                    const el = this.track;
+                    if (!el) return;
+
+                    this.atStart = el.scrollLeft <= 5;
+                    this.atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 5;
+                }
             }
         }
-    }
-</script>
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 

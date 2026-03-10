@@ -7,6 +7,10 @@ use App\Models\Order;
 
 class OrderDetails extends Component
 {
+
+    public $customer_review;
+
+
     public Order $order;
 
     public function mount(Order $order)
@@ -16,6 +20,18 @@ class OrderDetails extends Component
         }
 
         $this->order = $order->load(['address', 'paymentMethod']);
+    }
+        public function submitReview()
+    {
+        $this->validate([
+            'customer_review' => 'required|min:5|max:2000'
+        ]);
+
+        $this->order->update([
+            'customer_review' => $this->customer_review
+        ]);
+
+        session()->flash('success', 'Thank you! Your review has been submitted.');
     }
 
     public function render()

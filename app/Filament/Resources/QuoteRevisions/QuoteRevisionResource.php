@@ -19,6 +19,12 @@ use UnitEnum;
 
 class QuoteRevisionResource extends Resource
 {
+
+    protected static ?string $navigationLabel = 'Instant Quote Revisions';
+
+    protected static ?string $modelLabel = 'Instant Quote Revision';
+
+    protected static ?string $pluralModelLabel = 'Instant Quote Revisions';
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
         return parent::getEloquentQuery()
@@ -27,7 +33,7 @@ class QuoteRevisionResource extends Resource
     protected static ?string $model = QuoteRevision::class;
 
     // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArrowPathRoundedSquare;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArrowPath;
 
     protected static string|UnitEnum|null $navigationGroup = 'Commerce';
 

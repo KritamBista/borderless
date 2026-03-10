@@ -57,6 +57,7 @@ class OrderInfolist
 
                     TextEntry::make('user.email')->label('Email')->placeholder('-'),
                     TextEntry::make('user.phone')->label('Phone')->placeholder('-'), // if you have phone column
+                    TextEntry::make('customer_review'),
                 ]),
 
             Section::make('Shipping Address')

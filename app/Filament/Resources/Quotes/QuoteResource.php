@@ -22,20 +22,25 @@ class QuoteResource extends Resource
     protected static ?string $model = Quote::class;
 
     // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBolt;
 
     protected static string|UnitEnum|null $navigationGroup = 'Commerce';
+    protected static ?string $navigationLabel = 'Instant Quotes';
 
-public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
-{
-    return parent::getEloquentQuery()
-        ->with([
-            'user',
-            'country',
-            'items.productCategory',
-        ]);
-}
-protected static ?int $navigationSort = 3;
+    protected static ?string $modelLabel = 'Instant Quote';
+
+    protected static ?string $pluralModelLabel = 'Instant Quotes';
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->with([
+                'user',
+                'country',
+                'items.productCategory',
+            ]);
+    }
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {

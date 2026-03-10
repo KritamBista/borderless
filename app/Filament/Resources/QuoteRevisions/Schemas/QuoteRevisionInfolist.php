@@ -21,7 +21,7 @@ class QuoteRevisionInfolist
                     ->schema([
                         TextEntry::make('quote.public_id')
                             ->label('Quote')
-                            ->url(fn ($record) => $record->quote
+                            ->url(fn($record) => $record->quote
                                 ? QuoteResource::getUrl('view', ['record' => $record->quote])
                                 : null)
                             ->openUrlInNewTab()
@@ -29,7 +29,7 @@ class QuoteRevisionInfolist
 
                         TextEntry::make('user.name')
                             ->label('User')
-                            ->url(fn ($record) => $record->user
+                            ->url(fn($record) => $record->user
                                 ? UserResource::getUrl('view', ['record' => $record->user])
                                 : null)
                             ->openUrlInNewTab()
