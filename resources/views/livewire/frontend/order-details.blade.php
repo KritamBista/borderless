@@ -130,42 +130,59 @@
             </p>
         </div>
     @endif
-    @if ($order->status === 'delivered')
-        <div class="glass rounded-3xl p-6 mt-6">
+        @if ($order->status === 'delivered')
+            <div class="glass rounded-3xl p-6 mt-6">
 
-            <h2 class="font-extrabold text-white mb-4">Customer Review</h2>
+                <h2 class="font-extrabold text-white mb-4">Your  Review</h2>
 
-            {{-- If review already exists --}}
-            @if ($order->customer_review)
-                <div class="text-gray-300 text-sm leading-relaxed">
-                    {{ $order->customer_review }}
-                </div>
+                {{-- If review already exists --}}
+                @if ($order->customer_review)
+                    <div class="text-gray-300 text-sm leading-relaxed">
+                        {{ $order->customer_review }}
+                    </div>
 
-                {{-- If no review yet --}}
-            @else
-                <form wire:submit.prevent="submitReview">
+                    {{-- If no review yet --}}
+                @else
+                    <form wire:submit.prevent="submitReview">
 
-                    <textarea wire:model.defer="customer_review" rows="4" placeholder="Share your experience with this order..."
-                        class="w-full rounded-xl bg-white/5 border border-white/10 text-white text-sm p-3 focus:outline-none focus:border-gold"></textarea>
+                        <textarea wire:model.defer="customer_review" rows="4" placeholder="Share your experience with this order..."
+                            class="w-full rounded-xl bg-white/5 border border-white/10 text-white text-sm p-3 focus:outline-none focus:border-gold"></textarea>
 
-                    @error('customer_review')
-                        <div class="text-red-400 text-xs mt-1">{{ $message }}</div>
-                    @enderror
-                    {{-- Success Flash Message --}}
-                    @if (session()->has('success'))
-                        <div class="mt-3 text-green-400 text-sm font-semibold">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    <button type="submit"
-                        class="mt-4 px-5 py-2 rounded-xl bg-gold text-darkbg font-bold hover:opacity-90 transition">
-                        Submit Review
-                    </button>
+                        @error('customer_review')
+                            <div class="text-red-400 text-xs mt-1">{{ $message }}</div>
+                        @enderror
+                        {{-- Success Flash Message --}}
+                        @if (session()->has('success'))
+                            <div class="mt-3 text-green-400 text-sm font-semibold">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <button type="submit" wire:loading.attr="disabled" wire:target="submitReview"
+                            class="mt-4 px-5 py-2 rounded-xl bg-gold text-darkbg font-bold hover:opacity-90 transition flex items-center gap-2">
 
-                </form>
-            @endif
+                            <svg wire:loading wire:target="submitReview" class="animate-spin h-4 w-4"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
 
-        </div>
-    @endif
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8v4l3-3-3-3v4a10 10 0 100 20v-4l3 3-3 3v-4A8 8 0 014 12z"></path>
+                            </svg>
+
+                            <span wire:loading wire:target="submitReview">
+                                Submitting...
+                            </span>
+
+                            <span wire:loading.remove wire:target="submitReview">
+                                Submit Review
+                            </span>
+
+                        </button>
+
+                    </form>
+                @endif
+
+            </div>
+        @endif
 
 </div>
