@@ -1,3 +1,45 @@
+@push('schema')
+    @include('seo.schema.breadcrumbs', [
+        'breadcrumbs' => [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Blogs', 'url' => route('blog.index')],
+            ['name' => $blog->title, 'url' => route('blog.show', $blog->slug)],
+        ],
+    ])
+
+    @include('seo.schema.article', [
+        'blog' => $blog,
+        'company' => $company,
+    ])
+@endpush
+@php
+    use Illuminate\Support\Str;
+
+    $seoTitle = $blog->meta_title ?: $blog->title . ' | ' . ($company?->name ?? config('app.name'));
+
+    $seoDescription =
+        $blog->meta_description ?: ($blog->excerpt ?: Str::limit(trim(strip_tags($blog->content)), 155, ''));
+
+    $seoImage = $blog->featured_image
+        ? asset('storage/' . ltrim($blog->featured_image, '/'))
+        : (!empty($company?->preview_image)
+            ? asset('storage/' . ltrim($company->preview_image, '/'))
+            : asset('default-og.jpg'));
+
+    $seoUrl = route('blog.show', $blog->slug);
+@endphp
+@section('title', $seoTitle)
+@section('meta_title', $seoTitle)
+@section('meta_description', $seoDescription)
+@section('meta_keywords', $company?->meta_keywords ?? '')
+@section('og_title', $seoTitle)
+@section('og_description', $seoDescription)
+@section('og_image', $seoImage)
+@section('og_url', $seoUrl)
+@section('canonical', $seoUrl)
+@section('twitter_title', $seoTitle)
+@section('twitter_description', $seoDescription)
+@section('twitter_image', $seoImage)
 <section>
     <article class="py-16 md:py-24 bg-darkbg">
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
@@ -35,9 +77,9 @@
             @endif
 
             <!-- RichEditor Content -->
-           <div class="blog-content text-gray-300 leading-relaxed space-y-6">
-    {!! $blog->content !!}
-</div>
+            <div class="blog-content text-gray-300 leading-relaxed space-y-6">
+                {!! $blog->content !!}
+            </div>
 
         </div>
     </article>

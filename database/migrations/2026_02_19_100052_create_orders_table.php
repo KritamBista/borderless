@@ -22,6 +22,8 @@ return new class extends Migration
 
             // 1 Quote = 1 Order (prevent duplicate submission)
             $table->foreignId('quote_id')
+
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete()
                 ->unique();

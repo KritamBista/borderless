@@ -26,7 +26,7 @@ class OrderForm
                 ->schema([
                     TextInput::make('unique_order_id')
                         ->label('Order ID')
-                        ->disabled()
+                        // ->disabled()
                         ->dehydrated(false),
 
                     Select::make('status')
@@ -79,14 +79,14 @@ class OrderForm
                         ->preload()
                         ->required(),
 
-                 
+
                     Select::make('quote_id')
 
                         ->relationship('quote', 'public_id')
 
                         ->searchable()
                         ->preload()
-                        ->required(),
+                    // ->required(),
                 ]),
 
             Section::make('Shipping Address')
@@ -95,10 +95,71 @@ class OrderForm
                 ->columns(2)
                 ->schema([
                     Select::make('address_id')
-                        ->relationship('address', 'address_line')
+                        ->label('Shipping Address')
+                        ->relationship(
+                            name: 'address',
+                            titleAttribute: 'address_line',
+                            modifyQueryUsing: fn($query, $get, $record) => $query
+                                ->when(
+                                    $get('user_id'),
+                                    fn($q, $userId) => $q->where('user_id', $userId)
+                                )
+                                ->when(
+                                    $record?->address_id,
+                                    fn($q) => $q->orWhere('id', $record->address_id)
+                                )
+                        )
                         ->searchable()
                         ->preload()
-                        ->required(),
+                        ->required()
+                        ->createOptionForm([
+                            TextInput::make('full_name')
+                                ->required()
+                                ->maxLength(255),
+
+                            TextInput::make('phone')
+                                ->required()
+                                ->maxLength(255),
+
+                            TextInput::make('province')
+                                ->required()
+                                ->maxLength(255),
+
+                            TextInput::make('city')
+                                ->required()
+                                ->maxLength(255),
+
+                            TextInput::make('area')
+                                ->required()
+                                ->maxLength(255),
+
+                            TextInput::make('address_line')
+                                ->label('Address Line')
+                                ->required()
+                                ->maxLength(255),
+
+                            TextInput::make('postal_code')
+                                ->maxLength(255),
+
+                            Toggle::make('is_default')
+                                ->label('Default Address')
+                                ->default(false),
+                        ])
+                        ->createOptionUsing(function (array $data, $get) {
+                            return \App\Models\Address::create([
+                                'user_id'      => $get('user_id'),
+                                'full_name'    => $data['full_name'],
+                                'phone'        => $data['phone'],
+                                'province'     => $data['province'],
+                                'city'         => $data['city'],
+                                'area'         => $data['area'],
+                                'address_line' => $data['address_line'],
+                                'postal_code'  => $data['postal_code'] ?? null,
+                                'is_default'   => $data['is_default'] ?? false,
+                            ])->getKey();
+                        })
+                        ->disabled(fn($get) => blank($get('user_id')))
+                        ->helperText(fn($get) => blank($get('user_id') ? null : 'Select customer first to choose or create an address.')),
 
                     Select::make('payment_method_id')
                         ->relationship('paymentMethod', 'name')

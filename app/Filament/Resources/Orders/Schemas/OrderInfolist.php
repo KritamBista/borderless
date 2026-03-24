@@ -85,7 +85,12 @@ class OrderInfolist
                 ->schema([
                     TextEntry::make('quote.public_id')
                         ->label('Quote')
-                        ->url(fn($record) => QuoteResource::getUrl('view', ['record' => $record->quote]))
+                        // ->url(fn($record) => QuoteResource::getUrl('view', ['record' => $record->quote]))
+                            ->url(fn ($record) => $record->quote
+        ? QuoteResource::getUrl('view', ['record' => $record->quote])
+        : null
+    )
+
                         ->openUrlInNewTab()
                         ->placeholder('-'),
 

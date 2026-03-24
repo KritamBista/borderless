@@ -19,8 +19,15 @@ class BlogShow extends Component
 
     public function render()
     {
+         $relatedBlogs = Blog::query()
+            ->where('is_published', true)
+            ->whereKeyNot($this->blog->id)
+            ->latest('published_at')
+            ->take(3)
+            ->get();
         return view('livewire.frontend.blog-show', [
             'blog' => $this->blog,
+             'relatedBlogs' => $relatedBlogs,
         ])->layout('layouts.app');
     }
 }

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+
 Route::get('/', Home::class)->name('home');
 // Route::get('/request-order', QuoteEstimator::class)->name('request.order');
 Route::get('/checkout/{public_id}', \App\Livewire\Frontend\Checkout::class)

@@ -3,39 +3,58 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ $company?->meta_title ?? config('app.name') }}</title>
-    <meta name="description" content="{{ $company?->meta_description ?? '' }}">
-    <meta name="keywords" content="{{ $company?->meta_keywords ?? '' }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    {{-- Tailwind CDN --}}
-    <script src="https://cdn.tailwindcss.com"></script>
+@php
+    $defaultMetaTitle = $company?->meta_title ?? config('app.name');
+    $defaultMetaDescription = $company?->meta_description ?? '';
+    $defaultMetaKeywords = $company?->meta_keywords ?? '';
 
-    <link rel="icon" href="{{ asset('android-chrome-192x192.png') }}" type="image/png" sizes="192x192">
+    $defaultOgImage = !empty($company?->preview_image)
+        ? asset('storage/' . ltrim($company->preview_image, '/'))
+        : asset('default-og.jpg');
+@endphp
 
+<title>@yield('meta_title', $defaultMetaTitle)</title>
 
-    <link rel="icon" href="{{ asset('android-chrome-512x512.png') }}" type="image/png" sizes="512x512">
-    <link rel="icon" href="{{ asset('favicon-96x96.png') }}" type="image/png" sizes="96x96">
+<meta name="description" content="@yield('meta_description', $defaultMetaDescription)">
+<meta name="keywords" content="@yield('meta_keywords', $defaultMetaKeywords)">
+<meta name="robots" content="@yield('meta_robots', 'index,follow')">
 
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+<link rel="canonical" href="@yield('canonical', url()->current())">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="@yield('og_title', config('app.name'))" />
-    <meta property="og:description" content="@yield('og_description', 'Discover Worldwide Tickets & Watch Premium Live Streams for Free.')" />
-    <meta property="og:image" content="@yield('og_image', asset('default-event.jpg'))" />
-    <meta property="og:url" content="@yield('og_url', url('/'))" />
-    <meta property="og:site_name" content="UpcomingTicket" />
+{{-- Fonts + Icons --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="{{ asset('android-chrome-192x192.png') }}" type="image/png" sizes="192x192">
+<link rel="icon" href="{{ asset('android-chrome-512x512.png') }}" type="image/png" sizes="512x512">
+<link rel="icon" href="{{ asset('favicon-96x96.png') }}" type="image/png" sizes="96x96">
+<link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+<link rel="manifest" href="{{ asset('site.webmanifest') }}">
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
+{{-- Open Graph --}}
+<meta property="og:type" content="@yield('og_type', 'website')" />
+<meta property="og:title" content="@yield('og_title', $defaultMetaTitle)" />
+<meta property="og:description" content="@yield('og_description', $defaultMetaDescription)" />
+<meta property="og:image" content="@yield('og_image', $defaultOgImage)" />
+<meta property="og:url" content="@yield('og_url', url()->current())" />
+<meta property="og:site_name" content="{{ $company?->name ?? config('app.name') }}" />
+
+{{-- Twitter --}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="@yield('twitter_title', $defaultMetaTitle)">
+<meta name="twitter:description" content="@yield('twitter_description', $defaultMetaDescription)">
+<meta name="twitter:image" content="@yield('twitter_image', $defaultOgImage)">
+
+{{-- Structured Data --}}
+@stack('schema')
     {{-- Custom Gold Theme Config --}}
     <script>
         tailwind.config = {
@@ -397,24 +416,25 @@
             background: radial-gradient(circle, rgba(214, 177, 94, 0.16) 0%, rgba(214, 177, 94, 0.05) 45%, transparent 72%);
             z-index: -1;
         }
-        .hero-step-icon {
-    position: relative;
-    box-shadow:
-        0 10px 30px rgba(242, 165, 26, 0.22),
-        0 0 0 1px rgba(255, 214, 102, 0.10);
-}
 
-.hero-step-icon::before {
-    content: "";
-    position: absolute;
-    inset: -10px;
-    border-radius: 9999px;
-    background: radial-gradient(circle,
-            rgba(244, 170, 34, 0.22) 0%,
-            rgba(244, 170, 34, 0.10) 42%,
-            transparent 72%);
-    z-index: -1;
-}
+        .hero-step-icon {
+            position: relative;
+            box-shadow:
+                0 10px 30px rgba(242, 165, 26, 0.22),
+                0 0 0 1px rgba(255, 214, 102, 0.10);
+        }
+
+        .hero-step-icon::before {
+            content: "";
+            position: absolute;
+            inset: -10px;
+            border-radius: 9999px;
+            background: radial-gradient(circle,
+                    rgba(244, 170, 34, 0.22) 0%,
+                    rgba(244, 170, 34, 0.10) 42%,
+                    transparent 72%);
+            z-index: -1;
+        }
     </style>
 
 

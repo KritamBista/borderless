@@ -1,3 +1,21 @@
+
+@push('schema')
+    @include('seo.schema.breadcrumbs', [
+        'breadcrumbs' => [
+            ['name' => 'Home', 'url' => route('home')],
+            ['name' => 'Request Order', 'url' => route('request.order')],
+        ],
+    ])
+
+    @include('seo.schema.faq', [
+        'faqItems' => $faqs->map(
+            fn ($faq) => [
+                'question' => $faq->question,
+                'answer' => $faq->answer,
+            ]
+        )->toArray(),
+    ])
+@endpush
 <div
     x-data="{ tab: 'instant' }"
     class="mx-auto px-4 py-8"

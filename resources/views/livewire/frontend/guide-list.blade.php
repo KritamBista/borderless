@@ -1,3 +1,12 @@
+
+@push('schema')
+@include('seo.schema.breadcrumbs', [
+    'breadcrumbs' => [
+        ['name' => 'Home', 'url' => route('home')],
+        ['name' => 'Guides', 'url' => route('guide.index')],
+    ]
+])
+@endpush
 <section class="py-16 md:py-24 bg-darkbg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
 

@@ -1,3 +1,12 @@
+@push('schema')
+@include('seo.schema.breadcrumbs', [
+    'breadcrumbs' => [
+        ['name' => 'Home', 'url' => route('home')],
+        ['name' => 'Guides', 'url' => route('guide.index')],
+        ['name' => $guide->title, 'url' => route('guide.show', $guide->slug)],
+    ]
+])
+@endpush
 <section>
 
     <article class="py-16 md:py-24 bg-darkbg">
@@ -54,7 +63,7 @@
         <a href="/request-order" class="btn-gold px-8 py-4 rounded-xl text-lg font-bold inline-block hover:shadow-gold/30 transition">
             Get a Free Quote Now →
         </a>
-    </div>  
+    </div>
 </section>
 
 </section>

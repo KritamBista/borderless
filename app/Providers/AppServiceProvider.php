@@ -29,10 +29,10 @@ class AppServiceProvider extends ServiceProvider
 
             // dd($user);
 
-            if ($user && $user->role === 'customer') {
+            // if ($user && $user->role === 'customer') {
 
-                abort(403, "Access denied");
-            }
+            //     abort(403, "Access denied");
+            // }
         });
     }
 }

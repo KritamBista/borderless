@@ -115,8 +115,29 @@
     {{-- STEP 2: PAYMENT --}}
     @if ($step === 2)
         <div class="glass rounded-3xl p-6 space-y-6">
+            {{-- Checkout Total --}}
+<div class="rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 to-white/5 p-5">
+    <div class="flex items-center justify-between gap-4">
+        <div>
+            <div class="text-xs uppercase tracking-[0.18em] text-gold/80 font-semibold">
+                Checkout Total
+            </div>
+            <div class="text-sm text-gray-300 mt-1">
+                Please complete payment for the amount below.
+            </div>
+        </div>
+
+        <div class="text-right">
+            <div class="text-xs text-gray-400">Payable Amount</div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-white leading-none mt-1">
+                NPR {{ number_format($this->quote->payable_npr, 2) }}
+            </div>
+        </div>
+    </div>
+</div>
 
             <div>
+
                 <label class="text-sm font-bold text-white">Select Payment Method</label>
 
                 <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
